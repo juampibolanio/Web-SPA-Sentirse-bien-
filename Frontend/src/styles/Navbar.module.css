@@ -1,3 +1,89 @@
 .nav {
-    background-color: var(--color-principal);
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    background-color: #4A646C;
+    padding: 20px 40px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    justify-content: space-between;
+    margin-left: none;
+    
+}
+
+.logoSection {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.title {
+    font-size: 24px;
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.subtitle {
+    font-size: 14px;
+    margin-top: 0px;
+    opacity: 0.8;
+    text-align: right;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.links {
+    list-style: none;
+    display: flex;
+    gap: 16px; 
+    margin-left: 20px;
+    padding: 0;
+}
+
+.links li a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.links li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.login {
+    margin-left: auto;
+}
+.login a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}  
+.login a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.topBar {
+    background-color: #3a4e52; /* o el color que uses en el nav */
+    color: white;
+    font-size: 13px;
+    padding: 6px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topBar .left {
+    font-weight: 500;
+}
+
+.topBar .right a {
+    color: white;
+    margin-left: 15px;
+    font-size: 16px;
+    text-decoration: none;
 }

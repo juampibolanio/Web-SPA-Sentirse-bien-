@@ -1,0 +1,62 @@
+.hero {
+    height: 85vh;
+    background-image: url('../assets/Img/ppalimg.avif'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    position: relative;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    position: relative; 
+}
+
+.arrowLeft,
+.arrowRight {
+    font-size: 36px;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    margin-left: auto;
+    margin-right: 15%;
+    gap: 20px;
+}
+
+.title {
+    font-size: 80px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: right;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.cta {
+    position: absolute;
+    left: 500px;
+    top: 40%; 
+    background-color: #B8ADA3;
+    color: #47443b;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 1;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cta:hover {
+    background-color: #dcd2cc;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
