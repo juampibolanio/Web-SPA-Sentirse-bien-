@@ -1,0 +1,70 @@
+.srvDivision {
+    background-color: rgb(69, 158, 102);
+    padding: 40px;
+}
+
+.srvDescription {
+    padding: 12px;
+    background-color: #FFF;
+    text-align: center;
+    color: #503b27;
+}
+
+.srvSubtitle {
+    text-align: center;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.srvTitle {
+    text-align: center;
+    line-height: 1.5;
+}
+
+.services {
+    background-color: seagreen;
+    padding: 3rem 1rem;
+}
+
+.services h2 {
+    font-size: 20px;
+    padding: 30px;
+    background-color: #ffffff;
+    text-align: center;
+    width: fit-content;
+    margin: 1rem auto 6rem auto;
+    max-width: 600px;
+}
+
+.cardsConteiner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.about {
+    height: 600px;
+    margin-top: 3rem;
+    background-image: url('../assets/Img/relaxphoto.jpg');
+    background-size: cover;
+    background-position: 40% 30%;
+    background-repeat: no-repeat;
+    color: white;
+    padding: 4rem 2rem;
+    align-items: center;
+    min-height: 500px;
+}
+
+.about h2 {
+    color: #FFF;
+    text-align: left;
+    padding-left: 60px;
+    text-transform: uppercase;
+}
+
+.about h3 {
+    color: #FFF;
+    padding-top: 20px;
+    padding-left: 60px;
+}

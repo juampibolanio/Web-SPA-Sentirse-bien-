@@ -9,7 +9,7 @@ function Navbar() {
             📞 3624679843
         </div>
         <div className={styles.right}>
-            <a href="https://wa.me/543624679843" target="_blank" rel="noopener noreferrer">📱</a>
+            <a href="" target="_blank" rel="noopener noreferrer">📱</a>
             <a href="#" target="_blank" rel="noopener noreferrer">🌐</a>
         </div>
     </div>
