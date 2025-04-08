@@ -1,5 +1,5 @@
 .srvDivision {
-    background-color: rgb(69, 158, 102);
+    background-color: #4A646C;
     padding: 40px;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .services {
-    background-color: seagreen;
+    background-color: #4A646C;
     padding: 3rem 1rem;
 }
 
@@ -48,12 +48,12 @@
     margin-top: 3rem;
     background-image: url('../assets/Img/relaxphoto.jpg');
     background-size: cover;
-    background-position: 40% 30%;
+    background-position: 50% 35%;
     background-repeat: no-repeat;
     color: white;
     padding: 4rem 2rem;
     align-items: center;
-    min-height: 500px;
+    min-height: 700px;
 }
 
 .about h2 {
