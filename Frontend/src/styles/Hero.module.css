@@ -19,6 +19,18 @@
     cursor: pointer;
     user-select: none;
     color: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.arrowLeft {
+    left: 20px;
+}
+
+.arrowRight {
+    right: 20px;
 }
 
 .content {

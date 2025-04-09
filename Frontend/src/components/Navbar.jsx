@@ -16,15 +16,17 @@ function Navbar() {
 
     <nav className={styles.nav}>
         <div className={styles.logoSection}>
+            <Link to="/" className={styles.linkTo}>
             <h1 className={styles.title}>SentirseBien</h1>
             <p className={styles.subtitle}>By Ana Felicidad</p>
+            </Link>
         </div>
 
         <ul className={styles.links}>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/servicios">Servicio</Link></li>
-            <li><Link to="/turnos">Turnos</Link></li>
-            <li><Link to="/contacto">Contacto</Link></li>
+            <li><Link to="/services">Servicio</Link></li>
+            <li><Link to="/shifts">Turnos</Link></li>
+            <li><Link to="/contact">Contacto</Link></li>
         </ul>
 
             <div className={styles.login}>

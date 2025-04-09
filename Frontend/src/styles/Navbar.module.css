@@ -16,6 +16,13 @@
     display: flex;
     flex-direction: column;
     margin-right: 20px;
+    text-decoration: none;
+}
+
+.linkTo {
+    text-decoration: none;
+    list-style: none;
+    color: #FFFF;
 }
 
 .title {

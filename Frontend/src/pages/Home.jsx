@@ -1,11 +1,12 @@
 import styles from '../styles/Home.module.css'
+import Hero from '../components/Hero'
 import ServiceCardHome from '../components/ServiceCardHome'
 
 function Home() {
   return (
-
+    
       <>
-
+    <Hero />
     <div className={styles.srvDivision}></div>
       
     <div className={styles.srvDescription}>
