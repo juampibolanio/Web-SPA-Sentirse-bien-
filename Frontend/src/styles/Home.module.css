@@ -22,8 +22,10 @@
 }
 
 .services {
+    background-image: '../assets/Img/TexturaHome.png';
     background-color: #4A646C;
     padding: 3rem 1rem;
+    
 }
 
 .services h2 {
@@ -33,7 +35,8 @@
     text-align: center;
     width: fit-content;
     margin: 1rem auto 6rem auto;
-    max-width: 600px;
+    max-width: 600px;  
+    color: #4E3F36;
 }
 
 .cardsConteiner {

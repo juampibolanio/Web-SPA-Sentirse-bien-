@@ -1,0 +1,49 @@
+.heroServices {
+    background-size: cover;
+    background-position: 50% 80%;
+    background-repeat: no-repeat;
+    padding: 4rem 2rem;
+    align-items: center;
+}
+
+.servicesContainer {
+    background-color: #B8ADA3;
+    position: relative;
+    z-index: 0;
+    padding-bottom: 100px;
+}
+
+.cardTitleWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: -60px;
+    z-index: 2;
+    position: relative;
+}
+
+.textService {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.cardsContainer {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    list-style: none;
+    margin-top: 50px;
+    position: relative;
+    z-index: 2;
+}
+
+.brownStripe {
+    position: absolute;
+    top: 270px;
+    left: 0;
+    width: 100%;
+    height: 160px;
+    background-color: #4d3a2f;
+    z-index: 1;
+}

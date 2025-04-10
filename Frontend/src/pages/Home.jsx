@@ -1,12 +1,18 @@
 import styles from '../styles/Home.module.css'
 import Hero from '../components/Hero'
 import ServiceCardHome from '../components/ServiceCardHome'
+import Img from '../assets/Img/ppalimg.avif'
 
 function Home() {
   return (
     
       <>
-    <Hero />
+    <Hero titleLines={["SPA", "RELAJACIÓN", "PARA TU", "CUERPO"]}
+      buttonText='Solicitá tu turno'
+      buttonLink='/shifts'
+      showButton={true}
+      backgroundImage={Img}
+    />
     <div className={styles.srvDivision}></div>
       
     <div className={styles.srvDescription}>
@@ -32,7 +38,7 @@ function Home() {
         />
         <ServiceCardHome 
           imagen={null}
-          titulo="Aromaterapia con velas"
+          titulo="Aromaterapia"
           descripcion="Disfruta de un ambiente único con velas y aromas."
         />
 
