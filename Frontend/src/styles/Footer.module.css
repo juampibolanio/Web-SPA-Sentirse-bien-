@@ -33,6 +33,7 @@
     font-size: 2rem;
     margin: 0;
     margin-left: 55px;
+    color: #2e2525;
 }
 
 .title p {
@@ -83,6 +84,7 @@
     gap: 8rem;
     justify-content: center;
     column-gap: 9rem;
+    color: #2e2525;
 }
 
 .rightLinks ul {
@@ -96,6 +98,7 @@
     font-size: 1.3rem;
     padding-bottom: 0.25rem;
     font-weight: bold;
+    color: #2e2525;
 }
 
 .rightLinks li {

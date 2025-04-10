@@ -1,3 +1,27 @@
+.cardsWrapper {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.whiteDivisor {
+    position: absolute;
+    top: 180px;
+    width: 100vw;
+    height: 100px;
+    background-color: #ffffff;
+    z-index: 0;
+    left: -20px;
+}
+
+.cardsConteiner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
 .srvDivision {
     background-color: #4A646C;
     padding: 40px;
@@ -19,13 +43,11 @@
 .srvTitle {
     text-align: center;
     line-height: 1.5;
-}
+}  
 
 .services {
-    background-image: '../assets/Img/TexturaHome.png';
     background-color: #4A646C;
     padding: 3rem 1rem;
-    
 }
 
 .services h2 {
@@ -37,13 +59,6 @@
     margin: 1rem auto 6rem auto;
     max-width: 600px;  
     color: #4E3F36;
-}
-
-.cardsConteiner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
 }
 
 .about {
