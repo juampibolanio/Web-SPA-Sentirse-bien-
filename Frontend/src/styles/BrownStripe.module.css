@@ -1,9 +1,9 @@
 .brownStripe {
-    position: relative;
-    top: 370px;
-    left: 0;
-    width: 100%;
-    height: 160px;
-    background-color: #4d3a2f;
+    position: relative; /* La saca del flujo normal */
+    top: -340px; /* Ajustá este valor para ubicarla verticalmente */
+    left: -200px;
+    width: 100vw;
+    height: 180px;
+    background-color: #F5F3EF;
     z-index: 1;
 }

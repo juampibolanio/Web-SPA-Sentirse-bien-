@@ -16,7 +16,6 @@ function App() {
             <Route path='/services' element={<Services />} />
             <Route path='/shifts' element={<Shifts />} />
             <Route path='/contact' element={<Contact />} />
-
         </Routes>
         <Footer />
     </>

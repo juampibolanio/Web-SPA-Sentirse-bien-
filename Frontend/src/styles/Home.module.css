@@ -1,6 +1,7 @@
 .cardsWrapper {
     position: relative;
     padding: 2rem 0;
+    z-index: 3;
 }
 
 .whiteDivisor {
@@ -8,18 +9,31 @@
     top: 180px;
     width: 100vw;
     height: 100px;
-    background-color: #ffffff;
-    z-index: 0;
+    background-color: #F5F3EF;
+    z-index: 1;
     left: -20px;
 }
 
 .cardsConteiner {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem;
+    gap: 12rem;
+}
+
+.card {
+    background-color: rgba(248, 249, 250, 0.9);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 280px;
+    text-align: center;
+    padding-bottom: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 3;
 }
 
 .srvDivision {
@@ -28,8 +42,8 @@
 }
 
 .srvDescription {
-    padding: 12px;
-    background-color: #FFF;
+    padding: 30px;
+    background-color: #F5F3EF;
     text-align: center;
     color: #503b27;
 }
@@ -43,7 +57,7 @@
 .srvTitle {
     text-align: center;
     line-height: 1.5;
-}  
+}
 
 .services {
     background-color: #4A646C;
@@ -53,36 +67,63 @@
 .services h2 {
     font-size: 20px;
     padding: 30px;
-    background-color: #ffffff;
+    background-color: #F5F3EF;
     text-align: center;
     width: fit-content;
     margin: 1rem auto 6rem auto;
-    max-width: 600px;  
+    max-width: 600px;
     color: #4E3F36;
+    border-radius: 8px;
 }
 
 .about {
+    position: relative;
     height: 600px;
     margin-top: 3rem;
     background-image: url('../assets/Img/relaxphoto.jpg');
     background-size: cover;
-    background-position: 50% 35%;
+    background-position: 60% 35%;
     background-repeat: no-repeat;
-    color: white;
     padding: 4rem 2rem;
-    align-items: center;
     min-height: 700px;
+    color: #F5F3EF;
+    display: flex;
+    justify-content:center;
+    align-items:flex-start;
+    text-align: center;
+}
+
+.aboutContent {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .about h2 {
-    color: #FFF;
-    text-align: left;
-    padding-left: 60px;
+    font-size: 30px;
     text-transform: uppercase;
+    margin-top: 20px;
 }
 
 .about h3 {
-    color: #FFF;
-    padding-top: 20px;
-    padding-left: 60px;
+    font-size: 20px;
+    margin-top: 50px;
+}
+
+.about h1 {
+    font-size: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    margin-top: 50px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); 
+    z-index: 1;
+    pointer-events: none;
 }

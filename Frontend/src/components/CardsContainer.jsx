@@ -1,4 +1,4 @@
-import styles from '../styles/CardsConteiner.module.css'
+import styles from '../styles/CardsContainer.module.css'
 import ServiceCard from './ServiceCard';
 
 function CardsConteiner({imgCard1, imgCard2, imgCard3, title1, title2, title3}) {

@@ -3,6 +3,8 @@ import Hero from '../components/Hero'
 import ServiceCardHome from '../components/ServiceCardHome'
 import Img from '../assets/Img/ppalimg.avif'
 import srv1 from '../assets/Img/MujerAcostada.avif'
+import srv2 from '../assets/Img/CRIO.jpg' 
+import srv3 from '../assets/Img/Velaslim-Plus-17307579281.jpg'
 
 function Home() {
   return (
@@ -33,37 +35,45 @@ function Home() {
       <section className={styles.services}>
         <h2>Algunos de nuestros servicios</h2>
         
-        {/* Contenedor relativo para fondo blanco detrás de las tarjetas */}
         <div className={styles.cardsWrapper}>
           <div className={styles.whiteDivisor}></div>
           <div className={styles.cardsConteiner}>
             <ServiceCardHome 
               imagen={srv1}
               titulo="Masajes relajantes"
-              descripcion="Alivia el estrés con nuestros masajes especializados."
+              descripcion="Alivia el estrés con nuestros masajes especializados.  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo laudantium facilis, natus rerum nisi dolore aut veritatis impedit laboriosam consectetur. Similique unde aperiam quidem aliquid dolore iusto sint ad minus!"
             />
             <ServiceCardHome 
-              imagen={null}
+              imagen={srv2}
               titulo="Aromaterapia"
-              descripcion="Disfruta de un ambiente único con velas y aromas."
+              descripcion="Disfruta de un ambiente único con velas y aromas.   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo laudantium facilis, natus rerum nisi dolore aut veritatis impedit laboriosam consectetur. Similique unde aperiam quidem aliquid dolore iusto sint ad minus!"
             />
             <ServiceCardHome 
-              imagen={null}
+              imagen={srv3}
               titulo="lorem ipsum at dolor"
-              descripcion="Acá va una descripción"
+              descripcion="Acá va una descripción  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo laudantium facilis, natus rerum nisi dolore aut veritatis impedit laboriosam consectetur. Similique unde aperiam quidem aliquid dolore iusto sint ad minus!"
             />
           </div>
         </div>
       </section>
-
+      
       <div className={styles.about}>
-        <h2>Acerca de <br /> nosotros</h2>
-        <h3>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
-          Suscipit asperiores aspernatur braperiam repellat.  <br />
-          Suscipit asperiores aspernatur aperiam repellat. <br />
-          Suscipit asperiores aspernatur aperiam repellat.
-        </h3>
+        <div className={styles.overlay}></div>
+        
+        <div className={styles.aboutContent}>
+          <h2>Acerca de nosotros</h2>
+          <h3>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Suscipit asperiores aspernatur braperiam repellat. 
+            Suscipit asperiores aspernatur aperiam repellat. <br />
+            Suscipit asperiores aspernatur aperiam repellat.
+          </h3>
+
+          <h1>
+            Sentirse bien <br />
+            By Ana Felicidad
+          </h1>
+        </div>
       </div>
     </>
   )

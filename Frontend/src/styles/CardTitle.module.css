@@ -1,17 +1,18 @@
 .card {
-    padding: 39px 200px;
+    padding: 10px 300px;
     z-index: 10;
     position: relative;
     width: fit-content;
-    background-color: #4E3F36;
-    margin: -50px auto 40px auto;
+    background-color: rgba(245, 243, 239, 0.25); 
+    margin: auto auto 30px auto;
+    bottom: -50px;
     border-radius: 10px;
-    
 }
+
 
 .card h2 {
     text-align: center;
     color: #FFFF;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 35px;
+    font-size: 30px;
 }

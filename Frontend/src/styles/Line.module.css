@@ -1,0 +1,12 @@
+.waveSeparator {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    background: transparent;
+}
+
+.waveSeparator svg {
+    display: block;
+    width: 100%;
+    height: 80px;
+}

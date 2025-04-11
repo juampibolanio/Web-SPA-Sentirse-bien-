@@ -24,7 +24,7 @@ function Navbar() {
 
         <ul className={styles.links}>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/services">Servicio</Link></li>
+            <li><Link to="/services">Servicios</Link></li>
             <li><Link to="/shifts">Turnos</Link></li>
             <li><Link to="/contact">Contacto</Link></li>
         </ul>

@@ -15,6 +15,7 @@ function Hero({titleLines = [],
             className={`${styles.hero} ${extraClass || ''}`}
             style={{backgroundImage: `url(${backgroundImage})`}}
         >
+            <div className={styles.overlay}></div>
             <div className={styles.arrowLeft}>‹</div>
             {showButton && (
                 <Link to={buttonLink}>
@@ -33,6 +34,7 @@ function Hero({titleLines = [],
         </div>
         <div className={styles.arrowRight}>›</div>
         </section>
+
         </>
     )
 }

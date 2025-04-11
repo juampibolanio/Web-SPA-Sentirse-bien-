@@ -22,6 +22,7 @@
     gap: 1.5rem;
     max-width: 300px;
     font-family: Cormorant Garamond, serif;
+    margin-left: 50px;
 }
 
 .leftText {
@@ -40,7 +41,7 @@
     margin: 0;
     font-style: italic;
     font-weight: 300;
-    margin-left: 65px;
+    margin-left: 55px;
     font-size: 15px;
 }
 
@@ -58,7 +59,9 @@
     border-radius: 5px;
     font-size: 15px;
     background-color: #B8ADA3;
+    margin-left: 2px;
 }
+
 
 .inputMail button {
     position: absolute;
@@ -95,7 +98,7 @@
 
 .rightLinks h3 {
     margin-bottom: 0.5rem;
-    font-size: 1.3rem;
+    font-size: 28px;
     padding-bottom: 0.25rem;
     font-weight: bold;
     color: #2e2525;
@@ -103,7 +106,7 @@
 
 .rightLinks li {
     margin-bottom: 1rem;
-    font-size: 0.80rem;
+    font-size: 0.90rem;
     cursor: pointer;
 }
 
