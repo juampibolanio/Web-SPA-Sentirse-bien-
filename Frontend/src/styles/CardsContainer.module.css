@@ -1,9 +1,0 @@
-.cardsContainer {
-    display: flex;
-    gap: 50px;
-    justify-content: center;
-    list-style: none;
-    margin-top: 50px;
-    position: relative;
-    z-index: 2;
-}

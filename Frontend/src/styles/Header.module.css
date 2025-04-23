@@ -1,0 +1,85 @@
+/* Estilos para el Header */
+body {
+    margin: 0;
+}
+
+.header {
+    position: fixed; /* <-- cambia esto */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6); /* agrega un fondo sutil, podés ajustarlo */
+    backdrop-filter: blur(0.2px); /* opcional: da un efecto tipo glass */
+    color: white;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Lora', serif;
+}
+
+
+.header_logo_container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    height: 50px;
+}
+
+.slogan {
+    font-size: 1.5rem;
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+}
+
+.header_navbar {
+    display: flex;
+    margin-right: 30px;
+}
+
+.header_navbar ul {
+    display: flex;
+    gap: 150px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header_navbar li {
+    display: inline;
+}
+
+.header_navbar li a {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    transition: color 0.3s ease;
+}
+
+/* Línea animada */
+.header_navbar li a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px; /* distancia debajo del texto */
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: 2px;
+    background-color: #dddacd; /* Color del subrayado */
+    transition: transform 0.3s ease;
+}
+
+/* Hover animado */
+.header_navbar li a:hover {
+    color: #dddacd;
+}
+
+.header_navbar li a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
