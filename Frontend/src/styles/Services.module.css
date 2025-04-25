@@ -13,13 +13,11 @@ body {
     background-repeat: no-repeat;
     display: flex;
     justify-content: flex-start;
-    /* A la izquierda */
     align-items: center;
-    /* Centrado vertical */
     padding-left: 3rem;
-    /* Espacio desde el borde izquierdo */
 }
 
+/* Título */
 .bar_content_title {
     color: #252424;
     font-weight: lighter;
@@ -33,11 +31,6 @@ body {
     left: 50px;
 }
 
-
-
-
-/* CARTAS*/
-
 .services_card_container {
     display: flex;
     align-items: center;
@@ -47,6 +40,7 @@ body {
     flex-wrap: wrap;
 }
 
+/* Tarjetas */
 .card {
     position: relative;
     display: flex;
@@ -124,9 +118,86 @@ body {
     margin-right: 30px;
     text-decoration: none;
     display: inline-block;
-
 }
 
 .card_button:hover {
     background-color: #bcb3ad;
+}
+
+/* Media Queries para Pantallas Pequeñas */
+
+/* Para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .bar_content {
+        flex-direction: column; /* Coloca el contenido en columna */
+        align-items: center;
+        padding-left: 1rem;
+    }
+
+    .bar_content_title {
+        font-size: 28px; /* Reduce el tamaño de fuente */
+        left: 0;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .services_card_container {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .card {
+        flex-direction: column; /* Las tarjetas se apilan */
+        height: auto; /* El alto se ajusta automáticamente */
+        max-width: 100%;
+        left: 0;
+    }
+
+    .card_img img {
+        height: 200px; /* Ajusta el tamaño de la imagen */
+        object-fit: cover;
+    }
+
+    .card_description {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .card_title {
+        font-size: 1.5rem; /* Reduce el tamaño del título */
+    }
+
+    .card_text {
+        font-size: 1rem; /* Ajusta el tamaño del texto */
+    }
+
+    .card_cost {
+        font-size: 20px; /* Ajusta el tamaño del costo */
+        top: 100px;
+    }
+
+    .card_button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        margin-right: 0;
+    }
+}
+
+/* Para pantallas muy pequeñas (móviles de 480px o menos) */
+@media (max-width: 480px) {
+    .bar_content_title {
+        font-size: 24px; /* Más pequeño para móviles muy pequeños */
+    }
+
+    .card_title {
+        font-size: 1.2rem; /* Aumenta el ajuste en pantallas pequeñas */
+    }
+
+    .card_text {
+        font-size: 0.9rem;
+    }
+
+    .card_cost {
+        font-size: 18px;
+    }
 }

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../styles/Header2.module.css';
-import logo from '../assets/img/logo_spa.png';
+import logo from '../assets/img/LOGO.png';
 import { jwtDecode } from 'jwt-decode';
 
 

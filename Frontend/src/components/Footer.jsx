@@ -18,7 +18,7 @@ export const Footer = () => {
             <div className={styles.footerColumns}>
                 {/* Columna 1: Links */}
                 <div className={styles.column}>
-                    <h4 className={styles.columnTitle}>Links</h4>
+                    <h4 className={styles.columnTitle}>Nuestras redes</h4>
                     <div className={styles.logoRow}>
                         <img src={google} alt="Google" className={styles.logo} />
                         <img src={ig} alt="Instagram" className={styles.logo} />
@@ -29,10 +29,9 @@ export const Footer = () => {
 
                 {/* Columna 2: Legales */}
                 <div className={styles.column}>
-                    <h4 className={styles.columnTitle}>Legales</h4>
+                    <h4 className={styles.columnTitle}>Sentirse bien </h4>
                     <ul className={styles.legalList}>
-                        <li><a href="/terminos" className={styles.link}>Términos y Condiciones</a></li>
-                        <li><a href="/politica-privacidad" className={styles.link}>Política de Privacidad</a></li>
+                        <li><p className={styles.link}>© Todos los derechos reservados</p></li>
                     </ul>
                 </div>
 

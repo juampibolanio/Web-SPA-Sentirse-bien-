@@ -14,9 +14,9 @@
 
 .loginCard {
     background-color: rgba(249, 249, 246, 0.3);
-    padding: 3rem 4rem; 
+    padding: 3rem 4rem;
     border-radius: 1rem;
-    max-width: 600px; 
+    max-width: 600px;
     width: 100%;
     text-align: center;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
@@ -102,7 +102,6 @@
     font-size: 40px;
 }
 
-
 .logo {
     width: 120px;
     height: 120px;
@@ -115,7 +114,6 @@
     margin-top: 1rem;
     margin-left: 3.8rem;
 }
-
 
 .linksRow {
     display: flex;
@@ -130,4 +128,112 @@
     color: #F9F9F6;
     text-decoration: none;
     font-family: 'Playfair Display', serif;
+}
+
+
+@media (max-width: 768px) {
+    .loginCard {
+        padding: 2rem 3rem;  
+        max-width: 90%; 
+    }
+
+    .title {
+        font-size: 24px; 
+        margin-bottom: 1.5rem;
+    }
+
+    .input {
+        font-size: 0.9rem; 
+        padding: 0.7rem; 
+    }
+
+    .submitBtn {
+        font-size: 14px; 
+        padding: 0.7rem 1.5rem;
+    }
+
+    .registerLink {
+        font-size: 0.8rem; 
+    }
+
+    .header {
+        margin-left: 0;
+    }
+
+    .titleLogo {
+        font-size: 1.5rem; 
+        gap: 2rem;
+    }
+
+    .left,
+    .right {
+        font-size: 30px; 
+    }
+
+    .logo {
+        width: 100px; 
+        height: 100px;
+    }
+
+    .subtext {
+        margin-left: 0;
+        font-size: 12px;
+    }
+
+    .linksRow {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .linkLeft a,
+    .linkRight a {
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 20px; 
+    }
+
+    .input {
+        font-size: 0.8rem; 
+    }
+
+    .submitBtn {
+        font-size: 13px;
+    }
+
+    .registerLink {
+        font-size: 0.75rem; 
+    }
+
+    .titleLogo {
+        font-size: 1.2rem; 
+        gap: 1.5rem;
+    }
+
+    .left,
+    .right {
+        font-size: 24px; 
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .subtext {
+        font-size: 10px; 
+    }
+
+    .linksRow {
+        margin-top: 1rem;
+    }
+
+    .linkLeft a,
+    .linkRight a {
+        font-size: 0.8rem; 
+    }
 }
