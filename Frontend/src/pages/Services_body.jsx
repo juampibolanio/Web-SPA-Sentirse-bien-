@@ -37,7 +37,7 @@ export const Services = () => {
                         moldeando la silueta.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$50.000</div>
+                    <div className={styles.card_cost}>$280.000</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -59,7 +59,7 @@ export const Services = () => {
                         drenaje linfático eficaz.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$50.000</div>
+                    <div className={styles.card_cost}>$40.000</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -82,7 +82,7 @@ export const Services = () => {
                         en zonas específicas.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$50.000</div>
+                    <div className={styles.card_cost}>$32.000</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -105,7 +105,7 @@ export const Services = () => {
                         cuerpo de forma efectiva y segura.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$50.000</div>
+                    <div className={styles.card_cost}>$40.000</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>

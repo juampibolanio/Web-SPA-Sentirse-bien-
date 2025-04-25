@@ -543,7 +543,6 @@ body {
     }
 }
 
-/* Extra pequeños (teléfonos antiguos o pantallas chicas) */
 @media (max-width: 480px) {
     .title {
         font-size: 24px;

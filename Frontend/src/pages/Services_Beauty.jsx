@@ -35,7 +35,7 @@ export const Services = () => {
                         sin mantenimiento diario.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$50.000</div>
+                    <div className={styles.card_cost}>$10.000</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -56,7 +56,7 @@ export const Services = () => {
                         suave y luminosa.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$50.000</div>
+                    <div className={styles.card_cost}>$8.000</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -77,7 +77,7 @@ export const Services = () => {
                         tu estilo personal.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$50.000</div>
+                    <div className={styles.card_cost}>$20.000</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>

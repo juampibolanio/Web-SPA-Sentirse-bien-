@@ -20,14 +20,13 @@ const Login = () => {
         });
     };
 
-    // Función para manejar el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Llamada a la API para hacer login
-            const data = await loginUser(credentials); // Se manda 'username' y 'password'
-            localStorage.setItem('token', data.token); // Guarda el token JWT
-            window.location.href = '/'; // Redirige al dashboard (o donde desees)
+            
+            const data = await loginUser(credentials); 
+            localStorage.setItem('token', data.token); 
+            window.location.href = '/'; 
         } catch (err) {
             setError('Credenciales incorrectas. Intenta de nuevo.');
         }
@@ -47,13 +46,13 @@ const Login = () => {
             <div className={styles.loginCard}>
                 <h2 className={styles.title}>Iniciar sesión</h2>
                 <form onSubmit={handleSubmit}>
-                    {/* Campo para username en lugar de email */}
+                
                     <input
-                        type="text"  // Cambié de 'email' a 'text' para 'username'
-                        name="username"  // Ahora se usa 'username'
+                        type="text"  
+                        name="username"  
                         placeholder="Nombre de usuario"
                         required
-                        value={credentials.username}  // Usamos 'username' aquí
+                        value={credentials.username}  
                         onChange={handleChange}
                         className={styles.input}
                     />

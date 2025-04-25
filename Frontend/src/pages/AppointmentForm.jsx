@@ -86,7 +86,7 @@ const AppointmentForm = () => {
 
                     {formData.servicios.map((servicio, index) => (
                         <div key={index}>
-                            {index === 0 && <label>Seleccioná uno o más servicios:</label>} {/* Solo mostrar el label en el primer servicio */}
+                            {index === 0 && <label>Seleccioná uno o más servicios:</label>} 
                             <select
                                 name={`servicio-${index}`}
                                 value={servicio}

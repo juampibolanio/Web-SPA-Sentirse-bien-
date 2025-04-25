@@ -58,7 +58,7 @@ export const Services = () => {
                         y vitalidad al rostro.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$50.000</div>
+                    <div className={styles.card_cost}>$18.000</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -81,7 +81,7 @@ export const Services = () => {
                         primera sesión.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$50.000</div>
+                    <div className={styles.card_cost}>$20.000</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>

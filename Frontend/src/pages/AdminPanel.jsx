@@ -8,7 +8,7 @@ const AdminPanel = () => {
     const [seccionActiva, setSeccionActiva] = useState('turnos');
     const [filtroServicio, setFiltroServicio] = useState('');
     const [filtroProfesional, setFiltroProfesional] = useState('');
-    const [user, setUser] = useState('');  // Estado para almacenar el nombre del usuario
+    const [user, setUser] = useState('');  
 
     const turnos = [
         {
@@ -74,9 +74,9 @@ const AdminPanel = () => {
         try {
             const decoded = jwtDecode(token);
             if (decoded.role !== 'ROLE_PROFESIONAL') {
-                navigate('/'); // o mostrar un mensaje de acceso denegado
+                navigate('/');
             } else {
-                setUser(decoded.sub); // Guardamos el nombre del usuario en el estado
+                setUser(decoded.sub); 
             }
         } catch (error) {
             console.error('Error al decodificar el token');
@@ -84,9 +84,9 @@ const AdminPanel = () => {
         }
     }, [navigate]);
 
-    // Función para volver al home
+    
     const handleBackToHome = () => {
-        navigate('/'); // Redirige al home
+        navigate('/');
     };
 
     return (
@@ -115,12 +115,12 @@ const AdminPanel = () => {
             <main className={styles.content}>
                 <div className={styles.header}>
                     <div className={styles.backButtonContainer}>
-                        {/* Flecha simple en Unicode */}
+                        
                         <span className={styles.backButton} onClick={handleBackToHome}>
-                            &#8592; {/* Esta es la flecha izquierda */}
+                            &#8592; 
                         </span>
                     </div>
-                    <p className={styles.loggedUser}>Hola, {user}</p> {/* Aquí mostramos el nombre del usuario */}
+                    <p className={styles.loggedUser}>Hola, {user}</p>
                 </div>
 
                 {seccionActiva === 'turnos' ? (
