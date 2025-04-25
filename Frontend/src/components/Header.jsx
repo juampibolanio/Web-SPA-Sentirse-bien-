@@ -1,10 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; 
+// src/components/Header.jsx
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styles from '../styles/Header.module.css';
 import logo from '../assets/img/logo_spa.png';
+import { jwtDecode } from 'jwt-decode';
+
 
 export const Header = () => {
-    
+    const [menuOpen, setMenuOpen] = useState(false);
+    const toggleMenu = () => setMenuOpen(!menuOpen);
+
+    const [rol, setRol] = useState(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                const decoded = jwtDecode(token);
+                console.log("🔐 Token decodificado:", decoded); // ⬅️ Esto mostrará el contenido
+                setRol(decoded.role || (decoded.roles && decoded.roles[0])); // intentamos capturar el rol
+            } catch (error) {
+                console.error('Token inválido o expirado', error);
+            }
+        }
+    }, []);
+
     return (
         <header className={styles.header}>
             <div className={styles.header_logo_container}>
@@ -12,20 +32,23 @@ export const Header = () => {
                 <p className={styles.slogan}>Sentirse <br /> bien</p>
             </div>
 
-            <nav className={styles.header_navbar}>
+            <div className={styles.menu_toggle} onClick={toggleMenu}>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <nav className={`${styles.header_navbar} ${menuOpen ? styles.active : ''}`}>
                 <ul>
-                    <li>
-                        <Link to="/">HOME</Link>
-                    </li>
-                    <li>
-                        <Link to="/servicios">SERVICIOS</Link>
-                    </li>
-                    <li>
-                        <Link to="/turnos">TURNOS</Link>
-                    </li>
-                    <li>
-                        <Link to="/login">LOGIN</Link>
-                    </li>
+                    <li><Link to="/">HOME</Link></li>
+                    <li><Link to="/masajes">SERVICIOS</Link></li>
+                    <li><Link to="/turnos">TURNOS</Link></li>
+                    <li><Link to="/login">LOGIN</Link></li>
+                    {rol === 'ROLE_PROFESIONAL' && (
+                        <li>
+                            <Link to="/admin-panel">PANEL-ADMIN</Link>
+                        </li>
+                    )}
                 </ul>
             </nav>
         </header>

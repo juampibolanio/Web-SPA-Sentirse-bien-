@@ -30,6 +30,4 @@ public class Profesional {
     @OneToOne
     @JoinColumn(name = "id_persona")
     private Persona persona;
-    @OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Turno> turnos;
 }

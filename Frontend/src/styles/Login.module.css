@@ -1,0 +1,133 @@
+.loginContainer {
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        url('../assets/img/carrousel_home3.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Playfair Display', serif;
+}
+
+.loginCard {
+    background-color: rgba(249, 249, 246, 0.3);
+    padding: 3rem 4rem; 
+    border-radius: 1rem;
+    max-width: 600px; 
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.title {
+    color: #F9F9F6;
+    margin-bottom: 2rem;
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+}
+
+.input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #F9F9F6;
+    background: transparent;
+    color: #F9F9F6;
+    border-radius: 3px;
+    font-size: 1rem;
+}
+
+.input::placeholder {
+    color: #F9F9F6;
+    opacity: 0.8;
+    font-family: 'Playfair Display', serif;
+}
+
+.submitBtn {
+    background-color: #F9F9F6;
+    color: #222;
+    padding: 0.7rem 2rem;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    margin-top: 1rem;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+}
+
+.registerLink {
+    font-size: 0.9rem;
+    color: #F9F9F6;
+    margin: 0.5rem 0;
+}
+
+.registerLink a {
+    color: #F9F9F6;
+    text-decoration: underline;
+}
+
+.googleBtn {
+    margin-top: 1rem;
+}
+
+.googleBtn img {
+    width: 40px;
+    cursor: pointer;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    margin-left: -3.8rem;
+}
+
+.titleLogo {
+    font-size: 2rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F9F9F6;
+    gap: 3.5rem;
+}
+
+.left,
+.right {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+}
+
+
+.logo {
+    width: 120px;
+    height: 120px;
+}
+
+.subtext {
+    font-size: 14px;
+    color: #F9F9F6;
+    text-align: center;
+    margin-top: 1rem;
+    margin-left: 3.8rem;
+}
+
+
+.linksRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+.linkLeft a,
+.linkRight a {
+    color: #F9F9F6;
+    text-decoration: none;
+    font-family: 'Playfair Display', serif;
+}

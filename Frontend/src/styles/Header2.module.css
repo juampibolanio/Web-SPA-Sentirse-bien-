@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 30px;
+    background-color: #E9E4D4;
+    color: #000000;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Lora', serif;
+}
+
+.header_logo_container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    height: 50px;
+}
+
+.slogan {
+    font-size: 1.5rem;
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+}
+
+.header_navbar {
+    display: flex;
+    align-items: center;
+}
+
+.header_navbar ul {
+    display: flex;
+    gap: 150px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header_navbar li a {
+    position: relative;
+    color: #000000;
+    text-decoration: none;
+    font-size: 17px;
+    transition: color 0.3s ease;
+}
+
+.header_navbar li a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: 2px;
+    background-color: #dddacd;
+    transition: transform 0.3s ease;
+}
+
+.header_navbar li a:hover {
+    color: #847e65;
+}
+
+.header_navbar li a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Botón hamburguesa */
+.menu_toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.menu_toggle span {
+    height: 3px;
+    width: 25px;
+    background-color: #000000;
+    border-radius: 2px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .menu_toggle {
+        display: flex;
+    }
+
+    .header_navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #E9E4D4;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        display: none;
+    }
+
+    .active {
+        display: flex !important;
+    }
+
+    .header_navbar ul {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .header_navbar li a {
+        font-size: 20px;
+    }
+}

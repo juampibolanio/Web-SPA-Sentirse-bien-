@@ -30,9 +30,6 @@ public class Turno {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
     @ManyToOne
-    @JoinColumn(name = "id_profesional")
-    private Profesional profesional;
-    @ManyToOne
     @JoinColumn(name = "id_servicio")
     private Servicio servicio;
 }

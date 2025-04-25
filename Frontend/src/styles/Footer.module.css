@@ -1,0 +1,132 @@
+/* Footer general */
+.footer {
+    background-color: #A67F5B;
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+    color: #FFFFFF;
+}
+
+/* Imagen encima de la columna central */
+.footerImage {
+    margin-bottom: 40px;
+}
+
+.footerImage img {
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Contenedor de las columnas */
+.footerColumns {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Estilos para cada columna */
+.column {
+    width: 200px;
+    text-align: left;
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.columnTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Fila de logos en la primera columna */
+.logoRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 15px;
+}
+
+.logo {
+    width: 40px;
+    height: auto;
+}
+
+/* Estilos para los enlaces legales */
+.legalList {
+    list-style-type: none;
+    padding: 0;
+    line-height: 25px;
+}
+
+.legalList li {
+    margin: 5px 0;
+}
+
+.link {
+    color: #ffffff;
+    text-decoration: none;
+    line-height: 25px;
+    text-align: center;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para el contacto */
+.contactList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contactList li {
+    margin: 5px 0;
+    text-align: center;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .footerColumns {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .column {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    .logoRow {
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        width: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 30px 15px;
+    }
+
+    .footerImage img {
+        width: 80px;
+    }
+
+    .columnTitle {
+        font-size: 16px;
+    }
+
+    .link, .contactList li, .legalList li {
+        font-size: 14px;
+    }
+}

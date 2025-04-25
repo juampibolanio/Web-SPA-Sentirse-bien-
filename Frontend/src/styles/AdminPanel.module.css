@@ -1,0 +1,156 @@
+.panelContainer {
+    display: flex;
+    height: 100vh;
+    font-family: 'Lora', serif;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #472e2e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.logoContainer {
+    text-align: left;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    width: 65px;
+    height: auto;
+}
+
+.spaName {
+    font-size: 25px;
+    font-weight: lighter;
+    line-height: 1.2;
+    color: white;
+    
+}
+
+.sidebarNav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.navButton {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-radius: 8px;
+    font-family: 'Lora', serif;
+}
+
+.navButton:hover {
+    background-color: #5e3f3f;
+}
+
+.active {
+    background-color: #a17474;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    font-family: 'Lora', serif;
+}
+
+.loggedUser {
+    font-size: 20px;
+    color: #333;
+}
+
+/* Main Content */
+.content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+}
+
+.content h2 {
+    margin-bottom: 30px;
+}
+
+.filtros {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.filtros select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.table th {
+    background-color: #eee;
+    font-weight: bold;
+}
+
+.deleteBtn {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deleteBtn:hover {
+    background-color: #e74c3c;
+}
+
+
+.backButtonContainer {
+    display: flex;
+    align-items: center; /* Espacio para que no quede pegado al contenido */
+}
+
+.backButton {
+    font-size: 24px; /* Tamaño de la flecha */
+    cursor: pointer;
+    color: #333; /* Color de la flecha */
+    margin-right: 50px;
+    margin-top: -5px;
+}
+
+.backButton:hover {
+    color: #007bff; /* Color cuando el usuario pasa el mouse */
+}

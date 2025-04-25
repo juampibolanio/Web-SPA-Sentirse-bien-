@@ -4,13 +4,13 @@ body {
 }
 
 .header {
-    position: fixed; /* <-- cambia esto */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.6); /* agrega un fondo sutil, podés ajustarlo */
-    backdrop-filter: blur(0.2px); /* opcional: da un efecto tipo glass */
+    padding: 20px 30px;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0.2px);
     color: white;
     z-index: 1000;
     display: flex;
@@ -18,7 +18,6 @@ body {
     align-items: center;
     font-family: 'Lora', serif;
 }
-
 
 .header_logo_container {
     display: flex;
@@ -38,7 +37,7 @@ body {
 
 .header_navbar {
     display: flex;
-    margin-right: 30px;
+    align-items: center;
 }
 
 .header_navbar ul {
@@ -61,25 +60,70 @@ body {
     transition: color 0.3s ease;
 }
 
-/* Línea animada */
 .header_navbar li a::after {
     content: '';
     position: absolute;
     left: 50%;
-    bottom: -5px; /* distancia debajo del texto */
+    bottom: -5px;
     transform: translateX(-50%) scaleX(0);
     transform-origin: center;
     width: 100%;
     height: 2px;
-    background-color: #dddacd; /* Color del subrayado */
+    background-color: #dddacd;
     transition: transform 0.3s ease;
 }
 
-/* Hover animado */
 .header_navbar li a:hover {
     color: #dddacd;
 }
 
 .header_navbar li a:hover::after {
     transform: translateX(-50%) scaleX(1);
+}
+
+/* Botón hamburguesa */
+.menu_toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.menu_toggle span {
+    height: 3px;
+    width: 25px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .menu_toggle {
+        display: flex;
+    }
+
+    .header_navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        display: none;
+    }
+
+    .active {
+        display: flex !important;
+    }
+
+    .header_navbar ul {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .header_navbar li a {
+        font-size: 20px;
+    }
 }

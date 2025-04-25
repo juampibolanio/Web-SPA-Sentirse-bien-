@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter{
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final jwtService jwtService;
     private final UserDetailsService userDetailsService;
@@ -26,7 +26,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        
+
+        // Verifica si la URL corresponde a un registro o login, y si es así, salta el filtro de JWT
+        String url = request.getRequestURI();
+        if (url.equals("/auth/register") || url.equals("/auth/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        // Obtención del token desde la cabecera Authorization
         final String token = getTokenFromRequest(request);
         final String username;
 
@@ -38,37 +46,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         username = jwtService.getUsernameFromToken(token);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            
-            if (jwtService.isTokenValid(token, userDetails)) {
-                
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
+            // Cargar el usuario y validar el token
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+            // Si el token es válido, se establece la autenticación en el contexto de seguridad
+            if (jwtService.isTokenValid(token, userDetails)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
+                // Se establece el contexto de autenticación en el SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
 
         }
 
         filterChain.doFilter(request, response);
-
-
     }
 
+    // Método para obtener el token desde la cabecera Authorization
     private String getTokenFromRequest(HttpServletRequest request) {
-
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
+        // Verifica si la cabecera contiene el token con el prefijo "Bearer "
         if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
-        } 
-        else {
+        } else {
             return null;
         }
-
     }
-
-
 }

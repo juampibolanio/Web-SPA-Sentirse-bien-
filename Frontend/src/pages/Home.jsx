@@ -11,6 +11,11 @@ import spaInd from '../assets/img/SPA_INDIV1.jpg'
 import spaGro from '../assets/img/SPA_GRUPAL2.jpg'
 import logo from '../assets/img/logo_spa.png'
 import Carrousel from '../components/Carrousel';
+import Contacto from '../components/Contact_Form';
+import imgFoot from '../assets/img/PNG_FOTTER.png';
+import Header from '../components/Header';
+import { Link } from 'react-router-dom';
+
 
 const slides = [
   {
@@ -52,6 +57,7 @@ function Home() {
   return (
     <>
       {/* SECCION INICIO */}
+      <Header customClass="bgHome" />
       <section
         className={styles.hero}
         style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
@@ -62,8 +68,8 @@ function Home() {
           <p className={styles.subtitle}>{slides[currentSlide].subtitle}</p>
 
           <div className={styles.buttonsContainer}>
-            <button className={styles.button}>TURNOS</button>
-            <button className={styles.button}>CONTACTO</button>
+            <Link to="/turnos" className={styles.button}>TURNOS</Link>
+            <a href="#contacto" className={styles.button}>CONTACTO</a>
           </div>
 
           <div className={styles.arrows}>
@@ -100,9 +106,11 @@ function Home() {
         <p className={styles.text_about}>
           Cada persona es única, y por eso nuestros servicios están pensados para acompañarte en tu propio camino hacia el bienestar. <br />
           s tratamientos que relajan, equilibran y revitalizan, combinando técnicas profesionales con un enfoque consciente y personalizado. <br />
-            Te invitamos a descubrir un espacio donde cuerpo y mente se alinean en perfecta armonía.
+          Te invitamos a descubrir un espacio donde cuerpo y mente se alinean en perfecta armonía.
         </p>
-        <button className={styles.newButton}>Ver todos los servicios</button> {/* Botón agregado */}
+        <Link to="/masajes" className={styles.newButton}>
+          Ver todos los servicios
+        </Link>
       </section>
       <div className={styles.services_carrousel}>
         <Carrousel items={servicios} />
@@ -112,7 +120,7 @@ function Home() {
       {/* SECCION DESCUENTO */}
       <section className={styles.offer}>
         <div className={styles.text_container}>
-          <p>50%</p>
+          <p>50% <br />OFF</p>
           <p>EN TU <br />PRIMERA <br />SESIÓN</p>
         </div>
       </section>
@@ -127,9 +135,69 @@ function Home() {
           Nos encontramos en un lugar tranquilo, de fácil acceso, ideal para desconectar del ritmo diario y regalarte un momento <br />
           solo para vos.
         </p>
-
-        
       </section>
+      {/* IMAGEN CHA-COR */}
+      <div className={styles.container_maps}>
+        <div className={styles.ubication_container}>
+          <p className={styles.textA}> <div className={styles.text_Tit}>RESISTENCIA </div> <br />
+            C. Don Bosco 311 <br />
+            TEL: 3624978693  </p>
+          <p className={styles.textA}><div className={styles.text_Tit}>CORRIENTES </div><br />
+            San Martín 1430 <br />
+            TEL: 3794869473
+          </p>
+        </div>
+      </div>
+
+      {/* SECCION DONDE ENCONTRARNOS */}
+      <div className={styles.maps}>
+        <div className={styles.cards_conteiner}>
+          <div className={styles.card_map}>
+            <iframe
+              title="Mapa Resistencia"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3540.5813647150867!2d-58.983551424863904!3d-27.45115461591578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94450cf12a2995c3%3A0x6ae1c7e5cbf90278!2sC.%20Don%20Bosco%20311%2C%20H3500%20Resistencia%2C%20Chaco!5e0!3m2!1ses!2sar!4v1745427728897!5m2!1ses!2sar"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className={styles.mapa}
+            ></iframe>
+          </div>
+          <div className={styles.card_map}>
+            <iframe
+              title="Mapa Corrientes"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3539.967608977773!2d-58.837807120602776!3d-27.470267755650042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94456ca1a37aeea3%3A0xe478b15a1364adea!2sSan%20Mart%C3%ADn%201430%2C%20W3400%20Corrientes!5e0!3m2!1ses!2sar!4v1745427840096!5m2!1ses!2sar"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className={styles.mapa}
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+
+      {/*SECCION FORMULARIO CABECERA CONTACTO*/}
+      <section id ="contacto" className={styles.form_header}>
+        <img src={logo} alt="Decoración" className={styles.icon_about} />
+        <hr className={styles.line_about} />
+        <h2 className={styles.title_about}>Contacto</h2>
+        <p className={styles.text_about}>
+          Estamos acá para ayudarte. <br />
+          Si tenés dudas, querés reservar un turno o simplemente necesitás más información sobre nuestros servicios, <br />
+          no dudes en escribirnos.
+        </p>
+      </section>
+
+      {/*FORMULARIO DE CONTACTO */}
+      <div className={styles.form_section}>
+        <div className={styles.form_container}>
+          <div className={styles.formbox}>
+            <Contacto />
+          </div>
+          <img src={imgFoot} alt="Contacto" className={styles.imgContact} />
+        </div>
+      </div>
+
     </>
   );
 }
