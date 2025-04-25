@@ -32,11 +32,12 @@
     background-color: #C3C3C3;
 }
 
-.input::placeholder, .textarea::placeholder {
+.input::placeholder,
+.textarea::placeholder {
     color: #000000;
 }
 
-.textarea{
+.textarea {
     resize: none;
     height: 250px !important;
 }
@@ -57,4 +58,84 @@
 
 .button:hover {
     background-color: #8E6744;
+}
+
+/* ========================= */
+/* MEDIA QUERIES - RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 1024px) {
+    .contactForm {
+        padding: 30px;
+        margin: 40px auto;
+        margin-left: 20px;
+    }
+
+    .input,
+    .textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .textarea {
+        height: 200px !important;
+    }
+
+    .button {
+        width: 120px;
+        padding: 12px 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contactForm {
+        padding: 20px;
+        margin: 30px auto;
+        margin-left: 15px;
+    }
+
+    .form {
+        gap: 20px;
+    }
+
+    .input,
+    .textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .textarea {
+        height: 180px !important;
+    }
+
+    .button {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contactForm {
+        padding: 15px;
+        margin: 20px auto;
+        margin-left: 10px;
+    }
+
+    .input,
+    .textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .textarea {
+        height: 150px !important;
+    }
+
+    .button {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+    }
 }
