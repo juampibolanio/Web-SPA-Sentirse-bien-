@@ -1,54 +1,73 @@
-package com.proyectospa.spa_app.Controller;
+package com.proyectospa.spa_app.controller;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import com.proyectospa.spa_app.Model.Cliente;
-import com.proyectospa.spa_app.Service.ClienteServ;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import java.util.stream.Collectors;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.proyectospa.spa_app.dto.ClienteRequestDTO;  // Importa el DTO
+import com.proyectospa.spa_app.model.Cliente;
+import com.proyectospa.spa_app.service.ClienteService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequestMapping("/api/clientes")
+@RequiredArgsConstructor
 public class ClienteController {
 
-    @Autowired
-    ClienteServ clienteServ;
+    private final ClienteService clienteService;
 
-    //Listar clientes
-    @GetMapping("/cliente")
-    @ResponseBody
-    public List<Cliente> listarClientes() {
-        return clienteServ.listarClientes();
-    }
-    
-    //Crear nuevo cliente
-    @PostMapping("/cliente")
-    @ResponseBody
-    public Cliente crearCliente(@RequestBody Cliente cliente) {
-        return clienteServ.crearCliente(cliente);
-    }
+    // Crear un cliente
+    @PostMapping
+    public ResponseEntity<ClienteRequestDTO> crearCliente(@RequestBody Cliente cliente) {
+        Cliente nuevoCliente = clienteService.guardarCliente(cliente);
 
-    //Eliminar cliente
-    @DeleteMapping("cliente/{id}")
-    public void eliminarCliente(@PathVariable Long id) {
-        clienteServ.eliminarCliente(id);
+        // Convertir el Cliente a ClienteDTO
+        ClienteRequestDTO clienteDTO = new ClienteRequestDTO(
+            nuevoCliente.getNombre(),
+            nuevoCliente.getDni(),
+            nuevoCliente.getDireccion(),
+            nuevoCliente.getTelefono()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteDTO);
     }
 
-    //Buscar cliente por id
-    @GetMapping("cliente/{id}")
-    @ResponseBody
-    public Cliente buscarClientePorId(@PathVariable Long id) {
-        return clienteServ.buscarClientePorId(id);
+    // Obtener un cliente por su ID
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteRequestDTO> obtenerCliente(@PathVariable Integer id) {
+        Cliente cliente = clienteService.obtenerClientePorId(id);
+
+        // Convertir el Cliente a ClienteDTO
+        ClienteRequestDTO clienteDTO = new ClienteRequestDTO(
+            cliente.getNombre(),
+            cliente.getDni(),
+            cliente.getDireccion(),
+            cliente.getTelefono()
+        );
+
+        return ResponseEntity.ok(clienteDTO);
     }
-    
-    //Editar cliente
-    @PutMapping("/cliente")
-    public void editarCliente(@RequestBody Cliente cliente) {
-        clienteServ.editarCliente(cliente);
+
+
+    @GetMapping
+    public ResponseEntity<List<ClienteRequestDTO>> obtenerClientes() {
+        List<Cliente> clientes = clienteService.obtenerTodosLosClientes();
+        List<ClienteRequestDTO> clienteDTOs = clientes.stream()
+            .map(cliente -> new ClienteRequestDTO(
+                cliente.getNombre(),
+                cliente.getDni(),
+                cliente.getDireccion(),
+                cliente.getTelefono()
+            ))
+            .collect(Collectors.toList());
+
+        return ResponseEntity.ok(clienteDTOs);
     }
 }

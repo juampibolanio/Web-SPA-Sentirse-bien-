@@ -5,45 +5,52 @@ import Header2 from '../components/Header2';
 
 const AppointmentForm = () => {
     const [formData, setFormData] = useState({
+        nombre: '',
         dni: '',
-        localidad: '',
         direccion: '',
+        telefono: '',
         fecha: '',
         horaInicio: '',
         horaFin: '',
-        servicios: [''] 
+        servicioId: ''
     });
 
-    const handleChange = (e, index) => {
-        const updatedServicios = [...formData.servicios];
-        updatedServicios[index] = e.target.value;
-        setFormData({ ...formData, servicios: updatedServicios });
-    };
-
-    const handleAddService = () => {
-        setFormData({
-            ...formData,
-            servicios: [...formData.servicios, ''] // Añadir un nuevo servicio vacío al array
-        });
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
+        // Combinar fecha y hora en el formato adecuado (yyyy-MM-dd'T'HH:mm)
+        const fecha = formData.fecha + 'T' + formData.horaInicio; // Combina fecha y hora de inicio
+        const horaFin = formData.fecha + 'T' + formData.horaFin; // Combina fecha y hora de fin
+
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/turnos/crear`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/turnos`, {
+                nombre: formData.nombre,
                 dni: formData.dni,
-                localidad: formData.localidad,
                 direccion: formData.direccion,
-                fecha: formData.fecha,
-                horaInicio: formData.horaInicio,
-                horaFin: formData.horaFin,
-                servicios: formData.servicios
+                telefono: formData.telefono,
+                fecha: fecha, // Envía la fecha combinada
+                horaInicio: fecha, // Envía la hora de inicio combinada
+                horaFin: horaFin, // Envía la hora de fin combinada
+                servicioId: parseInt(formData.servicioId)
             });
 
             if (response.status === 201) {
                 console.log("Turno creado correctamente:", response.data);
-                // Aquí podrías redirigir o mostrar un mensaje de éxito
+                // Limpiar formulario
+                setFormData({
+                    nombre: '',
+                    dni: '',
+                    direccion: '',
+                    telefono: '',
+                    fecha: '',
+                    horaInicio: '',
+                    horaFin: '',
+                    servicioId: ''
+                });
             } else {
                 console.error("Error al crear el turno", response.data);
             }
@@ -61,18 +68,18 @@ const AppointmentForm = () => {
 
                     <input
                         type="text"
-                        name="dni"
-                        placeholder="DNI"
-                        value={formData.dni}
-                        onChange={(e) => setFormData({ ...formData, dni: e.target.value })}
+                        name="nombre"
+                        placeholder="Nombre"
+                        value={formData.nombre}
+                        onChange={handleChange}
                         required
                     />
                     <input
                         type="text"
-                        name="localidad"
-                        placeholder="Localidad"
-                        value={formData.localidad}
-                        onChange={(e) => setFormData({ ...formData, localidad: e.target.value })}
+                        name="dni"
+                        placeholder="DNI"
+                        value={formData.dni}
+                        onChange={handleChange}
                         required
                     />
                     <input
@@ -80,60 +87,60 @@ const AppointmentForm = () => {
                         name="direccion"
                         placeholder="Dirección"
                         value={formData.direccion}
-                        onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="telefono"
+                        placeholder="Teléfono"
+                        value={formData.telefono}
+                        onChange={handleChange}
                         required
                     />
 
-                    {formData.servicios.map((servicio, index) => (
-                        <div key={index}>
-                            {index === 0 && <label>Seleccioná uno o más servicios:</label>} 
-                            <select
-                                name={`servicio-${index}`}
-                                value={servicio}
-                                onChange={(e) => handleChange(e, index)}
-                                required
-                            >
-                                <option value="">-- Seleccioná un servicio --</option>
-                                <optgroup label="Masajes">
-                                    <option value="1">Anti stress</option>
-                                    <option value="2">Descontracturante</option>
-                                    <option value="3">Masajes con piedras</option>
-                                    <option value="4">Circulatorios</option>
-                                </optgroup>
-                                <optgroup label="Belleza">
-                                    <option value="5">Lifting de pestañas</option>
-                                    <option value="6">Depilación facial</option>
-                                    <option value="7">Belleza de manos y pies</option>
-                                </optgroup>
-                                <optgroup label="Grupales">
-                                    <option value="8">Yoga</option>
-                                    <option value="9">Hidromasajes</option>
-                                </optgroup>
-                                <optgroup label="Tratamientos Faciales">
-                                    <option value="10">Punta de diamante microexfoliación</option>
-                                    <option value="11">Limpieza profunda e hidratación</option>
-                                    <option value="12">Crio frecuencia facial</option>
-                                </optgroup>
-                                <optgroup label="Tratamientos Corporales">
-                                    <option value="13">Dermohealth</option>
-                                    <option value="14">Crio frecuencia</option>
-                                    <option value="15">Ultracavitación</option>
-                                    <option value="16">VelaSlim</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    ))}
-
-                    <button type="button" className={styles.addServiceBtn} onClick={handleAddService}>
-                        Añadir otro servicio
-                    </button>
+                    <label>Seleccioná un servicio:</label>
+                    <select
+                        name="servicioId"
+                        value={formData.servicioId}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">-- Seleccioná un servicio --</option>
+                        <optgroup label="Masajes">
+                            <option value="1">Anti stress</option>
+                            <option value="2">Descontracturante</option>
+                            <option value="3">Masajes con piedras</option>
+                            <option value="4">Circulatorios</option>
+                        </optgroup>
+                        <optgroup label="Belleza">
+                            <option value="5">Lifting de pestañas</option>
+                            <option value="6">Depilación facial</option>
+                            <option value="7">Belleza de manos y pies</option>
+                        </optgroup>
+                        <optgroup label="Grupales">
+                            <option value="8">Yoga</option>
+                            <option value="9">Hidromasajes</option>
+                        </optgroup>
+                        <optgroup label="Tratamientos Faciales">
+                            <option value="10">Punta de diamante microexfoliación</option>
+                            <option value="11">Limpieza profunda e hidratación</option>
+                            <option value="12">Crio frecuencia facial</option>
+                        </optgroup>
+                        <optgroup label="Tratamientos Corporales">
+                            <option value="13">Dermohealth</option>
+                            <option value="14">Crio frecuencia</option>
+                            <option value="15">Ultracavitación</option>
+                            <option value="16">VelaSlim</option>
+                        </optgroup>
+                    </select>
 
                     <label>Fecha del turno:</label>
                     <input
                         type="date"
                         name="fecha"
                         value={formData.fecha}
-                        onChange={(e) => setFormData({ ...formData, fecha: e.target.value })}
+                        onChange={handleChange}
                         required
                     />
 
@@ -144,7 +151,7 @@ const AppointmentForm = () => {
                                 type="time"
                                 name="horaInicio"
                                 value={formData.horaInicio}
-                                onChange={(e) => setFormData({ ...formData, horaInicio: e.target.value })}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -154,7 +161,7 @@ const AppointmentForm = () => {
                                 type="time"
                                 name="horaFin"
                                 value={formData.horaFin}
-                                onChange={(e) => setFormData({ ...formData, horaFin: e.target.value })}
+                                onChange={handleChange}
                                 required
                             />
                         </div>

@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GenerarPassword",
+            "request": "launch",
+            "mainClass": "GenerarPassword",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-SpaAppApplication<spa-app>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

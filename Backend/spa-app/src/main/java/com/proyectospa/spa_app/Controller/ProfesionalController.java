@@ -1,57 +1,31 @@
-package com.proyectospa.spa_app.Controller;
+package com.proyectospa.spa_app.controller;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import com.proyectospa.spa_app.Model.Profesional;
-import com.proyectospa.spa_app.Service.ProfesionalServ;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.proyectospa.spa_app.model.Profesional;
+import com.proyectospa.spa_app.service.ProfesionalService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequestMapping("/api/profesionales")
+@RequiredArgsConstructor
 public class ProfesionalController {
 
-    @Autowired
-    ProfesionalServ profesionalServ;
+    private final ProfesionalService profesionalService;
 
-
-    //Listar los profesionales
-    @GetMapping("/profesional")
-    @ResponseBody
-    public List <Profesional> listarProfesionales() {
-        return profesionalServ.listarProfesionales();
+    @PostMapping
+    public ResponseEntity<Profesional> crearProfesional(@RequestBody Profesional profesional) {
+        Profesional nuevo = profesionalService.crearProfesional(profesional);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
-    //Crear profesional
-    @PostMapping("/profesional")
-    @ResponseBody
-    public Profesional crearProfesional(@RequestBody Profesional profesional) {
-        return profesionalServ.crearProfesional(profesional);
+    @GetMapping
+    public ResponseEntity<List<Profesional>> listarProfesionales() {
+        return ResponseEntity.ok().body(profesionalService.listarProfesionales());
     }
-
-    //Eliminar profesional
-    @DeleteMapping("/profesional/{id}")
-    public void eliminarProfesional(@PathVariable Long id) {
-        profesionalServ.eliminarProfesional(id);
-    }
-
-    //buscar profesional por id
-    @GetMapping("/profesional/{id}")
-    @ResponseBody
-    public Profesional buscarProfesionalPorId(@PathVariable Long id) {
-        return profesionalServ.buscarProfesionalPorId(id);
-    }
-
-    //modificar un profesional
-    @PutMapping("/profesional")
-    public Profesional editarProfesional(@RequestBody Profesional profesional) {
-        return profesionalServ.editarProfesional(profesional);
-    }
-    
-    
 }

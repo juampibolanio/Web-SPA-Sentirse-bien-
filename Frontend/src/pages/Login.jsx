@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import styles from '../styles/Login.module.css';
 import logo from '../assets/img/logo_spa.png';
-import { loginUser } from '../services/auth'; // Asegúrate de que la ruta sea correcta
+import { loginUser } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({
-        username: '',  // Cambié 'email' por 'username'
+        usuario: '',  
         password: ''
     });
 
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    // Función para manejar cambios en los inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCredentials({
@@ -23,10 +24,9 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            
-            const data = await loginUser(credentials); 
-            localStorage.setItem('token', data.token); 
-            window.location.href = '/'; 
+            const data = await loginUser(credentials);
+            localStorage.setItem('token', data.token);
+            navigate('/admin-panel');
         } catch (err) {
             setError('Credenciales incorrectas. Intenta de nuevo.');
         }
@@ -44,15 +44,14 @@ const Login = () => {
             </div>
 
             <div className={styles.loginCard}>
-                <h2 className={styles.title}>Iniciar sesión</h2>
+                <h2 className={styles.title}>Iniciar sesión - Solo profesionales</h2>
                 <form onSubmit={handleSubmit}>
-                
                     <input
-                        type="text"  
-                        name="username"  
+                        type="text"
+                        name="usuario"  
                         placeholder="Nombre de usuario"
                         required
-                        value={credentials.username}  
+                        value={credentials.usuario}  
                         onChange={handleChange}
                         className={styles.input}
                     />
@@ -64,16 +63,14 @@ const Login = () => {
                         value={credentials.password}
                         onChange={handleChange}
                         className={styles.input}
+                        autoComplete="current-password" // opcional para evitar warning
                     />
 
-                    {error && <div className={styles.error}>{error}</div>} {/* Mostrar error si es necesario */}
+                    {error && <div className={styles.error}>{error}</div>}
 
                     <div className={styles.linksRow}>
                         <p className={styles.linkLeft}>
-                            <a href="/reset-password">¿Olvidaste tu contraseña?</a>
-                        </p>
-                        <p className={styles.linkRight}>
-                            <a href="/register">¿No tienes una cuenta? Registrarse</a>
+                            <a>Si olvidaste tu contraseña, contáctate con el administrador del SPA</a>
                         </p>
                     </div>
 

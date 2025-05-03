@@ -1,67 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styles from '../styles/AdminPanel.module.css';
 import spaLogo from '../assets/img/logo_spa.png';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 const AdminPanel = () => {
-    const [seccionActiva, setSeccionActiva] = useState('turnos');
+    const [clientes, setClientes] = useState([]);
+    const [turnos, setTurnos] = useState([]);
     const [filtroServicio, setFiltroServicio] = useState('');
-    const [filtroProfesional, setFiltroProfesional] = useState('');
-    const [user, setUser] = useState('');  
-
-    const turnos = [
-        {
-            dni: '12345678',
-            nombre: 'Carla Pérez',
-            localidad: 'Rosario',
-            direccion: 'Calle Falsa 123',
-            servicio: 'Masaje Descontracturante',
-            profesional: 'Lucía',
-            fecha: '2025-04-25',
-            hora: '15:30',
-            horaFin: '16:30'
-        },
-        {
-            dni: '87654321',
-            nombre: 'Luis Gómez',
-            localidad: 'Santa Fe',
-            direccion: 'Av. Siempre Viva 742',
-            servicio: 'Limpieza Facial',
-            profesional: 'Martín',
-            fecha: '2025-04-26',
-            hora: '11:00',
-            horaFin: '11:45'
-        }
-    ];
-
-    const clientes = [
-        {
-            dni: '12345678',
-            nombre: 'Carla Pérez',
-            telefono: '3411234567',
-            email: 'carla@gmail.com',
-            direccion: 'Calle Falsa 123',
-            localidad: 'Corrientes'
-        },
-        {
-            dni: '87654321',
-            nombre: 'Luis Gómez',
-            telefono: '3429876543',
-            email: 'luis@gmail.com',
-            direccion: 'Av. Siempre Viva 742',
-            localidad: 'Resistencia'
-        }
-    ];
-
-    const turnosFiltrados = turnos.filter(turno =>
-        (filtroServicio === '' || turno.servicio === filtroServicio) &&
-        (filtroProfesional === '' || turno.profesional === filtroProfesional)
-    );
-
-    const serviciosUnicos = [...new Set(turnos.map(t => t.servicio))];
-    const profesionalesUnicos = [...new Set(turnos.map(t => t.profesional))];
-
+    const [user, setUser] = useState('');
+    const [seccionActiva, setSeccionActiva] = useState('turnos');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -73,20 +22,84 @@ const AdminPanel = () => {
 
         try {
             const decoded = jwtDecode(token);
-            if (decoded.role !== 'ROLE_PROFESIONAL') {
-                navigate('/');
-            } else {
-                setUser(decoded.sub); 
-            }
+            setUser(decoded.sub);
         } catch (error) {
             console.error('Error al decodificar el token');
             navigate('/login');
         }
     }, [navigate]);
 
-    
+    useEffect(() => {
+        const fetchTurnos = async () => {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await axios.get('http://localhost:8080/api/turnos', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                setTurnos(response.data);
+                console.log('Turnos:', response.data);
+            } catch (error) {
+                console.error('Error al obtener los turnos:', error);
+            }
+        };
+
+        fetchTurnos();
+    }, []);
+
+    useEffect(() => {
+        const fetchClientes = async () => {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await axios.get('http://localhost:8080/api/clientes', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                setClientes(response.data);
+            } catch (error) {
+                console.error('Error al obtener los clientes:', error);
+            }
+        };
+
+        fetchClientes();
+    }, []);
+
     const handleBackToHome = () => {
         navigate('/');
+    };
+
+    const turnosFiltrados = turnos.filter(turno =>
+        (filtroServicio === '' || turno.servicioId === filtroServicio)
+    );
+
+    const eliminarTurno = async (turnoId) => {
+        const token = localStorage.getItem('token');
+        try {
+            await axios.delete(`http://localhost:8080/api/turnos/${turnoId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setTurnos(turnos.filter(turno => turno.id !== turnoId));
+        } catch (error) {
+            console.error('Error al eliminar el turno:', error);
+        }
+    };
+
+    const eliminarCliente = async (clienteId) => {
+        const token = localStorage.getItem('token');
+        try {
+            await axios.delete(`http://localhost:8080/api/clientes/${clienteId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setClientes(clientes.filter(cliente => cliente.id !== clienteId));
+        } catch (error) {
+            console.error('Error al eliminar el cliente:', error);
+        }
     };
 
     return (
@@ -115,9 +128,8 @@ const AdminPanel = () => {
             <main className={styles.content}>
                 <div className={styles.header}>
                     <div className={styles.backButtonContainer}>
-                        
                         <span className={styles.backButton} onClick={handleBackToHome}>
-                            &#8592; 
+                            &#8592;
                         </span>
                     </div>
                     <p className={styles.loggedUser}>Hola, {user}</p>
@@ -126,31 +138,14 @@ const AdminPanel = () => {
                 {seccionActiva === 'turnos' ? (
                     <>
                         <h2>Turnos Asignados</h2>
-                        <div className={styles.filtros}>
-                            <select value={filtroServicio} onChange={(e) => setFiltroServicio(e.target.value)}>
-                                <option value="">Todos los servicios</option>
-                                {serviciosUnicos.map((s, i) => (
-                                    <option key={i} value={s}>{s}</option>
-                                ))}
-                            </select>
-
-                            <select value={filtroProfesional} onChange={(e) => setFiltroProfesional(e.target.value)}>
-                                <option value="">Todos los profesionales</option>
-                                {profesionalesUnicos.map((p, i) => (
-                                    <option key={i} value={p}>{p}</option>
-                                ))}
-                            </select>
-                        </div>
-
                         <table className={styles.table}>
                             <thead>
                                 <tr>
+                                    <th>Nombre</th>
                                     <th>DNI</th>
-                                    <th>Cliente</th>
-                                    <th>Localidad</th>
                                     <th>Dirección</th>
+                                    <th>Teléfono</th>
                                     <th>Servicio</th>
-                                    <th>Profesional</th>
                                     <th>Fecha</th>
                                     <th>Hora Inicio</th>
                                     <th>Hora Fin</th>
@@ -160,17 +155,16 @@ const AdminPanel = () => {
                             <tbody>
                                 {turnosFiltrados.map((turno, index) => (
                                     <tr key={index}>
-                                        <td>{turno.dni}</td>
-                                        <td>{turno.nombre}</td>
-                                        <td>{turno.localidad}</td>
-                                        <td>{turno.direccion}</td>
-                                        <td>{turno.servicio}</td>
-                                        <td>{turno.profesional}</td>
-                                        <td>{turno.fecha}</td>
-                                        <td>{turno.hora}</td>
-                                        <td>{turno.horaFin}</td>
+                                        <td>{turno.cliente?.nombre || 'Sin nombre'}</td>
+                                        <td>{turno.cliente?.dni || 'Sin DNI'}</td>
+                                        <td>{turno.cliente?.direccion || 'Sin dirección'}</td>
+                                        <td>{turno.cliente?.telefono || 'Sin teléfono'}</td>
+                                        <td>{turno.servicio?.nombre || 'Sin servicio'}</td>
+                                        <td>{new Date(turno.fecha).toLocaleDateString()}</td>
+                                        <td>{new Date(turno.horaInicio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                                        <td>{new Date(turno.horaFin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                                         <td>
-                                            <button className={styles.deleteBtn}>Eliminar</button>
+                                            <button className={styles.deleteBtn} onClick={() => eliminarTurno(turno.id)}>Eliminar</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -183,23 +177,23 @@ const AdminPanel = () => {
                         <table className={styles.table}>
                             <thead>
                                 <tr>
-                                    <th>DNI</th>
                                     <th>Nombre</th>
-                                    <th>Teléfono</th>
-                                    <th>Email</th>
+                                    <th>DNI</th>
                                     <th>Dirección</th>
-                                    <th>Localidad</th>
+                                    <th>Teléfono</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {clientes.map((cliente, index) => (
                                     <tr key={index}>
-                                        <td>{cliente.dni}</td>
                                         <td>{cliente.nombre}</td>
-                                        <td>{cliente.telefono}</td>
-                                        <td>{cliente.email}</td>
+                                        <td>{cliente.dni}</td>
                                         <td>{cliente.direccion}</td>
-                                        <td>{cliente.localidad}</td>
+                                        <td>{cliente.telefono}</td>
+                                        <td>
+                                            <button className={styles.deleteBtn} onClick={() => eliminarCliente(cliente.id)}>Eliminar</button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
