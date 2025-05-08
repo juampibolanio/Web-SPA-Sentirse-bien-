@@ -32,6 +32,7 @@ export const Footer = () => {
                     <h4 className={styles.columnTitle}>Sentirse bien </h4>
                     <ul className={styles.legalList}>
                         <li><p className={styles.link}>© Todos los derechos reservados</p></li>
+                        <li><p className={styles.link}> Desarrollada por: Bolanio Juan Pablo <br /> Visñuk Manuel</p></li>
                     </ul>
                 </div>
 

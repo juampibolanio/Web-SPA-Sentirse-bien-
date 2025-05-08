@@ -120,8 +120,11 @@ function Home() {
       {/* SECCION DESCUENTO */}
       <section className={styles.offer}>
         <div className={styles.text_container}>
-          <p>50% <br />OFF</p>
-          <p>EN TU <br />PRIMERA <br />SESIÓN</p>
+          <p>Tenemos todos los <br />
+            medios de pago 
+
+          </p>
+          <p>- Efectivo <br />- Débito <br />- Transferencia <br /> - Crédito</p>
         </div>
       </section>
 

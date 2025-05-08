@@ -263,12 +263,12 @@ body {
 .text_container p {
     margin-top: 100px;
     color: #FFFFFF;
-    font-size: 90px;
+    font-size: 70px;
     font-family: 'Lora', serif;
 }
 
 .text_container p:first-child {
-    font-size: 150px;
+    font-size: 70px;
 }
 
 /* SECCION DONDE ENCONTRARNOS */

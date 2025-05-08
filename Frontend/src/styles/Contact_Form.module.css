@@ -1,24 +1,25 @@
 .contactForm {
-    width: 100%;
+    max-width: 800px;
+    width: 90%;
     background-color: #eee7d9;
     padding: 40px;
     margin: 60px auto;
-    margin-left: 70px;
-    margin-top: 50px;
     border-radius: 12px;
     font-family: 'Lora', serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
 }
 
 .title {
     text-align: center;
-    margin-bottom: 25px;
-    letter-spacing: 2px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    letter-spacing: 1px;
 }
 
 .input,
@@ -26,30 +27,30 @@
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 2px;
+    border-radius: 4px;
     font-family: 'Lora', serif;
     font-size: 16px;
     background-color: #C3C3C3;
+    color: #000;
 }
 
 .input::placeholder,
 .textarea::placeholder {
-    color: #000000;
+    color: #000;
 }
 
 .textarea {
     resize: none;
-    height: 250px !important;
+    height: 200px;
 }
 
 .button {
-    width: 150px;
-    margin-top: 20px;
-    padding: 15px 15px;
+    align-self: center;
+    padding: 12px 24px;
     background-color: #C3C3C3;
-    color: #000000;
+    color: #000;
     border: none;
-    border-radius: 2px;
+    border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -61,66 +62,43 @@
 }
 
 /* ========================= */
-/* MEDIA QUERIES - RESPONSIVE */
+/* MEDIA QUERIES */
 /* ========================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .contactForm {
-        padding: 30px;
-        margin: 40px auto;
-        margin-left: 20px;
+        padding: 30px 20px;
+    }
+
+    .title {
+        font-size: 20px;
     }
 
     .input,
     .textarea {
-        font-size: 14px;
+        font-size: 15px;
         padding: 10px;
     }
 
     .textarea {
-        height: 200px !important;
-    }
-
-    .button {
-        width: 120px;
-        padding: 12px 12px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 768px) {
-    .contactForm {
-        padding: 20px;
-        margin: 30px auto;
-        margin-left: 15px;
-    }
-
-    .form {
-        gap: 20px;
-    }
-
-    .input,
-    .textarea {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    .textarea {
-        height: 180px !important;
+        height: 180px;
     }
 
     .button {
         width: 100%;
-        padding: 14px;
         font-size: 16px;
+        padding: 14px;
+        align-self: stretch;
     }
 }
 
 @media (max-width: 480px) {
     .contactForm {
-        padding: 15px;
-        margin: 20px auto;
-        margin-left: 10px;
+        padding: 20px 15px;
+    }
+
+    .title {
+        font-size: 18px;
     }
 
     .input,
@@ -130,12 +108,10 @@
     }
 
     .textarea {
-        height: 150px !important;
+        height: 150px;
     }
 
     .button {
-        width: 100%;
-        padding: 14px;
-        font-size: 16px;
+        font-size: 15px;
     }
 }
