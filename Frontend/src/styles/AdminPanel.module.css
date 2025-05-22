@@ -2,6 +2,7 @@
     display: flex;
     height: 100vh;
     font-family: 'Lora', serif;
+    flex-direction: row;
 }
 
 /* Sidebar */
@@ -13,6 +14,7 @@
     flex-direction: column;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
 
 .logoContainer {
@@ -33,7 +35,6 @@
     font-weight: lighter;
     line-height: 1.2;
     color: white;
-    
 }
 
 .sidebarNav {
@@ -94,6 +95,7 @@
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .filtros select {
@@ -137,20 +139,133 @@
     background-color: #e74c3c;
 }
 
-
 .backButtonContainer {
     display: flex;
-    align-items: center; /* Espacio para que no quede pegado al contenido */
+    align-items: center;
 }
 
 .backButton {
-    font-size: 24px; /* Tamaño de la flecha */
+    font-size: 24px;
     cursor: pointer;
-    color: #333; /* Color de la flecha */
+    color: #333;
     margin-right: 50px;
     margin-top: -5px;
 }
 
 .backButton:hover {
-    color: #007bff; /* Color cuando el usuario pasa el mouse */
+    color: #007bff;
+}
+
+/* ------------------- */
+/*      RESPONSIVE     */
+/* ------------------- */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 200px;
+        padding: 15px;
+    }
+
+    .spaName {
+        font-size: 20px;
+    }
+
+    .navButton {
+        font-size: 14px;
+    }
+
+    .content {
+        padding: 30px;
+    }
+
+    .loggedUser {
+        font-size: 18px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+    .panelContainer {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 10px 15px;
+    }
+
+    .logoContainer {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .sidebarNav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navButton {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .header {
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .loggedUser {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .table th, .table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .backButton {
+        font-size: 20px;
+        margin-right: 20px;
+    }
+}
+
+/* Extra pequeño (celulares muy chicos) */
+@media (max-width: 480px) {
+    .spaName {
+        font-size: 18px;
+    }
+
+    .logo {
+        width: 50px;
+    }
+
+    .navButton {
+        font-size: 13px;
+    }
+
+    .filtros {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    .table th, .table td {
+        font-size: 13px;
+    }
 }

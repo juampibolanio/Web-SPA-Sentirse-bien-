@@ -78,12 +78,6 @@ const Login = () => {
                         Iniciar sesión
                     </button>
 
-                    <div className={styles.googleBtn}>
-                        <img
-                            src="https://img.icons8.com/color/48/google-logo.png"
-                            alt="Google"
-                        />
-                    </div>
                 </form>
             </div>
         </div>

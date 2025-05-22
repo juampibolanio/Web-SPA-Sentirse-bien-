@@ -53,6 +53,7 @@
 .logo {
     width: 40px;
     height: auto;
+    cursor: pointer;
 }
 
 /* Estilos para los enlaces legales */

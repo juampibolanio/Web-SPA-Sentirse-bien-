@@ -37,7 +37,7 @@ export const Services = () => {
               cuerpo y mente.
             </p>
           </div>
-          <div className={styles.card_cost}>$19.000</div>
+          <div className={styles.card_cost}>$3.000</div>
         </div>
 
         <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -57,7 +57,7 @@ export const Services = () => {
               y mejorar tu movilidad.
             </p>
           </div>
-          <div className={styles.card_cost}>$10.000</div>
+          <div className={styles.card_cost}>$3.500</div>
         </div>
 
         <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -79,7 +79,7 @@ export const Services = () => {
               y armonizar tu energía.
             </p>
           </div>
-          <div className={styles.card_cost}>$15.000</div>
+          <div className={styles.card_cost}>$4.000</div>
         </div>
 
         <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -99,7 +99,7 @@ export const Services = () => {
               y favorecen la sensación de ligereza.
             </p>
           </div>
-          <div className={styles.card_cost}>$20.000</div>
+          <div className={styles.card_cost}>$3.200</div>
         </div>
 
         <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>

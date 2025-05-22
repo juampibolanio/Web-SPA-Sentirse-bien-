@@ -33,7 +33,7 @@ const AdminPanel = () => {
         const fetchTurnos = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await axios.get('http://localhost:8080/api/turnos', {
+                const response = await axios.get('https://backend-spa-sb.onrender.com/api/turnos', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -52,7 +52,7 @@ const AdminPanel = () => {
         const fetchClientes = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await axios.get('http://localhost:8080/api/clientes', {
+                const response = await axios.get('https://backend-spa-sb.onrender.com/api/clientes', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -77,7 +77,7 @@ const AdminPanel = () => {
     const eliminarTurno = async (turnoId) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:8080/api/turnos/${turnoId}`, {
+            await axios.delete(`https://backend-spa-sb.onrender.com/api/turnos/${turnoId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -91,7 +91,7 @@ const AdminPanel = () => {
     const eliminarCliente = async (clienteId) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:8080/api/clientes/${clienteId}`, {
+            await axios.delete(`https://backend-spa-sb.onrender.com/api/clientes/${clienteId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -149,7 +149,6 @@ const AdminPanel = () => {
                                     <th>Fecha</th>
                                     <th>Hora Inicio</th>
                                     <th>Hora Fin</th>
-                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -163,9 +162,6 @@ const AdminPanel = () => {
                                         <td>{new Date(turno.fecha).toLocaleDateString()}</td>
                                         <td>{new Date(turno.horaInicio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                                         <td>{new Date(turno.horaFin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
-                                        <td>
-                                            <button className={styles.deleteBtn} onClick={() => eliminarTurno(turno.id)}>Eliminar</button>
-                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -181,7 +177,6 @@ const AdminPanel = () => {
                                     <th>DNI</th>
                                     <th>Dirección</th>
                                     <th>Teléfono</th>
-                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -191,9 +186,6 @@ const AdminPanel = () => {
                                         <td>{cliente.dni}</td>
                                         <td>{cliente.direccion}</td>
                                         <td>{cliente.telefono}</td>
-                                        <td>
-                                            <button className={styles.deleteBtn} onClick={() => eliminarCliente(cliente.id)}>Eliminar</button>
-                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

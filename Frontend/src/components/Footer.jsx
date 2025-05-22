@@ -20,10 +20,10 @@ export const Footer = () => {
                 <div className={styles.column}>
                     <h4 className={styles.columnTitle}>Nuestras redes</h4>
                     <div className={styles.logoRow}>
-                        <img src={google} alt="Google" className={styles.logo} />
-                        <img src={ig} alt="Instagram" className={styles.logo} />
-                        <img src={facebook} alt="Facebook" className={styles.logo} />
-                        <img src={twitter} alt="X" className={styles.logo} />
+                        <img src={google} alt="Google" className={styles.logo} onClick={() => window.open("https://www.google.com", "_blank")} />
+                        <img src={ig} alt="Instagram" className={styles.logo} onClick={() => window.open("https://www.instagram.com", "_blank")}/>
+                        <img src={facebook} alt="Facebook" className={styles.logo} onClick={() => window.open("https://www.facebook.com", "_blank")} />
+                        <img src={twitter} alt="X" className={styles.logo} onClick={() => window.open("https://twitter.com", "_blank")}/>
                     </div>
                 </div>
 

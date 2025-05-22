@@ -34,7 +34,7 @@ export const Services = () => {
                         brindando bienestar.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$10.000 por persona</div>
+                    <div className={styles.card_cost}>$4.500 por persona</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
@@ -55,7 +55,7 @@ export const Services = () => {
                         en grupo.
                         </p>
                     </div>
-                    <div className={styles.card_cost}>$5500 por persona</div>
+                    <div className={styles.card_cost}>$2.200 por persona</div>
                 </div>
 
                 <Link to="/turnos" className={styles.card_button}>SOLICITAR</Link>
