@@ -1,40 +1,109 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
-import Home from './pages/Home'
-import { Footer } from './components/Footer'
-import Services_Beauty from './pages/Services_Beauty'
-import Services_Massage from './pages/Services_Massage'
-import Services_FaceTreat from './pages/Services_FaceTreat'
-import Services_Body from './pages/Services_body'
-import Services_Group from './pages/Services_Group'
-import Login from './pages/Login'
-import Turno from './pages/AppointmentForm'
-import AdminPanel from './pages/AdminPanel'
-import ScrollToTop from './components/ScrollTop'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import Servicios from './pages/Servicios';
+import PrivateRoute from './routes/PrivateRoute';
+import SolicitudTurno from './pages/SolicitudTurno';
+import Registro from './pages/Registro';
+import ProfesionalHome from './pages/ProfesionalHome';
+import Header from './components/header';
+import DraHome from './pages/DraHome';
+import CrearServicio from './pages/CrearServicio';
+import CrearTurnoManual from './pages/CrearTurnoManual';
+import ReportesPagos from './pages/ReportePagos';
+import HomePublic from './pages/HomePublic';
+import ServiciosPublic from './pages/ServiciosPublic';
+import TurnosPublic from './pages/TurnosPublic';
 
-function App() {
-    
-    const location = useLocation();
-    const hideFooterRoutes = ['/login', '/admin-panel']; // Podés agregar más rutas acá
-
-    const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
-
+export default function App() {
     return (
         <>
-            <ScrollToTop />
+        <Router>
+            <Header/>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/masajes" element={<Services_Massage />} />
-                <Route path="/belleza" element={<Services_Beauty />} />
-                <Route path="/tratamientosfaciales" element={<Services_FaceTreat />} />
-                <Route path="/tratamientoscorporales" element={<Services_Body />} />
-                <Route path="/grupales" element={<Services_Group />} />
-                <Route path="/login" element={<Login />} />
-                <Route path='/turnos' element={<Turno />}/>
-                <Route path='/admin-panel' element={<AdminPanel />}/>
-            </Routes>
-            {!shouldHideFooter && <Footer />}
-        </>
-    )
-}
+                <Route
+                    path="/login"
+                    element={
+                        <Login />
+                    }
+                />
 
-export default App
+                <Route
+                    path="/home"
+                    element={
+                        <Home />
+                    }
+                />
+                <Route
+                    path="/servicios-public"
+                    element={
+                        <ServiciosPublic />
+                    }
+                />
+                <Route
+                    path="/turnos"
+                    element={
+                        <TurnosPublic />
+                    }
+                />
+                <Route
+                    path="/servicios"
+                    element={
+                        <Servicios />
+                    }
+                />
+                <Route
+                    path="/solicitud-turno"
+                    element={
+                        <SolicitudTurno />
+                    }
+                />
+                <Route
+                    path="/register"
+                    element={
+                        <Registro />
+                    }
+                />
+                <Route
+                    path="/panel-profesional"
+                    element={
+                        <ProfesionalHome />
+                    }
+                />
+                <Route
+                    path="/dra"
+                    element={
+                        <DraHome />
+                    }
+                />
+                <Route
+                    path="/dra/crear-servicio"
+                    element={
+                        <CrearServicio />
+                    }
+                />
+                <Route
+                    path="/dra/crear-turno-manual"
+                    element={
+                        <CrearTurnoManual />
+                    }
+                />
+                <Route
+                    path="/dra/reportes"
+                    element={
+                        <ReportesPagos />
+                    }
+                />
+                {/* Redirección por defecto */}
+                <Route
+                    path="/"
+                    element={
+                        <HomePublic />
+                    }
+                />
+            </Routes>
+        </Router>
+        </>
+    );
+    
+}

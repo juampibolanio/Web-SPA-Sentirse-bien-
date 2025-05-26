@@ -1,26 +1,8 @@
-export const loginUser = async (credentials) => {
-    try {
-        const response = await fetch('https://backend-spa-sb.onrender.com/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                usuario: credentials.usuario,
-                password: credentials.password
-            })
-        });
+import axios from 'axios';
 
-        const token = await response.text(); 
-        console.log('Token recibido:', token);
+const API_URL = 'http://localhost:8080/api/auth/login'; // Cambiar si tu backend está en otra URL
 
-        if (!response.ok) {
-            throw new Error('Error al iniciar sesión');
-        }
-
-        return { token }; 
-    } catch (error) {
-        console.error('Error en loginUser:', error.message);
-        throw error;
-    }
-};
+export async function loginUser(credentials) {
+    const response = await axios.post(API_URL, credentials);
+    return response.data; // Debería contener el token
+}

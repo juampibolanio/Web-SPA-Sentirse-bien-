@@ -1,0 +1,141 @@
+/* Fuente */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap');
+
+.container {
+    font-family: 'Lora', serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+    color: #333;
+}
+
+.hero {
+    background: url('../assets/turnosHome/img5.jpg') center/cover no-repeat;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    border-radius: 0 0 24px 24px;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.heroContent h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.heroContent p {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.botonHero {
+    padding: 0.8rem 1.8rem;
+    background-color: #007b5e;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.botonHero:hover {
+    background-color: #00634c;
+}
+
+.tituloSeccion {
+    text-align: center;
+    font-size: 2rem;
+    color: #007b5e;
+    margin-bottom: 1rem;
+}
+
+.intro2 {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+
+.pasos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.paso {
+    background: #fefefe;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.paso:hover {
+    transform: translateY(-4px);
+}
+
+.paso h3 {
+    color: #444;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.paso p {
+    color: #555;
+    font-size: 1rem;
+}
+
+.paso img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+.infoExtra {
+    margin-top: 3rem;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.botonLogin {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    background-color: #007b5e;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.botonLogin:hover {
+    background-color: #005f49;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .pasos {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .heroContent h1 {
+        font-size: 2rem;
+    }
+
+    .heroContent p {
+        font-size: 1rem;
+    }
+}

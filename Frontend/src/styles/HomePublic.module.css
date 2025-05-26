@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+
+.container {
+    padding: 2rem 1rem;
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+    font-family: 'Lora', serif;
+    color: #4A4A4A;
+    background: #fdfdfd;
+    box-shadow: 0 6px 18px rgba(70, 116, 105, 0.15);
+    border-radius: 14px;
+}
+
+.title {
+    font-size: 2.8rem;
+    color: #2F4F4F;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.intro {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* === Hero Carrusel Full Ancho === */
+.heroCarousel {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+
+.heroCarousel .carousel .slide img {
+    width: 100vw;
+    height: 450px;
+    object-fit: cover;
+}
+
+.heroText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    padding: 0 1rem;
+    max-width: 90%;
+}
+
+.heroText h1 {
+    font-size: 3rem;
+    margin-bottom: 0.3rem;
+    font-weight: 700;
+}
+
+.heroText p {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+/* Secciones normales */
+.section {
+    margin: 3rem 0;
+    text-align: left;
+    border-left: 4px solid #2F4F4F;
+    padding-left: 1rem;
+}
+
+.section h2 {
+    color: #2F4F4F;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.highlight {
+    color: #007b5e;
+    font-weight: 600;
+}
+
+/* === Sección Mapas === */
+.mapsContainer {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mapIframe {
+    flex: 1 1 400px;
+    height: 300px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.mapIframe:hover {
+    transform: scale(1.03);
+}
+
+/* Formulario */
+.formulario {
+    max-width: 600px;
+    margin: 1rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputGroup label {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #2F4F4F;
+}
+
+.inputIconWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputIcon {
+    position: absolute;
+    left: 12px;
+    color: #007b5e;
+    font-size: 1.25rem;
+    pointer-events: none;
+}
+
+.inputGroup input,
+.inputGroup textarea {
+    padding: 0.6rem 0.6rem 0.6rem 2.8rem;
+    border-radius: 6px;
+    border: 1.5px solid #ccc;
+    font-size: 1rem;
+    font-family: 'Lora', serif;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    resize: vertical;
+}
+
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+    border-color: #007b5e;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 94, 0.3);
+}
+
+button[type="submit"] {
+    align-self: flex-start;
+    padding: 0.65rem 1.8rem;
+    font-size: 1.1rem;
+    background-color: #007b5e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-family: 'Lora', serif;
+    box-shadow: 0 5px 12px rgba(0, 123, 94, 0.4);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #005f46;
+    box-shadow: 0 6px 18px rgba(0, 95, 70, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .mapsContainer {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .heroText h1 {
+        font-size: 2.2rem;
+    }
+
+    .heroText p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1.5rem 1rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .intro {
+        font-size: 1.1rem;
+    }
+
+    .formulario {
+        max-width: 100%;
+    }
+}

@@ -1,129 +1,211 @@
-/* Estilos para el Header */
-body {
-    margin: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap');
 
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 30px;
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(0.2px);
-    color: white;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Lora', serif;
-}
-
-.header_logo_container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.logo {
-    height: 50px;
-}
-
-.slogan {
-    font-size: 1.5rem;
-    font-weight: lighter;
-    font-family: 'Playfair Display', serif;
-}
-
-.header_navbar {
-    display: flex;
-    align-items: center;
-}
-
-.header_navbar ul {
-    display: flex;
-    gap: 150px;
-    list-style: none;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-.header_navbar li {
-    display: inline;
+.header {
+    background: #467469;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Open Sans', sans-serif;
 }
 
-.header_navbar li a {
-    position: relative;
-    color: white;
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+}
+
+.logoLink {
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    font-size: 17px;
-    transition: color 0.3s ease;
 }
 
-.header_navbar li a::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: -5px;
-    transform: translateX(-50%) scaleX(0);
-    transform-origin: center;
-    width: 100%;
-    height: 2px;
-    background-color: #dddacd;
+.logoImg {
+    height: 40px;
+    width: auto;
+    margin-right: 0.6rem;
     transition: transform 0.3s ease;
 }
 
-.header_navbar li a:hover {
-    color: #dddacd;
+.logoLink:hover .logoImg {
+    transform: scale(1.05);
 }
 
-.header_navbar li a:hover::after {
-    transform: translateX(-50%) scaleX(1);
+.logoText {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ececec;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* Botón hamburguesa */
-.menu_toggle {
-    display: none;
-    flex-direction: column;
+.centerLinks {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.link {
+    color: #f0eded;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.link:hover {
+    color: #007b5e;
+}
+
+.link::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #007b5e;
+    transition: width 0.3s ease;
+}
+
+.link:hover::after {
+    width: 100%;
+}
+
+.icon {
+    font-size: 1.2rem;
+}
+
+/* Botón login */
+.loginButton {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: #ffffff;
+    color: #467469;
+    font-weight: 600;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 0.95rem;
     cursor: pointer;
-    gap: 5px;
 }
 
-.menu_toggle span {
-    height: 3px;
-    width: 25px;
-    background-color: white;
-    border-radius: 2px;
+.loginButton:hover {
+    background-color: #e0e0e0;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
-    .menu_toggle {
-        display: flex;
-    }
+.loginIcon {
+    font-size: 1.2rem;
+}
 
-    .header_navbar {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.95);
+.logoutIcon {
+    margin-right: 0.5rem;
+}
+
+/* Usuario a la derecha */
+.userPanel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.userNameButton {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.userNameButton:hover {
+    color: #e5e5e5;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
+    animation: fadeDown 0.3s ease forwards;
+    min-width: 200px;
+    z-index: 10;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.2rem;
+    color: #333;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 0.95rem;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dropdownItem:hover {
+    background-color: #f5f5f5;
+    color: #007b5e;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav {
         flex-direction: column;
-        align-items: center;
-        padding: 1rem;
-        display: none;
+        align-items: flex-start;
+        gap: 1rem;
     }
 
-    .active {
-        display: flex !important;
-    }
-
-    .header_navbar ul {
+    .centerLinks {
         flex-direction: column;
-        gap: 30px;
+        width: 100%;
     }
 
-    .header_navbar li a {
-        font-size: 20px;
+    .userPanel {
+        align-self: flex-end;
     }
 }

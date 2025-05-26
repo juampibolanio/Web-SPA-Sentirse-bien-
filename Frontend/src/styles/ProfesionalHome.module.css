@@ -1,0 +1,176 @@
+/* ProfesionalHome.module.css */
+
+:root {
+    --color-primario: #2c3e50;
+    /* Azul oscuro */
+    --color-secundario: #2980b9;
+    /* Azul medio */
+    --color-acento: #3498db;
+    /* Azul claro */
+    --color-fondo: #f5f8fa;
+    /* Gris muy claro */
+    --color-texto: #2c3e50;
+    /* Azul oscuro para texto */
+    --color-texto-claro: #7f8c8d;
+    /* Gris para texto secundario */
+    --color-boton-fondo: var(--color-secundario);
+    --color-boton-hover: #1f5a87;
+    --color-boton-texto: #fff;
+    --color-error: #e74c3c;
+    /* Rojo para errores */
+    --color-success: #27ae60;
+    /* Verde para mensajes de éxito */
+    --color-borde: #d1d8e0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    background-color: var(--color-fondo);
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(44, 62, 80, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--color-texto);
+}
+
+.titulo {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-primario);
+    border-bottom: 3px solid var(--color-acento);
+    padding-bottom: 0.25rem;
+}
+
+.botones {
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.botonImprimir,
+button {
+    cursor: pointer;
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
+    border: none;
+    padding: 0.6rem 1.3rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3);
+    user-select: none;
+}
+
+.botonImprimir:hover,
+button:hover {
+    background-color: var(--color-boton-hover);
+}
+
+label {
+    font-weight: 600;
+    color: var(--color-texto-claro);
+    margin-right: 0.5rem;
+}
+
+input[type='date'],
+select {
+    padding: 0.4rem 0.6rem;
+    font-size: 1rem;
+    border: 1.5px solid var(--color-borde);
+    border-radius: 5px;
+    transition: border-color 0.25s ease;
+    min-width: 160px;
+}
+
+input[type='date']:focus,
+select:focus {
+    outline: none;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 5px var(--color-acento);
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    box-shadow: 0 4px 10px rgba(44, 62, 80, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.tabla thead {
+    background-color: var(--color-secundario);
+    color: white;
+    font-weight: 700;
+    text-align: left;
+}
+
+.tabla th,
+.tabla td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e1e8f0;
+}
+
+.tabla tbody tr:hover {
+    background-color: #f0f5fa;
+    cursor: default;
+    transition: background-color 0.3s ease;
+}
+
+p {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: var(--color-texto-claro);
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .botones {
+        flex-direction: column;
+    }
+
+    input[type='date'],
+    select {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .tabla thead {
+        display: none;
+    }
+
+    .tabla,
+    .tabla tbody,
+    .tabla tr,
+    .tabla td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla tr {
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--color-borde);
+    }
+
+    .tabla td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .tabla td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        top: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        color: var(--color-secundario);
+    }
+}
