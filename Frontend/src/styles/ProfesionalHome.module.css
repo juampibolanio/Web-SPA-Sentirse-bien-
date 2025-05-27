@@ -174,3 +174,17 @@ p {
         color: var(--color-secundario);
     }
 }
+
+.filtros {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.estado {
+    font-weight: 500;
+    color: var(--color-texto-claro);
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}

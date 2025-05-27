@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/DraHome.module.css';
+import { FaStethoscope, FaUserClock, FaChartBar } from 'react-icons/fa';
 
 export default function DraHome() {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function DraHome() {
                     className={styles.button}
                     onClick={() => navigate('/dra/crear-servicio')}
                 >
+                    <FaStethoscope className={styles.icon} />
                     Crear nuevo servicio
                 </button>
 
@@ -25,6 +27,7 @@ export default function DraHome() {
                     className={styles.button}
                     onClick={() => navigate('/dra/crear-turno-manual')}
                 >
+                    <FaUserClock className={styles.icon} />
                     Crear turno
                 </button>
 
@@ -32,6 +35,7 @@ export default function DraHome() {
                     className={styles.button}
                     onClick={() => navigate('/dra/reportes')}
                 >
+                    <FaChartBar className={styles.icon} />
                     Reportes
                 </button>
             </div>

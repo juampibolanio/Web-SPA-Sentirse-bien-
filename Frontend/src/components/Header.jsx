@@ -6,6 +6,7 @@ import logo from '../assets/header/logo_spa.png';
 
 // Iconos
 import { FiLogIn, FiLogOut, FiHome, FiCalendar, FiHeart } from 'react-icons/fi';
+import { FaUser, FaCalendarCheck, FaChartBar, FaSpa } from 'react-icons/fa';
 
 export default function Header() {
     const [usuario, setUsuario] = useState(null);
@@ -22,6 +23,7 @@ export default function Header() {
                     setUsuario(userData);
                 } catch (error) {
                     setUsuario(null);
+                    console.log(error);
                 }
             } else {
                 setUsuario(null);
@@ -60,22 +62,34 @@ export default function Header() {
             case 'CLIENTE':
                 return (
                     <>
-                        <Link to="/home" className={styles.dropdownItem}>Mi Perfil</Link>
-                        <Link to="/mis-turnos" className={styles.dropdownItem}>Mis Turnos</Link>
+                        <Link to="/home" className={styles.dropdownItem}>
+                            <FaUser className={styles.icon} /> Mi Perfil
+                        </Link>
+                        <Link to="/mis-turnos" className={styles.dropdownItem}>
+                            <FaCalendarCheck className={styles.icon} /> Mis Turnos
+                        </Link>
                     </>
                 );
             case 'PROFESIONAL':
                 return (
                     <>
-                        <Link to="/home" className={styles.dropdownItem}>Mi Perfil</Link>
-                        <Link to="/panel-profesional" className={styles.dropdownItem}>Mis Turnos</Link>
+                        <Link to="/home" className={styles.dropdownItem}>
+                            <FaUser className={styles.icon} /> Mi Perfil
+                        </Link>
+                        <Link to="/panel-profesional" className={styles.dropdownItem}>
+                            <FaCalendarCheck className={styles.icon} /> Mis Turnos
+                        </Link>
                     </>
                 );
             case 'DRA_FELICIDAD':
                 return (
                     <>
-                        <Link to="/home" className={styles.dropdownItem}>Gestión del spa</Link>
-                        <Link to="/dra/reportes" className={styles.dropdownItem}>Reportes</Link>
+                        <Link to="/home" className={styles.dropdownItem}>
+                            <FaSpa className={styles.icon} /> Gestión del spa
+                        </Link>
+                        <Link to="/dra/reportes" className={styles.dropdownItem}>
+                            <FaChartBar className={styles.icon} /> Reportes
+                        </Link>
                     </>
                 );
             default:
@@ -96,7 +110,7 @@ export default function Header() {
                 <div className={styles.centerLinks}>
                     <Link to="/" className={styles.link}>
                         <FiHome className={styles.icon} />
-                        Home
+                        Inicio
                     </Link>
                     <Link to="/servicios-public" className={styles.link}>
                         <FiHeart className={styles.icon} />
@@ -122,7 +136,7 @@ export default function Header() {
                                 aria-haspopup="true"
                                 aria-expanded={menuVisible}
                             >
-                                Hola, {usuario.nombre} ▼
+                                <FaUser className={styles.userIcon} /> Hola, {usuario.nombre} ▼
                             </button>
                             {menuVisible && (
                                 <div className={styles.dropdownMenu}>

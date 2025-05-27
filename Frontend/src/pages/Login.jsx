@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiMail, FiLock } from 'react-icons/fi';
+import styles from '../styles/Login.module.css';
+import logo from '../assets/header/logo_spa.png';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [mensaje, setMensaje] = useState('');
-    const navigate = useNavigate(); // 👈 este hook permite redireccionar
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,14 +22,13 @@ export default function Login() {
             });
 
             if (!response.ok) {
-                throw new Error('Credenciales incorrectas');
+                throw new Error('Correo electrónico o contraseña incorrecta.');
             }
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
             navigate('/home');
             window.location.reload();
-            
 
         } catch (error) {
             setMensaje(error.message);
@@ -34,30 +36,51 @@ export default function Login() {
     };
 
     return (
-        <div style={{ padding: '2rem' }}>
-            <form onSubmit={handleSubmit}>
-                <h2>Iniciar Sesión</h2>
+        <div className={styles.loginContainer}>
+            <div className={styles.loginCard}>
+                <h2 className={styles.title}>Iniciar sesión</h2>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <div className={styles.inputGroup}>
+                        <label className={styles.label}>Correo electrónico</label>
+                        <div className={styles.inputWrapper}>
+                            <FiMail className={styles.icon} />
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                placeholder="ejemplo@mail.com"
+                                className={styles.input}
+                            />
+                        </div>
+                    </div>
 
-                <label>Email:</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
+                    <div className={styles.inputGroup}>
+                        <label className={styles.label}>Contraseña</label>
+                        <div className={styles.inputWrapper}>
+                            <FiLock className={styles.icon} />
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                placeholder="********"
+                                className={styles.input}
+                            />
+                        </div>
+                    </div>
 
-                <label>Contraseña:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                    <div className={styles.linksRow}>
+                        <p className={styles.linkLeft}>
+                            <a href="/register">¿No estás registrado? Regístrate aquí</a>
+                        </p>
+                    </div>
 
-                <button type="submit">Ingresar</button>
+                    <button className={styles.submitBtn} type="submit">Ingresar</button>
 
-                {mensaje && <p style={{ color: 'red' }}>{mensaje}</p>}
-            </form>
+                    {mensaje && <p className={styles.errorMsg}>{mensaje}</p>}
+                </form>
+            </div>
         </div>
     );
 }

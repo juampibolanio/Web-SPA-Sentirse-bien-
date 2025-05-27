@@ -1,28 +1,33 @@
 import React, { useState } from 'react';
 import styles from '../styles/ServiciosPublic.module.css';
+import { Sparkles, Layers, Users, Flower, Leaf } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-import AntiStress from '../assets/servicesHome/AntiStress.jpg'
-import Descontracturantes from '../assets/servicesHome/Descontracturante.jpg'
-import MasajesPiedras from '../assets/servicesHome/Masajes_con_piedras.jpg'
-import Circulatorios from '../assets/servicesHome/Circulatorios.jpg'
+import AntiStress from '../assets/servicesHome/AntiStress.jpg';
+import Descontracturantes from '../assets/servicesHome/Descontracturante.jpg';
+import MasajesPiedras from '../assets/servicesHome/Masajes_con_piedras.jpg';
+import Circulatorios from '../assets/servicesHome/Circulatorios.jpg';
+import LiftingPestañas from '../assets/servicesHome/Lifting_de_pestañas.jpg';
+import DepilacionFacial from '../assets/servicesHome/Depilacion_facial.jpg';
+import BellezaManosPies from '../assets/servicesHome/manos_pies.jpg';
+import PuntaDiamante from '../assets/servicesHome/microexfoliación.jpg';
+import LimpiezaProfunda from '../assets/servicesHome/limpieza_profunda_hidratacion.jpg';
+import CrioFrecuencia from '../assets/servicesHome/criofrecuencia.jpg';
+import Velaslim from '../assets/servicesHome/velaSlim.jpg';
+import Dermohealth from '../assets/servicesHome/dermoheatlh.jpg';
+import CrioFrecuenciaCorp from '../assets/servicesHome/criofrecuencia_corporal.jpg';
+import Ultracativacion from '../assets/servicesHome/ultracavitación.jpg';
+import Hidromasajes from '../assets/servicesHome/hidromasajes.jpg';
+import Yoga from '../assets/servicesHome/yoga_grupal.jpg';
+import BannerServicios from '../assets/servicesHome/TOP_SERVICES.jpg';
 
-import LiftingPestañas from '../assets/servicesHome/Lifting_de_pestañas.jpg'
-import DepilacionFacial from '../assets/servicesHome/Depilacion_facial.jpg'
-import BellezaManosPies from '../assets/servicesHome/manos_pies.jpg'
-
-import PuntaDiamante from '../assets/servicesHome/microexfoliación.jpg'
-import LimpiezaProfunda from '../assets/servicesHome/limpieza_profunda_hidratacion.jpg'
-import CrioFrecuencia from '../assets/servicesHome/criofrecuencia.jpg'
-
-import Velaslim from '../assets/servicesHome/velaSlim.jpg'
-import Dermohealth from '../assets/servicesHome/dermoheatlh.jpg'
-import CrioFrecuenciaCorp from '../assets/servicesHome/criofrecuencia_corporal.jpg'
-import Ultracativacion from '../assets/servicesHome/ultracavitación.jpg'
-
-import Hidromasajes from '../assets/servicesHome/hidromasajes.jpg'
-import Yoga from '../assets/servicesHome/yoga_grupal.jpg'
-
-import BannerServicios from '../assets/servicesHome/TOP_SERVICES.jpg'; // Ruta de la imagen de cabecera
+const iconos = {
+    'Masajes': <Sparkles size={20} className={styles.icon} />,
+    'Belleza': <Flower size={20} className={styles.icon} />,
+    'Tratamientos faciales': <Leaf size={20} className={styles.icon} />,
+    'Tratamientos corporales': <Layers size={20} className={styles.icon} />,
+    'Grupales': <Users size={20} className={styles.icon} />,
+};
 
 function ServiciosPublic() {
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
@@ -79,8 +84,8 @@ function ServiciosPublic() {
         <div className={styles.container}>
             <img src={BannerServicios} alt="Servicios Banner" className={styles.banner} />
 
-            <h1>Servicios</h1>
-            <p>Explorá nuestros tratamientos organizados por categoría.</p>
+            <h1 className={styles.titulo}>Nuestros Servicios</h1>
+            <p className={styles.subtitulo}>Explorá nuestros tratamientos por categoría</p>
 
             <div className={styles.botones}>
                 <button
@@ -95,14 +100,14 @@ function ServiciosPublic() {
                         className={categoriaSeleccionada === cat.nombre ? styles.activo : ''}
                         onClick={() => setCategoriaSeleccionada(cat.nombre)}
                     >
-                        {cat.nombre}
+                        {iconos[cat.nombre]} {cat.nombre}
                     </button>
                 ))}
             </div>
 
             {categoriasFiltradas.map(categoria => (
                 <div key={categoria.nombre} className={styles.categoria}>
-                    <h2>{categoria.nombre}</h2>
+                    <h2>{iconos[categoria.nombre]} {categoria.nombre}</h2>
                     <div className={styles.grid}>
                         {categoria.servicios.map(servicio => (
                             <div key={servicio.id} className={styles.card}>
@@ -111,14 +116,22 @@ function ServiciosPublic() {
                                     alt={servicio.nombre}
                                     className={styles.imagen}
                                 />
-                                <h3>{servicio.nombre}</h3>
-                                <p>{servicio.descripcion}</p>
-                                <p className={styles.precio}>${servicio.precio}</p>
+                                <div className={styles.texto}>
+                                    <h3>{servicio.nombre}</h3>
+                                    <p>{servicio.descripcion}</p>
+                                    <p className={styles.precio}>${servicio.precio}</p>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
             ))}
+
+            <div className={styles.botonFinal}>
+                <Link to="/servicios" className={styles.heroButton}>
+                    Solicitar servicios
+                </Link>
+            </div>
         </div>
     );
 }

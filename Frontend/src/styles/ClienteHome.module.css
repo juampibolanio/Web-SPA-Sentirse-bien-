@@ -1,25 +1,54 @@
+/* src/styles/ClienteHome.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap');
+
 .container {
     text-align: center;
     margin-top: 2rem;
+    font-family: 'Lora', serif ;
+    padding: 1rem;
+}
+
+.titulo {
+    font-size: 1.8rem;
+    color: #007b5e;
+    margin-bottom: 0.5rem;
+
+}
+
+.subtitulo {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2rem;
+
 }
 
 .botones {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: none;
-    background-color: #4caf50;
+.boton {
+    background-color: #007b5e;
     color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
-    background-color: #388e3c;
+.boton:hover {
+    background-color: #005f46;
+    transform: translateY(-2px);
+}
+
+.icono {
+    font-size: 1.2rem;
 }

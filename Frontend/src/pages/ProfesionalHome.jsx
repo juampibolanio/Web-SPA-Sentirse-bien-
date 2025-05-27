@@ -4,6 +4,7 @@ import { getToken } from '../auth/auth';
 import styles from '../styles/ProfesionalHome.module.css';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { FaPrint, FaFilePdf, FaUndo, FaCalendarDay } from 'react-icons/fa';
 
 export default function ProfesionalHome({ usuario }) {
     const [turnos, setTurnos] = useState([]);
@@ -89,21 +90,21 @@ export default function ProfesionalHome({ usuario }) {
 
             <div className={styles.botones}>
                 <button className={styles.botonImprimir} onClick={imprimirTurnos}>
-                    Imprimir Turnos
+                    <FaPrint style={{ marginRight: '6px' }} /> Imprimir
                 </button>
                 <button onClick={verTurnosDiaSiguiente}>
-                    Ver turnos del día siguiente
+                    <FaCalendarDay style={{ marginRight: '6px' }} /> Día siguiente
                 </button>
                 <button onClick={exportarPDF}>
-                    Exportar a PDF
+                    <FaFilePdf style={{ marginRight: '6px' }} /> Exportar PDF
                 </button>
                 <button onClick={limpiarFiltros}>
-                    Limpiar filtros
+                    <FaUndo style={{ marginRight: '6px' }} /> Limpiar filtros
                 </button>
             </div>
 
-            <div style={{ margin: '1rem 0' }}>
-                <label htmlFor="fechaFiltro">Filtrar por fecha: </label>
+            <div className={styles.filtros}>
+                <label htmlFor="fechaFiltro">Fecha:</label>
                 <input
                     type="date"
                     id="fechaFiltro"
@@ -112,8 +113,8 @@ export default function ProfesionalHome({ usuario }) {
                 />
             </div>
 
-            <div style={{ marginBottom: '1rem' }}>
-                <label htmlFor="servicioFiltro">Filtrar por servicio: </label>
+            <div className={styles.filtros}>
+                <label htmlFor="servicioFiltro">Servicio:</label>
                 <select
                     id="servicioFiltro"
                     value={servicioFiltro}
@@ -129,11 +130,11 @@ export default function ProfesionalHome({ usuario }) {
             </div>
 
             {loading ? (
-                <p>Cargando turnos...</p>
+                <p className={styles.estado}>Cargando turnos...</p>
             ) : error ? (
-                <p>{error}</p>
+                <p className={styles.estado} style={{ color: 'var(--color-error)' }}>{error}</p>
             ) : turnosFiltrados.length === 0 ? (
-                <p>No tenés turnos asignados con los filtros actuales.</p>
+                <p className={styles.estado}>No tenés turnos asignados con los filtros actuales.</p>
             ) : (
                 <>
                     <table className={styles.tabla}>
