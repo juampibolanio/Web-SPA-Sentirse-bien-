@@ -13,7 +13,7 @@ function ClienteHome({ usuario }) {
             <p className={styles.subtitulo}>¿Qué deseas hacer hoy?</p>
 
             <div className={styles.botones}>
-                <button onClick={() => navigate('/servicios')} className={styles.boton}>
+                <button onClick={() => navigate('/servicios-public')} className={styles.boton}>
                     <FaConciergeBell className={styles.icono} />
                     Ver Servicios
                 </button>

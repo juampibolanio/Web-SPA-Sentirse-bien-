@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram, FaPhone, FaEnvelope, FaMapMarkerAlt } from 're
 import { TiSocialTwitter } from "react-icons/ti";
 import { Link } from 'react-router-dom';
 import styles from '../styles/Footer.module.css';
-import logo from '../assets/header/logo_spa.png'; // Asegurate de tener el logo en esta ruta o ajustala
+import logo from '../assets/header/logo_spa.png';
 
 const Footer = () => {
     return (

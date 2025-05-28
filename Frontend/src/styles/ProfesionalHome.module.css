@@ -2,24 +2,16 @@
 
 :root {
     --color-primario: #2c3e50;
-    /* Azul oscuro */
     --color-secundario: #2980b9;
-    /* Azul medio */
     --color-acento: #3498db;
-    /* Azul claro */
     --color-fondo: #f5f8fa;
-    /* Gris muy claro */
     --color-texto: #2c3e50;
-    /* Azul oscuro para texto */
     --color-texto-claro: #7f8c8d;
-    /* Gris para texto secundario */
     --color-boton-fondo: var(--color-secundario);
     --color-boton-hover: #1f5a87;
     --color-boton-texto: #fff;
     --color-error: #e74c3c;
-    /* Rojo para errores */
     --color-success: #27ae60;
-    /* Verde para mensajes de éxito */
     --color-borde: #d1d8e0;
 }
 

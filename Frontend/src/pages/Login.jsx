@@ -8,11 +8,13 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [mensaje, setMensaje] = useState('');
+    const [loading, setLoading] = useState(false); // Estado para loader
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMensaje('');
+        setLoading(true); // Mostrar loader
 
         try {
             const response = await fetch('http://localhost:8080/api/auth/login', {
@@ -32,6 +34,8 @@ export default function Login() {
 
         } catch (error) {
             setMensaje(error.message);
+        } finally {
+            setLoading(false); // Ocultar loader
         }
     };
 
@@ -51,6 +55,7 @@ export default function Login() {
                                 required
                                 placeholder="ejemplo@mail.com"
                                 className={styles.input}
+                                disabled={loading}
                             />
                         </div>
                     </div>
@@ -66,6 +71,7 @@ export default function Login() {
                                 required
                                 placeholder="********"
                                 className={styles.input}
+                                disabled={loading}
                             />
                         </div>
                     </div>
@@ -76,7 +82,13 @@ export default function Login() {
                         </p>
                     </div>
 
-                    <button className={styles.submitBtn} type="submit">Ingresar</button>
+                    <button
+                        className={styles.submitBtn}
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading ? <div className={styles.loader}></div> : 'Ingresar'}
+                    </button>
 
                     {mensaje && <p className={styles.errorMsg}>{mensaje}</p>}
                 </form>

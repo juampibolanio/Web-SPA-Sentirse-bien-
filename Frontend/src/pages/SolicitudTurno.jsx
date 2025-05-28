@@ -1,8 +1,8 @@
-// src/pages/SolicitudTurno.jsx
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/SolicitudTurno.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getUserEmailFromToken, fetchUsuarioPorEmail } from '../auth/auth';
+import { FaCalendarAlt, FaClock, FaMoneyBillWave } from 'react-icons/fa';
 
 function SolicitudTurno() {
     const location = useLocation();
@@ -13,13 +13,14 @@ function SolicitudTurno() {
     const [pago, setPago] = useState('');
     const [error, setError] = useState('');
     const [exito, setExito] = useState('');
-    const serviciosSeleccionados = location.state?.servicios || [];
+    const [loading, setLoading] = useState(false);
+    const servicio = location.state?.servicio;
 
     useEffect(() => {
-        if (!serviciosSeleccionados.length) {
+        if (!servicio) {
             navigate('/servicios');
         }
-    }, [serviciosSeleccionados, navigate]);
+    }, [servicio, navigate]);
 
     const validarFecha = (f) => {
         const fechaElegida = new Date(f);
@@ -33,23 +34,25 @@ function SolicitudTurno() {
     const continuar = async () => {
         setError('');
         setExito('');
-        
+        setLoading(true);
+
         if (!fecha || !horaInicio || !horaFin || !pago) {
+            setLoading(false);
             setError('Por favor completá todos los campos');
             return;
         }
+
         if (!validarFecha(fecha)) {
+            setLoading(false);
             setError('La fecha debe tener al menos 48 hs de anticipación');
             return;
         }
 
-        if (serviciosSeleccionados.length === 0) {
-            setError('No hay servicios seleccionados');
+        if (!servicio) {
+            setLoading(false);
+            setError('No hay servicio seleccionado');
             return;
         }
-
-        // Tomamos sólo el primer servicio
-        const servicio = serviciosSeleccionados[0];
 
         try {
             const email = getUserEmailFromToken();
@@ -74,7 +77,7 @@ function SolicitudTurno() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify(turno) // sólo un turno
+                body: JSON.stringify(turno)
             });
 
             if (!res.ok) {
@@ -87,40 +90,42 @@ function SolicitudTurno() {
 
         } catch (err) {
             setError('Hubo un error al enviar el turno: ' + err.message);
-            console.log(err);
+            console.error(err);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div className={styles.container}>
-            <h2>Confirmar solicitud de turno</h2>
+            <h2 className={styles.titulo}>Solicitar Turno</h2>
 
             <div className={styles.seccion}>
                 <h3>Servicio seleccionado:</h3>
-                {serviciosSeleccionados.length > 0 ? (
-                    <p>{serviciosSeleccionados[0].nombre} - ${serviciosSeleccionados[0].precio}</p>
+                {servicio ? (
+                    <p className={styles.servicio}>{servicio.nombre} - ${servicio.precio}</p>
                 ) : (
                     <p>No hay servicio seleccionado</p>
                 )}
             </div>
 
             <div className={styles.seccion}>
-                <label>Fecha del turno:</label>
+                <label><FaCalendarAlt className={styles.icono}/> Fecha del turno:</label>
                 <input type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
             </div>
 
             <div className={styles.seccion}>
-                <label>Hora inicio:</label>
+                <label><FaClock className={styles.icono}/> Hora inicio:</label>
                 <input type="time" value={horaInicio} onChange={(e) => setHoraInicio(e.target.value)} />
             </div>
 
             <div className={styles.seccion}>
-                <label>Hora fin:</label>
+                <label><FaClock className={styles.icono}/> Hora fin:</label>
                 <input type="time" value={horaFin} onChange={(e) => setHoraFin(e.target.value)} />
             </div>
 
             <div className={styles.seccion}>
-                <label>Forma de pago:</label>
+                <label><FaMoneyBillWave className={styles.icono}/> Forma de pago:</label>
                 <select value={pago} onChange={(e) => setPago(e.target.value)}>
                     <option value="">Seleccionar</option>
                     <option value="debito">Débito (15% de descuento)</option>
@@ -130,8 +135,11 @@ function SolicitudTurno() {
 
             {error && <p className={styles.error}>{error}</p>}
             {exito && <p className={styles.exito}>{exito}</p>}
+            {loading && <div className={styles.loader}></div>}
 
-            <button className={styles.boton} onClick={continuar}>Confirmar</button>
+            <button className={styles.boton} onClick={continuar} disabled={loading}>
+                {loading ? 'Procesando...' : 'Confirmar'}
+            </button>
         </div>
     );
 }

@@ -249,7 +249,12 @@ function ReportesPagos() {
                 <button onClick={buscarPorServicio} disabled={loading}>Totales por Servicio</button>
             </div>
 
-            {loading && <p>Cargando datos...</p>}
+            {loading && (
+                <div className={styles.loader}>
+                    <div></div><div></div><div></div>
+                </div>
+            )}
+
             {error && <p className={styles.error}>{error}</p>}
 
             {pagosOrdenados.length > 0 && (

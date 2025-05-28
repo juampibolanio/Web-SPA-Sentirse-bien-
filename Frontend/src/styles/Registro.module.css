@@ -68,10 +68,19 @@
     cursor: pointer;
     font-size: 16px;
     font-family: 'Playfair Display', serif;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.submitBtn:hover {
+.submitBtn:hover:not(:disabled) {
     background-color: #e6e6e6;
+}
+
+.submitBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 .backBtn {
@@ -107,14 +116,18 @@
     transition: width 0.3s ease;
 }
 
-.backBtn:hover {
+.backBtn:hover:not(:disabled) {
     color: #ffffff;
 }
 
-.backBtn:hover::after {
+.backBtn:hover:not(:disabled)::after {
     width: 100%;
 }
 
+.backBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
 
 .iconBack {
     font-size: 0.8rem;

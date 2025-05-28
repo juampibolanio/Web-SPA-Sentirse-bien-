@@ -18,11 +18,10 @@ import imageMedium4 from '../assets/homePublic/imagenMed4.avif'
 
 import emailjs from 'emailjs-com'
 
-//Queda pendiente, terminar el home por completo. luego ir a los servicios. AGREGAR SERVICIOS A LA BD, REGISTRAR PROFESIONALES, TESTEAR TODO, AGREGAR TODOS LOS ESTILOS. 
-//tambien añadir mas secciones al home principal, preguntas frecuentes, sobre nosotros, etc. Añadir enlace desde login para registrar a un nuevo usuario
+
 function HomePublic() {
 
-    //Configuración de formulario
+    
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -41,9 +40,9 @@ function HomePublic() {
         console.log('Formulario enviado:', formData);
 
 
-        const serviceID = 'service_740jui9'; // Obtiene el ID del servicio en tu cuenta de EmailJS
-        const templateID = 'template_ey91ehp'; // Obtiene el ID de la plantilla en tu cuenta de EmailJS
-        const userID = 'Jxi-rcnsc0T3gnOtc'; // Obtiene tu user_id de EmailJS
+        const serviceID = 'service_740jui9'; 
+        const templateID = 'template_ey91ehp'; 
+        const userID = 'Jxi-rcnsc0T3gnOtc';
 
         // Enviar el correo a través de EmailJS
         emailjs.send(serviceID, templateID, formData, userID)

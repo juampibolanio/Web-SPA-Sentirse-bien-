@@ -1,20 +1,20 @@
-// src/pages/Servicios.jsx
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/Servicios.module.css'; // Usamos CSS Modules básicos
+import styles from '../styles/Servicios.module.css';
 import axios from 'axios';
-import { getToken } from '../auth/auth'; // Importá esto al principio
+import { getToken } from '../auth/auth';
 import { useNavigate } from 'react-router-dom';
-
+import { FaCheckCircle, FaMoneyBillWave, FaClipboardList } from 'react-icons/fa';
 
 function Servicios() {
     const [servicios, setServicios] = useState([]);
-    const [seleccionados, setSeleccionados] = useState([]);
+    const [servicioSeleccionado, setServicioSeleccionado] = useState(null);
+    const [cargando, setCargando] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         const token = getToken();
         if (!token) {
-            console.error('No hay token de autenticación. Redirigiendo o mostrando mensaje...');
+            console.error('No hay token de autenticación.');
             return;
         }
 
@@ -23,48 +23,66 @@ function Servicios() {
                 Authorization: `Bearer ${token}`
             }
         })
-            .then(response => {
-                setServicios(response.data);
-            })
-            .catch(error => {
-                console.error('Error al obtener los servicios:', error);
-            });
+        .then(response => {
+            setServicios(response.data);
+            setCargando(false);
+        })
+        .catch(error => {
+            console.error('Error al obtener los servicios:', error);
+            setCargando(false);
+        });
     }, []);
 
-
     const toggleSeleccion = (servicio) => {
-        const yaSeleccionado = seleccionados.find(s => s.id === servicio.id);
-        if (yaSeleccionado) {
-            setSeleccionados(seleccionados.filter(s => s.id !== servicio.id));
-        } else {
-            setSeleccionados([...seleccionados, servicio]);
-        }
+        setServicioSeleccionado(
+            servicioSeleccionado?.id === servicio.id ? null : servicio
+        );
     };
 
     const continuar = () => {
-        navigate('/solicitud-turno', { state: { servicios: seleccionados } });
+        if (servicioSeleccionado) {
+            navigate('/solicitud-turno', { state: { servicio: servicioSeleccionado } });
+        }
     };
 
     return (
         <div className={styles.container}>
-            <h2>Seleccioná uno o más servicios</h2>
-            <div className={styles.grid}>
-                {servicios.map(servicio => (
-                    <div
-                        key={servicio.id}
-                        className={`${styles.card} ${seleccionados.some(s => s.id === servicio.id) ? styles.seleccionado : ''}`}
-                        onClick={() => toggleSeleccion(servicio)}
-                    >
-                        <h3>{servicio.nombre}</h3>
-                        <p>{servicio.descripcion}</p>
-                        <p><strong>${servicio.precio}</strong></p>
+            <h2 className={styles.titulo}>
+                <FaClipboardList className={styles.iconoTitulo} /> Seleccioná un servicio
+            </h2>
+
+            {cargando ? (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                    <p className={styles.cargandoTexto}>Cargando servicios...</p>
+                </div>
+            ) : (
+                <>
+                    <div className={styles.grid}>
+                        {servicios.map(servicio => (
+                            <div
+                                key={servicio.id}
+                                className={`${styles.card} ${servicioSeleccionado?.id === servicio.id ? styles.seleccionado : ''}`}
+                                onClick={() => toggleSeleccion(servicio)}
+                            >
+                                <h3 className={styles.nombre}>
+                                    {servicioSeleccionado?.id === servicio.id && (
+                                        <FaCheckCircle className={styles.iconoCheck} />
+                                    )}
+                                    {servicio.nombre}
+                                </h3>
+                                <p className={styles.descripcion}>{servicio.descripcion}</p>
+                                <p className={styles.precio}><FaMoneyBillWave className={styles.iconoPrecio} /> ${servicio.precio}</p>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-            {seleccionados.length > 0 && (
-                <button className={styles.boton} onClick={continuar}>
-                    Continuar
-                </button>
+
+                    {servicioSeleccionado && (
+                        <button className={styles.boton} onClick={continuar}>
+                            Continuar
+                        </button>
+                    )}
+                </>
             )}
         </div>
     );

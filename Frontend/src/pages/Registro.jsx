@@ -1,4 +1,3 @@
-// src/pages/Registro.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Registro.module.css';
@@ -17,6 +16,7 @@ function Registro() {
 
     const [error, setError] = useState('');
     const [exito, setExito] = useState('');
+    const [cargando, setCargando] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,10 +26,12 @@ function Registro() {
         e.preventDefault();
         setError('');
         setExito('');
+        setCargando(true);
 
         const { nombre, apellido, dni, email, password } = form;
         if (!nombre || !apellido || !dni || !email || !password) {
             setError('Todos los campos son obligatorios');
+            setCargando(false);
             return;
         }
 
@@ -48,7 +50,8 @@ function Registro() {
             })
             .catch(() => {
                 setError('Hubo un problema al registrarse. Verificá los datos.');
-            });
+            })
+            .finally(() => setCargando(false));
     };
 
     return (
@@ -65,6 +68,7 @@ function Registro() {
                             value={form.nombre}
                             onChange={handleChange}
                             required
+                            disabled={cargando}
                         />
                     </div>
                     <div className={styles.inputGroup}>
@@ -76,6 +80,7 @@ function Registro() {
                             value={form.apellido}
                             onChange={handleChange}
                             required
+                            disabled={cargando}
                         />
                     </div>
                     <div className={styles.inputGroup}>
@@ -87,6 +92,7 @@ function Registro() {
                             value={form.dni}
                             onChange={handleChange}
                             required
+                            disabled={cargando}
                         />
                     </div>
                     <div className={styles.inputGroup}>
@@ -98,6 +104,7 @@ function Registro() {
                             value={form.email}
                             onChange={handleChange}
                             required
+                            disabled={cargando}
                         />
                     </div>
                     <div className={styles.inputGroup}>
@@ -109,14 +116,23 @@ function Registro() {
                             value={form.password}
                             onChange={handleChange}
                             required
+                            disabled={cargando}
                         />
                     </div>
 
-                    <button type="submit" className={styles.submitBtn}>Registrarse</button>
+                    <button
+                        type="submit"
+                        className={styles.submitBtn}
+                        disabled={cargando}
+                    >
+                        {cargando ? 'Registrando...' : 'Registrarse'}
+                    </button>
+
                     <button
                         type="button"
                         className={styles.backBtn}
                         onClick={() => navigate('/login')}
+                        disabled={cargando}
                     >
                         <FaArrowLeft className={styles.iconBack} />
                         ¿Ya tienes una cuenta? Inicia sesión

@@ -9,7 +9,7 @@ import img1 from '../assets/turnosHome/img1.jpg';
 import img2 from '../assets/turnosHome/img2.jpg';
 import img3 from '../assets/turnosHome/img3.jpg';
 import img4 from '../assets/turnosHome/img4.jpg';
-import banner from '../assets/servicesHome/TOP_SERVICES.jpg'; // imagen principal del banner
+import banner from '../assets/servicesHome/TOP_SERVICES.jpg'; 
 
 function TurnosPublic() {
     const navigate = useNavigate();

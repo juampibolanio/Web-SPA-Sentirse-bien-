@@ -65,9 +65,6 @@ export default function Header() {
                         <Link to="/home" className={styles.dropdownItem}>
                             <FaUser className={styles.icon} /> Mi Perfil
                         </Link>
-                        <Link to="/mis-turnos" className={styles.dropdownItem}>
-                            <FaCalendarCheck className={styles.icon} /> Mis Turnos
-                        </Link>
                     </>
                 );
             case 'PROFESIONAL':
@@ -75,9 +72,6 @@ export default function Header() {
                     <>
                         <Link to="/home" className={styles.dropdownItem}>
                             <FaUser className={styles.icon} /> Mi Perfil
-                        </Link>
-                        <Link to="/panel-profesional" className={styles.dropdownItem}>
-                            <FaCalendarCheck className={styles.icon} /> Mis Turnos
                         </Link>
                     </>
                 );

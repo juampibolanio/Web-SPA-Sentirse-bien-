@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Servicios from './pages/Servicios';
-import PrivateRoute from './routes/PrivateRoute';
 import SolicitudTurno from './pages/SolicitudTurno';
 import Registro from './pages/Registro';
 import ProfesionalHome from './pages/ProfesionalHome';
@@ -25,7 +24,7 @@ function AppContent() {
 
     useEffect(() => {
         setLoading(true);
-        const timer = setTimeout(() => setLoading(false), 600); // simula carga breve
+        const timer = setTimeout(() => setLoading(false), 600); 
         return () => clearTimeout(timer);
     }, [location]);
 

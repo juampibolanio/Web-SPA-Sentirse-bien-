@@ -1,7 +1,7 @@
-// src/pages/CrearServicio.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/CrearServicio.module.css';
+import { FaSpinner } from 'react-icons/fa';
 
 export default function CrearServicio() {
     const navigate = useNavigate();
@@ -12,11 +12,12 @@ export default function CrearServicio() {
     const [profesionales, setProfesionales] = useState([]);
     const [error, setError] = useState('');
     const [exito, setExito] = useState('');
+    const [loading, setLoading] = useState(false);
     const token = localStorage.getItem('token');
 
-    // Obtener lista de profesionales al cargar el componente
     useEffect(() => {
         const fetchProfesionales = async () => {
+            setLoading(true);
             try {
                 const res = await fetch('http://localhost:8080/api/usuarios/profesionales', {
                     headers: {
@@ -29,6 +30,8 @@ export default function CrearServicio() {
             } catch (err) {
                 console.error(err);
                 setError('No se pudo obtener la lista de profesionales');
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -42,6 +45,9 @@ export default function CrearServicio() {
         }
 
         setError('');
+        setExito('');
+        setLoading(true);
+
         try {
             const response = await fetch('http://localhost:8080/api/servicios/crear', {
                 method: 'POST',
@@ -66,12 +72,14 @@ export default function CrearServicio() {
         } catch (err) {
             console.error(err);
             setError('No se pudo crear el servicio.');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div className={styles.container}>
-            <h2>Crear nuevo servicio</h2>
+            <h2 className={styles.titulo}>Crear nuevo servicio</h2>
 
             <div className={styles.formGroup}>
                 <label>Nombre:</label>
@@ -85,15 +93,11 @@ export default function CrearServicio() {
 
             <div className={styles.formGroup}>
                 <label>Precio ($):</label>
-                <input
-                    type="number"
-                    value={precio}
-                    onChange={(e) => setPrecio(e.target.value)}
-                />
+                <input type="number" value={precio} onChange={(e) => setPrecio(e.target.value)} />
             </div>
 
             <div className={styles.formGroup}>
-                <label>Profesional que brinda este servicio:</label>
+                <label>Profesional:</label>
                 <select value={profesionalId} onChange={(e) => setProfesionalId(e.target.value)}>
                     <option value="">Seleccionar profesional</option>
                     {profesionales.map((p) => (
@@ -104,13 +108,24 @@ export default function CrearServicio() {
                 </select>
             </div>
 
+            {loading && (
+                <div className={styles.loaderContainer}>
+                    <FaSpinner className={styles.loader} />
+                    <p>Cargando...</p>
+                </div>
+            )}
+
             {error && <p className={styles.error}>{error}</p>}
             {exito && <p className={styles.success}>{exito}</p>}
 
-            <button className={styles.boton} onClick={handleCrear}>Crear</button>
-            <button className={styles.volver} onClick={() => navigate('/home')}>Volver</button>
+            <div className={styles.buttonGroup}>
+                <button className={styles.boton} onClick={handleCrear} disabled={loading}>
+                    Crear
+                </button>
+                <button className={styles.volver} onClick={() => navigate('/home')} disabled={loading}>
+                    Volver
+                </button>
+            </div>
         </div>
     );
 }
-
-//ACÁ QUEDAMOS EN SEGUIR TERMINANDO LA PESTAÑÑA DE LA DRA FELICIDAD

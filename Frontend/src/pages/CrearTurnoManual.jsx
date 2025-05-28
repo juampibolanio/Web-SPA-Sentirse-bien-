@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/CrearTurnoManual.module.css';
 import { useNavigate } from 'react-router-dom';
+import { FaSpinner, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 
 export default function CrearTurnoManual() {
     const navigate = useNavigate();
@@ -21,6 +22,8 @@ export default function CrearTurnoManual() {
     const [metodoPago, setMetodoPago] = useState('');
 
     const [mensaje, setMensaje] = useState('');
+    const [mensajeExito, setMensajeExito] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,8 +50,9 @@ export default function CrearTurnoManual() {
     }, [token]);
 
     const crearTurno = async () => {
-        if (!clienteId || !profesionalId || !servicioId || !fecha || !horaInicio || !horaFin) {
+        if (!clienteId || !profesionalId || !servicioId || !fecha || !horaInicio || !horaFin || !metodoPago) {
             setMensaje('Completá todos los campos obligatorios.');
+            setMensajeExito(false);
             return;
         }
 
@@ -64,6 +68,10 @@ export default function CrearTurnoManual() {
             metodoPago,
         };
 
+        setLoading(true);
+        setMensaje('');
+        setMensajeExito(false);
+
         try {
             const res = await fetch('http://localhost:8080/api/turnos/crear', {
                 method: 'POST',
@@ -74,16 +82,22 @@ export default function CrearTurnoManual() {
                 body: JSON.stringify(turno),
             });
 
+            setLoading(false);
+
             if (!res.ok) {
-                const errorTexto = await res.text(); // esto muestra el error devuelto por el backend
+                const errorTexto = await res.text();
                 console.error('Respuesta del backend:', errorTexto);
                 throw new Error('Error al crear el turno');
             }
+
             setMensaje('Turno creado correctamente.');
-            // limpiar formulario si querés
+            setMensajeExito(true);
         } catch (error) {
-            console.error(error);
             setMensaje('No se pudo crear el turno.');
+            setMensajeExito(false);
+            console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -145,20 +159,23 @@ export default function CrearTurnoManual() {
                 </select>
             </div>
 
-            <div className={styles.formGroup}>
-                <label>¿Pagado?</label>
-                <input type="checkbox" checked={pagado} onChange={() => setPagado(!pagado)} />
+            <div className={styles.checkboxGroup}>
+                <label><input type="checkbox" checked={pagado} onChange={() => setPagado(!pagado)} /> Pagado</label>
+                <label><input type="checkbox" checked={pagoWeb} onChange={() => setPagoWeb(!pagoWeb)} /> Pago Web</label>
             </div>
 
-            <div className={styles.formGroup}>
-                <label>¿Pago Web?</label>
-                <input type="checkbox" checked={pagoWeb} onChange={() => setPagoWeb(!pagoWeb)} />
+            <div className={styles.botones}>
+                <button onClick={crearTurno} className={styles.boton} disabled={loading}>
+                    {loading ? <FaSpinner className={styles.spinner} /> : 'Crear turno'}
+                </button>
+                <button onClick={() => navigate('/home')} className={styles.volver}>Volver</button>
             </div>
 
-            <button onClick={crearTurno} className={styles.boton}>Crear turno</button>
-            <button onClick={() => navigate('/home')} className={styles.volver}>Volver</button>
-
-            {mensaje && <p>{mensaje}</p>}
+            {mensaje && (
+                <p className={mensajeExito ? styles.success : styles.error}>
+                    {mensajeExito ? <FaCheckCircle /> : <FaExclamationTriangle />} {mensaje}
+                </p>
+            )}
         </div>
     );
 }
