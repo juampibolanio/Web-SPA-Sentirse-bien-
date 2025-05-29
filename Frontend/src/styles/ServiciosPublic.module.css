@@ -10,7 +10,7 @@
     padding: 2rem;
     text-align: center;
     font-family: 'Lora', serif;
-    background-color: #f8f5f2;
+    background-color: #F3FBF4; /* fondo claro, blanco verdoso */
 }
 
 .banner {
@@ -20,19 +20,19 @@
     object-fit: cover;
     margin-bottom: 2rem;
     border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px rgba(63, 139, 79, 0.12); /* sombra verde bambú suave */
 }
 
 .titulo {
     font-size: 2.7rem;
-    color: #a67f5b;
+    color: #3F8B4F; /* verde bambú oscuro */
     font-family: 'Playfair Display', serif;
     margin-bottom: 0.5rem;
 }
 
 .subtitulo {
     font-size: 1.2rem;
-    color: #5c5c5c;
+    color: #444444; /* texto principal */
     margin-bottom: 2rem;
     font-family: 'Lora', serif;
 }
@@ -46,8 +46,8 @@
 }
 
 .botones button {
-    background-color: #e2d6c6;
-    color: #2c3e50;
+    background-color: #D0F0E0; /* fondo calmante */
+    color: #3F8B4F; /* verde bambú */
     border: none;
     padding: 0.6rem 1.4rem;
     border-radius: 10px;
@@ -56,25 +56,25 @@
     align-items: center;
     gap: 0.5rem;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 6px rgba(63, 139, 79, 0.2);
     transition: all 0.3s ease;
     font-family: 'Lora', serif;
     font-size: 1rem;
 }
 
 .botones button:hover {
-    background-color: #c9b8a3;
-    color: #007b5e;
+    background-color: #3F8B4F; /* lila suave */
+    color: #fff;
     transform: scale(1.05);
 }
 
 .activo {
-    background-color: #a67f5b !important;
+    background-color: #4CAF50 !important; /* verde bambú principal */
     color: #fff !important;
 }
 
 .icon {
-    color: #a67f5b;
+    color: #B580C2; /* lila suave */
     font-size: 1.2rem;
 }
 
@@ -85,7 +85,7 @@
 
 .categoria h2 {
     font-size: 1.8rem;
-    color: #a67f5b;
+    color: #4CAF50; /* verde bambú principal */
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
@@ -100,7 +100,7 @@
 }
 
 .card {
-    background-color: #fff;
+    background-color: #FFFFFF;
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
     overflow: hidden;
@@ -109,7 +109,7 @@
 
 .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(101, 56, 149, 0.2); /* sombra lila suave */
 }
 
 .imagen {
@@ -124,27 +124,27 @@
 }
 
 .texto h3 {
-    color: #2c3e50;
+    color: #333333; /* texto principal */
     margin: 0.5rem 0;
     font-size: 1.2rem;
     font-family: 'Lora', serif;
 }
 
 .texto p {
-    color: #555;
+    color: #777777; /* texto suave */
     margin: 0.3rem 0;
     font-family: 'Lora', serif;
 }
 
 .precio {
     font-weight: bold;
-    color: #007b5e;
+    color: #3F8B4F; /* verde bambú oscuro */
     margin-top: 0.5rem;
     font-size: 1rem;
 }
 
 .heroButton {
-    background-color: #8e44ad;
+    background-color: #B580C2; /* lila suave */
     color: white;
     font-weight: bold;
     padding: 12px 24px;
@@ -157,7 +157,7 @@
 }
 
 .heroButton:hover {
-    background-color: #732d91;
+    background-color: #8e44ad; /* lila más oscuro */
 }
 
 .botonFinal {

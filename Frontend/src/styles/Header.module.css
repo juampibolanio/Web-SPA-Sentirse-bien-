@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lora&display=swap');
 
 * {
     box-sizing: border-box;
@@ -7,7 +7,7 @@
 }
 
 .header {
-    background: rgba(166, 127, 91, 0.8);
+    background: rgba(79, 139, 79, 0.85); /* verde bambú con opacidad */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     padding: 1rem 2rem;
@@ -15,11 +15,14 @@
     top: 0;
     z-index: 1000;
     font-family: 'Lora', serif;
+    box-shadow: 0 2px 8px rgba(63, 139, 79, 0.3);
 }
 
 .icon {
     margin-right: 8px;
     vertical-align: middle;
+    color: #B580C2; /* lila suave para íconos */
+    font-size: 1.2rem;
 }
 
 .nav {
@@ -45,6 +48,7 @@
     width: auto;
     margin-right: 0.6rem;
     transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 2px #3F8B4F);
 }
 
 .logoLink:hover .logoImg {
@@ -53,11 +57,12 @@
 
 .logoText {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 600;
-    color: #ececec;
+    color: #F3FBF4; /* blanco verdoso */
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-shadow: 0 0 4px #4CAF50;
 }
 
 .centerLinks {
@@ -67,7 +72,7 @@
 }
 
 .link {
-    color: #f0eded;
+    color: #F0FFF0; /* blanco verdoso más claro */
     text-decoration: none;
     font-weight: 500;
     position: relative;
@@ -75,10 +80,11 @@
     display: flex;
     align-items: center;
     font-size: 1.1rem;
+    font-family: 'Lora', serif;
 }
 
 .link:hover {
-    color: #007b5e;
+    color: #CBA0D2; /* acento lila suave */
 }
 
 .link::after {
@@ -88,7 +94,7 @@
     height: 2px;
     bottom: -4px;
     left: 0;
-    background-color: #007b5e;
+    background-color: #CBA0D2; /* acento lila */
     transition: width 0.3s ease;
 }
 
@@ -96,23 +102,18 @@
     width: 100%;
 }
 
-.icon {
-    font-size: 1.2rem;
-}
-
-/* Botón login y botón usuario (consistentes) */
+/* Botón login y usuario con estilo consistente */
 .loginButton,
 .userNameButton {
     display: flex;
     align-items: center;
     gap: 0.4rem;
     background-color: transparent;
-    color: #ffffff;
-    border: none;
+    color: #F3FBF4;
     padding: 0.5rem 1rem;
-    border-radius: 8px;
+    border-radius: 12px;
     text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     font-size: 1.1rem;
     cursor: pointer;
     font-family: 'Lora', serif;
@@ -121,8 +122,8 @@
 
 .loginButton:hover,
 .userNameButton:hover {
-    background-color: #007b5e;
-    color: #ffffff !important;
+    color: #F3FBF4 !important;
+    border-color: #D462A6; /* lila más intenso */
 }
 
 .loginButton::after,
@@ -133,7 +134,7 @@
     height: 2px;
     bottom: -4px;
     left: 0;
-    background-color: #007b5e;
+    background-color: #D462A6;
     transition: width 0.3s ease;
 }
 
@@ -144,11 +145,14 @@
 
 .loginIcon {
     font-size: 1.2rem;
+    color: #B580C2;
 }
 
 .logoutIcon {
     margin-right: 0.5rem;
+    color: #B580C2;
 }
+
 .userNameButton:focus {
     outline: none;
 }
@@ -163,14 +167,16 @@
 .userIcon {
     margin-right: 8px;
     font-size: 1.2rem;
+    color: #B580C2;
 }
 
+/* Dropdown Menu */
 .dropdownMenu {
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
+    background-color: #F3FBF4;
+    border: 1px solid #B580C2;
     border-radius: 8px;
     margin-top: 0.5rem;
     padding: 0.5rem 0;
@@ -178,6 +184,7 @@
     min-width: 200px;
     z-index: 10;
     font-family: 'Lora', serif;
+    box-shadow: 0 4px 12px rgba(63, 139, 79, 0.2);
 }
 
 @keyframes fadeDown {
@@ -196,7 +203,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.2rem;
-    color: #333;
+    color: #444;
     text-decoration: none;
     background-color: transparent;
     font-size: 0.95rem;
@@ -204,13 +211,13 @@
     width: 100%;
     text-align: left;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s;
     font-family: 'Lora', serif !important;
 }
 
 .dropdownItem:hover {
-    background-color: #f5f5f5;
-    color: #007b5e;
+    background-color: #D0F0E0; /* fondo verde suave */
+    color: #3F8B4F; /* verde bambú */
 }
 
 /* Responsive */

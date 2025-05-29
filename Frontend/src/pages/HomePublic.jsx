@@ -279,7 +279,7 @@ function HomePublic() {
                             </div>
                         </div>
 
-                        <button type="submit">Enviar</button>
+                        <button className={styles.buttonSubmit} type="submit">Enviar</button>
                     </form>
                 </section>
             </div>
