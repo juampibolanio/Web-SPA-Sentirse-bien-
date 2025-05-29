@@ -15,9 +15,11 @@ const Footer = () => {
             <div className={styles.footerColumns}>
                 <div className={styles.column}>
                     <h4 className={styles.columnTitle}>Contacto</h4>
-                    <p><FaMapMarkerAlt className={styles.icon} /> Calle Ficticia 123, Ciudad</p>
-                    <p><FaPhone className={styles.icon} /> +54 11 1234-5678</p>
-                    <p><FaEnvelope className={styles.icon} />contacto@spafelicidad.com</p>
+                    <p><FaMapMarkerAlt className={styles.icon} />Don Bosco 311, Resistencia</p>
+                    <p><FaPhone className={styles.icon} /> 3624-978693</p>
+                    <p><FaMapMarkerAlt className={styles.icon} />San Martín 1430, Corrientes</p>
+                    <p><FaPhone className={styles.icon} /> 3794-869473</p>
+                    <p><FaEnvelope className={styles.icon} />sentirsebienaf@gmail.com</p>
                 </div>
 
                 <div className={styles.column}>
