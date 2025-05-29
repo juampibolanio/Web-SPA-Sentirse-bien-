@@ -1,0 +1,8 @@
+Uso	Color sugerido	Código Hex
+🎯 Color principal (verde bambú)	Verde natural	#4CAF50 o #3F8B4F
+🎯 Color secundario (acento)	Lila suave	#CBA0D2 o #B580C2
+🎯 Fondo claro	Blanco verdoso	#F3FBF4 o #F0FFF0
+🎯 Texto principal	Gris oscuro	#333 o #444
+🎯 Texto suave o descripciones	Gris claro	#777
+🎯 Detalles de acento (botones, hovers)	Rosa orquídea	#E89AC7 o #D462A6
+🎯 Elementos calmantes (fondo sección)	Turquesa pálido	#D0F0E0 o #CFFFE5 Estos colores vamos a usar.
