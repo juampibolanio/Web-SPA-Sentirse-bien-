@@ -68,7 +68,7 @@
 }
 
 .botonHero:hover {
-    background-color: #005f49;
+    background-color: #B580C2;
 }
 
 .tituloSeccion {
@@ -92,7 +92,7 @@
 }
 
 .paso {
-    background: #f9f9f9;
+    background: #D0F0E0;
     padding: 1.7rem;
     border-radius: 18px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
@@ -126,7 +126,7 @@
 
 .iconoPaso {
     font-size: 2rem;
-    color: #007b5e;
+    color: #B580C2;
     margin-bottom: 0.8rem;
 }
 
@@ -154,7 +154,7 @@
 }
 
 .botonLogin:hover {
-    background-color: #005f49;
+    background-color: #B580C2;
 }
 
 /* Responsive */

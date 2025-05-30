@@ -51,7 +51,7 @@ select {
 .boton {
     margin-top: 2.5rem;
     padding: 0.75rem 1.8rem;
-    background-color: #007bff;
+    background-color: #3F8B4F;
     color: white;
     border: none;
     border-radius: 10px;
@@ -61,12 +61,12 @@ select {
 }
 
 .boton:disabled {
-    background-color: #7abaff;
+    background-color: #B580C2;
     cursor: not-allowed;
 }
 
 .boton:hover:enabled {
-    background-color: #0056b3;
+    background-color: #3F8B4F;
 }
 
 .icono {
@@ -89,7 +89,7 @@ select {
 .loader {
     margin: 1.5rem auto;
     border: 6px solid #f3f3f3;
-    border-top: 6px solid #007bff;
+    border-top: 6px solid #3F8B4F;
     border-radius: 50%;
     width: 38px;
     height: 38px;

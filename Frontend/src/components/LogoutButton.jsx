@@ -10,7 +10,7 @@ export default function LogoutButton() {
     };
 
     return (
-        <button onClick={handleLogout} style={{ marginTop: '1rem', padding: '0.5rem 1rem' }}>
+        <button onClick={handleLogout} style={{ marginTop: '1rem', padding: '0.5rem 1rem' }} >
             Cerrar sesión
         </button>
     );

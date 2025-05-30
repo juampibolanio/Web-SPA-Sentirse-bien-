@@ -12,6 +12,7 @@
     font-size: 1.8rem;
     color: #007b5e;
     margin-bottom: 0.5rem;
+    font-family: 'Lora', serif ;
 
 }
 
@@ -19,6 +20,7 @@
     font-size: 1.1rem;
     color: #555;
     margin-bottom: 2rem;
+    font-family: 'Lora', serif ;
 
 }
 
@@ -45,7 +47,7 @@
 }
 
 .boton:hover {
-    background-color: #005f46;
+    background-color: #E89AC7;
     transform: translateY(-2px);
 }
 

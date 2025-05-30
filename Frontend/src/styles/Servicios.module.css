@@ -21,7 +21,7 @@
 
 .iconoTitulo {
     font-size: 1.6rem;
-    color: #007bff;
+    color: #3F8B4F;
 }
 
 .grid {
@@ -53,7 +53,7 @@
     font-size: 1.4rem;
     margin-bottom: 0.6rem;
     font-weight: bold;
-    color: #007bff;
+    color: #B580C2;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -92,7 +92,7 @@
 .boton {
     margin-top: 3rem;
     padding: 0.8rem 2.5rem;
-    background-color: #007bff;
+    background-color: #D462A6;
     color: white;
     font-size: 1rem;
     border: none;
@@ -103,7 +103,7 @@
 }
 
 .boton:hover {
-    background-color: #0056b3;
+    background-color: #CBA0D2;
 }
 
 .loaderContainer {
@@ -116,7 +116,7 @@
 
 .loader {
     border: 6px solid #f3f3f3;
-    border-top: 6px solid #007bff;
+    border-top: 6px solid #CBA0D2;
     border-radius: 50%;
     width: 50px;
     height: 50px;
