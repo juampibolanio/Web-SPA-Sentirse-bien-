@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap');
 
-.container {
-    max-width: 600px;
+.contenedor {
+    max-width: 680px;
     margin: 3rem auto;
     padding: 2.5rem;
     border-radius: 16px;
-    background-color: #fefefe;
+    background-color: #fdfdfd;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     font-family: 'Lora', serif;
     color: #333;
 }
 
 .titulo {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 2rem;
     text-align: center;
     color: #2c3e50;
@@ -20,6 +20,19 @@
 
 .seccion {
     margin-top: 1.8rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.seccion select {
+    margin-top: 0.5rem;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    font-family: 'Lora', serif;
+    background-color: #fafafa;
+    transition: border-color 0.2s ease-in-out;
 }
 
 label {
@@ -28,6 +41,8 @@ label {
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.3rem;
+    font-size: 1rem;
+    color: #2c3e50;
 }
 
 input,
@@ -39,25 +54,46 @@ select {
     font-size: 1rem;
     margin-top: 0.3rem;
     font-family: 'Lora', serif;
+    background-color: #fafafa;
+    transition: border-color 0.2s ease-in-out;
 }
 
-.servicio {
+input:focus,
+select:focus {
+    border-color: #3F8B4F;
+    outline: none;
+}
+
+.servicioCard {
     background-color: #f1f1f1;
-    padding: 0.8rem;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 1.2rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border-left: 6px solid #3F8B4F;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.servicioCard:hover {
+    background-color: #f9f9f9;
+}
+
+.servicioCard h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 1.2rem;
 }
 
 .boton {
     margin-top: 2.5rem;
-    padding: 0.75rem 1.8rem;
+    padding: 0.8rem 2rem;
     background-color: #3F8B4F;
     color: white;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    font-size: 1.05rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.1s ease-in-out;
 }
 
 .boton:disabled {
@@ -66,37 +102,175 @@ select {
 }
 
 .boton:hover:enabled {
-    background-color: #3F8B4F;
+    background-color: #367c44;
+}
+
+.boton:active:enabled {
+    transform: scale(0.97);
 }
 
 .icono {
     color: #555;
+    font-size: 1.1rem;
 }
 
 .error {
     color: #d9534f;
     font-weight: bold;
-    margin-top: 1rem;
+    margin-top: 1.2rem;
+    background-color: #fbe9e9;
+    padding: 0.8rem;
+    border-radius: 8px;
 }
 
+.botonesContenedor {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.botonCancelar {
+    margin-top: 2.5rem;
+    padding: 0.8rem 2rem;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.1s ease-in-out;
+}
+
+.botonCancelar:hover {
+    background-color: #c9302c;
+}
+
+.botonCancelar:active {
+    transform: scale(0.97);
+}
+
+.botonCancelar:disabled {
+    background-color: #f5a9a7;
+    cursor: not-allowed;
+}
+.boton,
+.botonCancelar {
+    text-align: center;
+    display: inline-flex;         /* para centrar con flexbox */
+    justify-content: center;      /* centro horizontal */
+    align-items: center;          /* centro vertical */
+}
+
+/* Modal */
+.modalFondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContenido {
+    background-color: white;
+    padding: 2rem 2.5rem;
+    border-radius: 14px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: 'Lora', serif;
+    color: #333;
+}
+
+.modalContenido p {
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Asegura que el botón esté centrado en el modal */
+.modalCerrarBtn {
+    background-color: #c9302c;
+    border: none;
+    color: white;
+    padding: 0.7rem 1.8rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    display: block; /* Hace que sea un bloque para poder usar margin auto */
+    margin: 1rem auto 0 auto; /* Centra horizontalmente */
+    /* Opcional: agregar un margen vertical para separarlo del contenido */
+}
+
+.modalCerrarBtn:hover {
+    background-color: #367c44;
+}
+
+/* Modal tipos */
 .exito {
-    color: #28a745;
-    font-weight: bold;
-    margin-top: 1rem;
+    border-left: 6px solid #28a745;
 }
 
-/* Loader */
-.loader {
-    margin: 1.5rem auto;
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #3F8B4F;
-    border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    animation: spin 1s linear infinite;
+.error {
+    border-left: 6px solid #d9534f;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .contenedor {
+        margin: 2rem 1rem;
+        padding: 1.8rem;
+    }
+
+    .botonesContenedor {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .boton,
+    .botonCancelar {
+        width: 100%;
+        margin: 0;
+    }
+
+    .servicioCard {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo {
+        font-size: 1.8rem;
+    }
+
+    .servicioCard h3 {
+        font-size: 1.1rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input,
+    select {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    .boton,
+    .botonCancelar {
+        font-size: 1rem;
+        padding: 0.7rem;
+    }
 }

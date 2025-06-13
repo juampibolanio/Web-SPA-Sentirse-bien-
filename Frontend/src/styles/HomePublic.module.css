@@ -6,19 +6,18 @@
     padding: 0;
 }
 
+/* Contenedor principal */
 .container {
-    padding: 0rem 1rem;
+    padding: 0 1rem;
     max-width: 900px;
     margin: auto;
-    text-align: center;
     font-family: 'Lora', serif;
     color: #4A4A4A;
     background: #fdfdfd;
     border-radius: 14px;
 }
 
-
-/* -----------------------=== CARROUSEL -----------------------=== */
+/* ----------------------- CARROUSEL ----------------------- */
 .overlay {
     position: absolute;
     top: 0;
@@ -41,6 +40,7 @@
     height: 90vh;
     object-fit: cover;
     object-position: top center;
+    border-radius: 8px;
 }
 
 .line_over {
@@ -49,8 +49,10 @@
     width: 100%;
     background-color: #b8abab;
     margin: 20px auto;
+    max-width: 100%;
 }
 
+/* Texto superpuesto en el carousel */
 .heroText {
     position: absolute;
     top: 50%;
@@ -65,23 +67,25 @@
 }
 
 .heroText h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     margin-bottom: 0.3rem;
-    letter-spacing: 15px;
+    letter-spacing: 8px;
     font-weight: lighter;
 }
 
 .heroText p {
     font-size: 1.1rem;
+    margin-top: 0.5rem;
     color: white !important;
 }
 
+/* Botones en el hero */
 .buttonGroup {
     display: flex;
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
-    margin-top: 3.5rem;
+    margin-top: 2.5rem;
 }
 
 .heroButton {
@@ -92,34 +96,35 @@
     font-weight: bold;
     text-decoration: none;
     border-radius: 8px;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .heroButton:hover {
     background-color: #4CAF50;
+    color: #fff;
 }
 
-
-/* ------------------ACERCA DE -----------------------*/
+/* ----------------------- SECCIÓN ACERCA DE NOSOTROS ----------------------- */
 .icon_about {
-    width: 50px;
+    width: 80px;
+    height: 50px;
     margin-bottom: 10px;
-    background-image: #9b6c3f;
     filter: brightness(0) invert(0.3);
 }
 
 .line_about {
     border: none;
     border-top: 2px solid #9b6c3f;
-    width: 100vh;
+    width: 100%;
     margin: 10px auto 20px auto;
+    max-width: 100%;
 }
 
 .acerca {
     padding: 3rem 2rem;
     background-color: #f9f9f9;
     text-align: center;
-    font-family: 'Lora', serif;
 }
 
 .acerca h2 {
@@ -134,15 +139,15 @@
     margin: 0 auto 1rem auto;
     line-height: 1.6;
     color: #666;
-    text-wrap: pretty;
+    text-align: center;
 }
 
-/* ----------------------- IMAGEN ENTRE MEDIO -----------------------*/
+/* ----------------------- IMAGEN ENTRE MEDIO ----------------------- */
 .imageContainer {
     width: 100%;
+    overflow: hidden;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 .imageBelowAbout {
@@ -150,13 +155,14 @@
     height: 60vh;
     object-fit: cover;
     object-position: center;
+    border-radius: 8px;
 }
 
-/*  ----------------------- SECCION SERVICIOS & DÓNDE ENCONTRARNOS & MÉTODO DE PAGO & CONTACTO-----------------------*/
+/* ----------------------- SECCIÓN SERVICIOS ----------------------- */
 .servicios {
-    font-family: 'Lora', serif;
     padding: 3rem 2rem;
     background-color: #fdfdfd;
+    font-family: 'Lora', serif;
     text-align: center;
 }
 
@@ -164,32 +170,30 @@
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     color: #333;
-    text-align: center;
 }
 
 .descripcion {
     font-size: 1.2rem;
-    color: #555;
     margin-bottom: 2rem;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    text-wrap: wrap;
-    text-align: center;
     line-height: 1.6;
+    color: #555;
 }
 
-/* DATOS DE CONTACTO */
+/* ----------------------- SECCIÓN DÓNDE ENCONTRARNOS ----------------------- */
 .contacto {
-    font-family: 'Lora', serif;
     padding: 4rem 2rem;
+    background-color: #fdf9f6;
+    font-family: 'Lora', serif;
     text-align: center;
 }
 
 .contacto p {
     margin: 0.5rem 0;
-    color: #444;
     font-size: 1.2rem;
+    color: #444;
 }
 
 .titulo {
@@ -205,7 +209,7 @@
     height: 3px;
     background-color: #8e44ad;
     display: block;
-    margin: 0.5rem auto 0;
+    margin: 0.5rem auto 0 auto;
     border-radius: 2px;
 }
 
@@ -229,28 +233,27 @@
     max-width: 700px;
     margin: 0 auto 2rem;
     font-size: 1.2rem;
-    color: #444;
     line-height: 1.6;
+    color: #444;
 }
 
-
-/*  ----------------------- SECCION PREGUNTAS FRECUENTES -----------------------*/
+/* ----------------------- SECCIÓN PREGUNTAS FRECUENTES ----------------------- */
 .faq {
     padding: 3rem 2rem;
     background-color: #fff;
-    text-align: left;
     max-width: 800px;
     margin: 0 auto;
+    text-align: left;
 }
 
 .faq h2 {
     font-size: 2rem;
-    color: #4d4d4d;
     margin-bottom: 2rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     justify-content: center;
+    color: #4d4d4d;
 }
 
 .faqItem {
@@ -269,31 +272,13 @@
     line-height: 1.6;
 }
 
-
-
-/* ----------------------- Secciones normales ----------------------- */
-.section {
-    margin: 3rem 0;
-    text-align: left;
-    padding-left: 1rem;
-}
-
-.section h2 {
-    color: #2F4F4F;
-    font-weight: 700;
-    margin-bottom: 0.8rem;
-    text-align: center;
-    font-size: 2rem;
-}
-
-
-/* -----------------------=== Sección Mapas === -----------------------*/
+/* ----------------------- Sección Mapas ----------------------- */
 .mapsContainer {
     display: flex;
+    flex-wrap: wrap;
     gap: 3rem;
     justify-content: center;
     margin-top: 2rem;
-    align-items: center;
 }
 
 .mapCard {
@@ -310,39 +295,38 @@
     color: #444;
     margin-bottom: 0.8rem;
     font-family: 'Lora', serif;
-    text-decoration-line: underline;
-
+    text-decoration: underline;
 }
 
 .mapIframe {
     width: 100%;
     height: 300px;
-    border: none;
+    border: 2px solid #005f46;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     transition: transform 0.3s ease;
-    border: #005f46 2px solid;
 }
 
 .mapIframe:hover {
     transform: scale(1.03);
 }
 
-/* -----------------------Formulario----------------------- */
-
+/* ----------------------- FORMULARIO ----------------------- */
 .sectionFormulario {
     padding: 4rem 2rem;
-    text-align: center;
     background-color: #fdf9f6;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     font-family: 'Lora', serif;
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: center;
 }
 
 .sectionFormulario h2 {
     font-size: 2.5rem;
-    color: #2c3e50;
     margin-bottom: 0.5rem;
+    color: #2c3e50;
     position: relative;
 }
 
@@ -352,7 +336,7 @@
     height: 3px;
     background-color: #8e44ad;
     display: block;
-    margin: 0.5rem auto 0;
+    margin: 0.5rem auto 0 auto;
     border-radius: 2px;
 }
 
@@ -363,43 +347,45 @@
 }
 
 .formulario {
-    max-width: 600px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 1.8rem;
+    width: 100%;
 }
 
+/* Input groups */
 .inputGroup {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .inputGroup label {
     font-weight: 700;
-    color: #2F4F4F;
     margin-bottom: 0.4rem;
     font-size: 1rem;
+    color: #2F4F4F;
 }
 
 .inputIconWrapper {
     position: relative;
-    display: flex;
-    align-items: center;
+    width: 100%;
 }
 
 .inputIcon {
     position: absolute;
     left: 14px;
-    top: 55%;
+    top: 50%;
     transform: translateY(-50%);
     font-size: 1.25rem;
     color: #8e44ad;
 }
 
-.inputGroup input,
-.inputGroup textarea {
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
     padding: 0.75rem 1rem 0.75rem 42px;
     border: 1.5px solid #ccc;
     border-radius: 8px;
@@ -410,23 +396,24 @@
     transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-.inputGroup input:focus,
-.inputGroup textarea:focus {
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
     border-color: #8e44ad;
     box-shadow: 0 0 10px rgba(142, 68, 173, 0.2);
     outline: none;
 }
 
+/* Submit button */
 button[type="submit"] {
     align-self: center;
     padding: 0.75rem 2rem;
     font-size: 1.1rem;
     font-weight: 700;
-    color: white;
+    color: #fff;
     background-color: #8e44ad;
     border: none;
     border-radius: 10px;
-    font-family: 'Lora', serif;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(142, 68, 173, 0.3);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -437,36 +424,102 @@ button[type="submit"]:hover {
     box-shadow: 0 6px 18px rgba(115, 45, 145, 0.5);
 }
 
-/* -----------------------Responsive----------------------- */
+/* ----------------------- Responsive ----------------------- */
 @media (max-width: 900px) {
+    /* Para mapas y textos grandes en pantallas medianas */
     .mapsContainer {
         flex-direction: column;
+        align-items: center;
         gap: 1.5rem;
     }
 
     .heroText h1 {
         font-size: 2.2rem;
+        letter-spacing: 5px;
     }
 
     .heroText p {
         font-size: 1rem;
     }
+
+    .titulo {
+        font-size: 2.2rem;
+    }
+
+    .descripcion {
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 600px) {
+    /* Ajustes en pantallas pequeñas */
     .container {
         padding: 1.5rem 1rem;
+        border-radius: 8px;
     }
 
-    .title {
-        font-size: 2rem;
+    .heroText h1 {
+        font-size: 1.6rem;
+        letter-spacing: 3px;
     }
 
-    .intro {
-        font-size: 1.1rem;
+    .heroText p {
+        font-size: 0.9rem;
+    }
+
+    .buttonGroup {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .heroButton {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+    }
+
+    .titulo {
+        font-size: 1.8rem;
+    }
+
+    .descripcion {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .mapsContainer {
+        gap: 1rem;
+    }
+
+    .mapCard {
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+
+    .imageBelowAbout {
+        height: 40vh;
+    }
+
+    .sectionFormulario {
+        padding: 2rem 1rem;
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: none;
     }
 
     .formulario {
-        max-width: 100%;
+        gap: 1.2rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        padding-left: 38px;
+        font-size: 0.95rem;
+    }
+
+    button[type="submit"] {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
     }
 }

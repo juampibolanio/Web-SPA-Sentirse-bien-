@@ -42,6 +42,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+    background-color: transparent;
 }
 
 .label {
@@ -65,13 +66,22 @@
     font-size: 1.2rem;
 }
 
+.inputWrapper .input {
+    padding-left: 0; /* Por defecto */
+}
+
+.inputWrapper .icon + .input {
+    padding-left: 0.25rem; /* Ajusta este valor según necesites */
+}
+
 .input {
     flex: 1;
-    background: transparent;
-    border: none;
-    color: #F9F9F6;
+    background: transparent !important;
+    border: none !important;
+    color: #F9F9F6 !important;
     font-size: 1rem;
     font-family: 'Playfair Display', serif;
+    margin-left: 0 !important;
 }
 
 .input::placeholder {
@@ -114,6 +124,7 @@
     align-items: center;
     font-size: 0.9rem;
     color: #fefefe;
+    margin-top: 1rem;
 }
 
 .linkLeft a {
@@ -147,5 +158,76 @@
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .loginContainer {
+        padding: 2rem 1.5rem;
+    }
+
+    .loginCard {
+        padding: 2rem 3rem;
+        max-width: 450px;
+        border-radius: 0.8rem;
+    }
+
+    .title {
+        font-size: 24px;
+        margin-bottom: 1.5rem;
+    }
+
+    .submitBtn {
+        font-size: 15px;
+        padding: 0.6rem 1.5rem;
+    }
+
+    .linksRow {
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .loginContainer {
+        padding: 1.2rem 1rem;
+    }
+
+    .loginCard {
+        padding: 1.5rem 2rem;
+        max-width: 320px;
+        border-radius: 0.7rem;
+    }
+
+    .title {
+        font-size: 20px;
+        margin-bottom: 1rem;
+    }
+
+    .inputWrapper {
+        padding: 0.4rem 0.6rem;
+    }
+
+    .icon {
+        font-size: 1rem;
+        margin-right: 0.5rem;
+    }
+
+    .input {
+        font-size: 0.9rem;
+    }
+
+    .submitBtn {
+        font-size: 14px;
+        padding: 0.5rem 1.2rem;
+        border-radius: 12px;
+    }
+
+    .linksRow {
+        font-size: 0.8rem;
+        gap: 0.3rem;
     }
 }

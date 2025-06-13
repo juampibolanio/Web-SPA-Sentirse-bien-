@@ -43,7 +43,7 @@ const Footer = () => {
             </div>
 
             <div className={styles.credits}>
-                © {new Date().getFullYear()} Spa Felicidad. Todos los derechos reservados.
+                © {new Date().getFullYear()} Spa Sentirse Bien. Todos los derechos reservados.
                 <p>Desarrollado por: Bolanio Juan Pablo | Manuel Visñuk</p>
             </div>
         </footer>

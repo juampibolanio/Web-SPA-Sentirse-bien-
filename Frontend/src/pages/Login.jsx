@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiMail, FiLock } from 'react-icons/fi';
 import styles from '../styles/Login.module.css';
-import logo from '../assets/header/logo_spa.png';
 
 export default function Login() {
     const [email, setEmail] = useState('');

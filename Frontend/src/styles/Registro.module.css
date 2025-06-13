@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', serif !important;
     padding: 3.5rem;
 }
 
@@ -38,27 +38,32 @@
     border-radius: 3px;
     padding: 0.5rem;
     background-color: transparent;
+    text-align: left !important;
 }
 
 .inputGroup input {
-    border: none;
-    background: transparent;
+    all: unset !important;
+    border: none !important;
+    background: transparent !important;
     outline: none;
-    color: #F9F9F6;
+    color: #F9F9F6 !important;
     flex: 1;
     font-size: 1rem;
     font-family: 'Playfair Display', serif;
+    text-align: left; /* Alineación a la izquierda */
+    padding: 1rem !important;
 }
 
 .inputGroup input::placeholder {
     color: #F9F9F6;
-    opacity: 0.8;
+    opacity: 0.9;
+    font-size: 0.95rem;
 }
 
 .icon {
     color: #F9F9F6;
-    margin-right: 0.5rem;
     font-size: 1.2rem;
+    margin-left: 0.5rem;
 }
 
 .submitBtn {
@@ -74,14 +79,15 @@
     transition: background-color 0.3s ease;
 }
 
-.submitBtn:hover:not(:disabled) {
+.submitBtn:hover {
     background-color: #e6e6e6;
 }
 
 .submitBtn:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: not-allowed;
 }
+
 
 .backBtn {
     margin-top: 1rem;
@@ -143,4 +149,101 @@
     color: #ccffcc;
     margin-top: 1rem;
     font-size: 0.95rem;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .registerContainer {
+        padding: 2rem 1.5rem;
+    }
+
+    .registerCard {
+        padding: 2rem 3rem;
+        max-width: 450px;
+        border-radius: 0.8rem;
+    }
+
+    .title {
+        font-size: 24px;
+        margin-bottom: 1.5rem;
+    }
+
+    .inputGroup {
+        padding: 0.4rem 0.6rem;
+    }
+
+    .icon {
+        font-size: 1rem;
+        margin-right: 0.4rem;
+    }
+
+    .inputGroup input {
+        font-size: 0.95rem;
+        text-align: left; /* Alineación a la izquierda en pantallas pequeñas */
+    }
+
+    .inputGroup input::placeholder {
+        font-size: 0.9rem;
+        opacity: 1;
+    }
+
+    .submitBtn {
+        font-size: 15px;
+        padding: 0.6rem 1.2rem;
+        border-radius: 4px;
+    }
+
+    .backBtn {
+        font-size: 0.9rem;
+        gap: 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .registerContainer {
+        padding: 1.2rem 1rem;
+    }
+
+    .registerCard {
+        padding: 1.5rem 2rem;
+        max-width: 320px;
+        border-radius: 0.7rem;
+    }
+
+    .title {
+        font-size: 20px;
+        margin-bottom: 1rem;
+    }
+
+    .inputGroup input {
+        font-size: 0.9rem;
+        text-align: left; /* En pantallas muy pequeñas también aseguramos */
+    }
+
+    .icon {
+        font-size: 0.9rem;
+        margin-right: 0.3rem;
+    }
+
+    .inputGroup input {
+        font-size: 0.9rem;
+    }
+
+    .inputGroup input::placeholder {
+        font-size: 0.85rem;
+        opacity: 1;
+    }
+
+    .submitBtn {
+        font-size: 14px;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+    }
+
+    .backBtn {
+        font-size: 0.85rem;
+        gap: 0.3rem;
+    }
 }

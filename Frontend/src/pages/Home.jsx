@@ -56,9 +56,6 @@ export default function Home() {
                     <p className={styles.rol}>Rol: {usuario.rol.replace('_', ' ')}</p>
                 </div>
                 <HomeComponent usuario={usuario} />
-                <div className={styles.logoutWrapper}>
-                    <LogoutButton />
-                </div>
             </div>
         </div>
     );

@@ -1,15 +1,22 @@
 /* src/styles/Home.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap');
 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .container {
+    width: 100%;
     font-family: 'Lora', serif;
     padding: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 100px);
     background: linear-gradient(135deg, #f3fdfc, #e3f5f2);
     font-family: 'Lora', serif !important;
+    flex-direction: column;
 }
 
 .card {
@@ -17,7 +24,6 @@
     border-radius: 20px;
     padding: 2.5rem;
     width: 100%;
-    max-width: 800px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
@@ -56,9 +62,7 @@
     background-color: #ffd2d2;
     padding: 1rem 2rem;
     border-radius: 12px;
-    font-weight: bold;
     text-align: center;
-    max-width: 500px;
     margin: 2rem auto;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }

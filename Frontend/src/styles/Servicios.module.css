@@ -17,6 +17,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    text-align: center;
 }
 
 .iconoTitulo {
@@ -46,7 +47,7 @@
 .card:hover {
     transform: translateY(-6px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    background-color: #f4fdf4;
 }
 
 .nombre {
@@ -87,10 +88,18 @@
 .seleccionado {
     border: 2px solid #28a745;
     background-color: #e6fbe6;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.3);
+    transform: scale(1.02);
+}
+
+.botonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    position: relative;
 }
 
 .boton {
-    margin-top: 3rem;
     padding: 0.8rem 2.5rem;
     background-color: #D462A6;
     color: white;
@@ -133,4 +142,51 @@
     color: #555;
     font-size: 1.1rem;
     font-style: italic;
+}
+
+/* ✅ Responsive */
+@media (max-width: 600px) {
+    .titulo {
+        font-size: 1.5rem;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .grid {
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+    }
+
+    .card {
+        padding: 1.3rem 1rem;
+    }
+
+    .nombre {
+        font-size: 1.2rem;
+    }
+
+    .descripcion {
+        font-size: 0.95rem;
+    }
+
+    .precio {
+        font-size: 1rem;
+    }
+
+    .botonContainer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 1rem;
+        background: #fdfbfb;
+        border-top: 1px solid #ddd;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+        z-index: 100;
+    }
+
+    .boton {
+        width: 100%;
+        font-size: 1rem;
+    }
 }

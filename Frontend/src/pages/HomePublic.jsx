@@ -94,7 +94,7 @@ function HomePublic() {
                     <h1>SENTIRSE BIEN SPA</h1>
                     <p>Tu espacio de relajación, salud y bienestar. Servicios profesionales para cuidar de vos.</p>
                     <div className={styles.buttonGroup}>
-                        <Link to="/servicios" className={styles.heroButton}>Ver Servicios</Link>
+                        <Link to="/servicios-public" className={styles.heroButton}>Ver Servicios</Link>
                         <Link to="/turnos" className={styles.heroButton}>Pedir Turno</Link>
                     </div>
                 </div>
@@ -244,6 +244,13 @@ function HomePublic() {
                         <FaEnvelope className={styles.icono} />
                         <div>
                             <p><strong>sentirsebienaf@gmail.com</strong></p>
+                        </div>
+                    </div>
+
+                    <div className={styles.dato}>
+                        <div>
+                            <p>  Lunes a viernes: de 9 a 20 hs.</p>
+                            <p>  Sábados: de 9 a 14 hs.</p>
                         </div>
                     </div>
                 </section>

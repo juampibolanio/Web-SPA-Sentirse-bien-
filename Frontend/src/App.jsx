@@ -24,12 +24,20 @@ function AppContent() {
 
     useEffect(() => {
         setLoading(true);
-        const timer = setTimeout(() => setLoading(false), 600); 
+        const timer = setTimeout(() => setLoading(false), 600);
         return () => clearTimeout(timer);
     }, [location]);
 
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "https://www.chatbase.co/embed.min.js";
+        script.id = "iI4B1Odx4mDZkyNhLBtBw";  // tu ID personalizado
+        script.setAttribute("domain", "www.chatbase.co");
+        document.body.appendChild(script);
+    }, []);
     return (
         <>
+
             {loading && <PageLoader />}
             <Header />
             <Routes>

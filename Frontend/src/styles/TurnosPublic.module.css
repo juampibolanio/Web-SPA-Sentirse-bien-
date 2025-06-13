@@ -135,6 +135,9 @@
     font-size: 1.2rem;
     text-align: center;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .infoExtra p {
