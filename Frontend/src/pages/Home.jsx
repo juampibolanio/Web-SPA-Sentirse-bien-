@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import { useEffect, useState } from 'react';
 import { getUserEmailFromToken } from '../auth/auth';
 import { getUsuarioPorEmail } from '../services/userService';
@@ -14,37 +13,47 @@ export default function Home() {
     const [error, setError] = useState('');
     const email = getUserEmailFromToken();
 
-    useEffect(() => {
-        async function fetchUsuario() {
-            if (email) {
-                try {
-                    const data = await getUsuarioPorEmail(email);
-                    setUsuario(data);
-                } catch (err) {
-                    setError('No se pudo obtener la información del usuario.');
-                    console.log(err);
-                }
+    const fetchUsuario = async () => {
+        if (email) {
+            try {
+                const data = await getUsuarioPorEmail(email);
+                setUsuario(data);
+                setError('');
+            } catch (err) {
+                setError('No se pudo obtener la información del usuario.');
+                console.log(err);
             }
         }
+    };
+
+    useEffect(() => {
         fetchUsuario();
     }, [email]);
 
-    if (error) return <p className={styles.error}>{error}</p>;
-    if (!usuario) return <p className={styles.loading}></p>;
+    if (error) return (
+        <div className={styles.errorContainer}>
+            <p className={styles.error}>{error}</p>
+            <button className={styles.retryButton} onClick={fetchUsuario}>Reintentar</button>
+        </div>
+    );
+
+    if (!usuario) return <p className={styles.loading}>Cargando información...</p>;
+
+    const rol = usuario?.rol || '';
 
     let HomeComponent;
     let icono;
-    if (usuario.rol === 'CLIENTE') {
+    if (rol === 'CLIENTE') {
         HomeComponent = ClienteHome;
         icono = <FaUserCircle className={styles.iconoRol} />;
-    } else if (usuario.rol === 'PROFESIONAL') {
+    } else if (rol === 'PROFESIONAL') {
         HomeComponent = ProfesionalHome;
         icono = <FaUserTie className={styles.iconoRol} />;
-    } else if (usuario.rol === 'DRA_FELICIDAD') {
+    } else if (rol === 'DRA_FELICIDAD') {
         HomeComponent = DraHome;
         icono = <FaUserMd className={styles.iconoRol} />;
     } else {
-        return <p className={styles.error}>Rol desconocido: {usuario.rol}</p>;
+        return <p className={styles.error}>Rol desconocido: {rol}</p>;
     }
 
     return (
@@ -53,7 +62,8 @@ export default function Home() {
                 <div className={styles.header}>
                     {icono}
                     <h2 className={styles.titulo}>Bienvenido/a, {usuario.nombre}</h2>
-                    <p className={styles.rol}>Rol: {usuario.rol.replace('_', ' ')}</p>
+                    <p className={styles.rol}>Rol: {rol.replace(/_/g, ' ')}</p>
+                    <LogoutButton />
                 </div>
                 <HomeComponent usuario={usuario} />
             </div>

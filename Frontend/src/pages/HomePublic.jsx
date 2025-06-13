@@ -1,33 +1,40 @@
 import React, { useState } from 'react';
 import styles from '../styles/HomePublic.module.css';
 
+// Importa el componente Carousel para mostrar imágenes con transición automática
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+// Importa imágenes para el carrusel
 import spa1 from '../assets/carrouselHome/spa1.jpg';
 import spa2 from '../assets/carrouselHome/spa2.jpg';
 import spa3 from '../assets/carrouselHome/spa3.jpg';
 
+// Importa íconos para usar en diferentes secciones del sitio
 import { FaQuestionCircle, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import { FiMail, FiUser, FiMessageCircle } from 'react-icons/fi';
 
+// Importa Link de react-router-dom para navegación interna sin recarga
 import { Link } from 'react-router-dom';
 
-import logo from '../assets/homePublic/LOGO.png'
-import imageMedium from '../assets/homePublic/imagenMed.jpg'
-import imageMedium4 from '../assets/homePublic/imagenMed4.avif'
+// Imágenes adicionales para contenido visual estático
+import logo from '../assets/homePublic/LOGO.png';
+import imageMedium from '../assets/homePublic/imagenMed.jpg';
+import imageMedium4 from '../assets/homePublic/imagenMed4.avif';
 
-import emailjs from 'emailjs-com'
-
+// Librería para enviar correos desde frontend vía EmailJS
+import emailjs from 'emailjs-com';
 
 function HomePublic() {
 
-    
+    // Estado para controlar los datos del formulario de contacto
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         message: ''
     });
 
+    // Actualiza el estado con los valores que ingresa el usuario en el formulario
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -35,11 +42,12 @@ function HomePublic() {
         });
     };
 
+    // Envía el formulario usando EmailJS y resetea campos o muestra error
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Formulario enviado:', formData);
 
-
+        // IDs de EmailJS (configurados en el panel de EmailJS)
         const serviceID = 'service_740jui9'; 
         const templateID = 'template_ey91ehp'; 
         const userID = 'Jxi-rcnsc0T3gnOtc';
@@ -61,7 +69,6 @@ function HomePublic() {
             });
     };
 
-
     return (
         <>
             {/* --------------------- SECCIÓN CARROUSEL --------------------- */}
@@ -78,17 +85,13 @@ function HomePublic() {
                     emulateTouch
                     interval={5000}
                 >
-                    <div>
-                        <img src={spa1} alt="Spa 1" />
-                    </div>
-                    <div>
-                        <img src={spa2} alt="Spa 2" />
-                    </div>
-                    <div>
-                        <img src={spa3} alt="Spa 3" />
-                    </div>
+                    {/* Imágenes que rotan en el carrusel */}
+                    <div><img src={spa1} alt="Spa 1" /></div>
+                    <div><img src={spa2} alt="Spa 2" /></div>
+                    <div><img src={spa3} alt="Spa 3" /></div>
                 </Carousel>
 
+                {/* Texto y botones sobre el carrusel */}
                 <div className={styles.heroText}>
                     <hr className={styles.line_over} />
                     <h1>SENTIRSE BIEN SPA</h1>
@@ -114,7 +117,6 @@ function HomePublic() {
                     Nuestro equipo está conformado por profesionales certificados en estética, masajes, y
                     terapias corporales. Nos apasiona ayudarte a <strong>Sentirte Bien</strong>, por dentro y por fuera.
                 </p>
-
             </section>
 
             {/* --------------------- IMAGEN ENTRE MEDIO 1 --------------------- */}
@@ -129,7 +131,7 @@ function HomePublic() {
                 <h2 className={styles.titulo}>Nuestros Servicios</h2>
                 <p className={styles.descripcion}>
                     Cada persona es única, y por eso nuestros servicios están pensados para acompañarte en tu propio camino hacia el bienestar.
-                    s tratamientos que relajan, equilibran y revitalizan, combinando técnicas profesionales con un enfoque consciente y personalizado.
+                    Tratamientos que relajan, equilibran y revitalizan, combinando técnicas profesionales con un enfoque consciente y personalizado.
                     Te invitamos a descubrir un espacio donde cuerpo y mente se alinean en perfecta armonía.
                 </p>
                 <div className={styles.buttonGroup}>
@@ -154,15 +156,13 @@ function HomePublic() {
                 </p>
             </section>
 
-
-            {/* --------------------- SECCIONES EXTRAS --------------------- */}
+            {/* --------------------- SECCIÓN DE MAPAS CON UBICACIONES --------------------- */}
             <div className={styles.container}>
-
-                {/* --------------------- SECCIÓN DE MAPAS --------------------- */}
                 <section className={styles.servicios}>
                     <h2 className={styles.titulo}>Nuestras Sedes</h2>
 
                     <div className={styles.mapsContainer}>
+                        {/* Mapa de la sede Resistencia */}
                         <div className={styles.mapCard}>
                             <h3 className={styles.mapTitle}>Resistencia</h3>
                             <iframe
@@ -175,6 +175,7 @@ function HomePublic() {
                             ></iframe>
                         </div>
 
+                        {/* Mapa de la sede Corrientes */}
                         <div className={styles.mapCard}>
                             <h3 className={styles.mapTitle}>Corrientes</h3>
                             <iframe
@@ -190,7 +191,6 @@ function HomePublic() {
                 </section>
 
                 {/* --------------------- SECCIÓN DE MÉTODOS DE PAGO --------------------- */}
-
                 <section className={styles.servicios}>
                     <img src={logo} alt="Decoración" className={styles.icon_about} />
                     <hr className={styles.line_about} />
@@ -201,8 +201,7 @@ function HomePublic() {
                     </p>
                 </section>
 
-
-                {/* --------------------- SECCIÓN DATOS DE CONTACTO --------------------- */}
+                {/* --------------------- SECCIÓN DE CONTACTO --------------------- */}
                 <section className={styles.contacto}>
                     <img src={logo} alt="Decoración" className={styles.icon_about} />
                     <hr className={styles.line_about} />
@@ -212,6 +211,7 @@ function HomePublic() {
                         Estamos acá para ayudarte. Si tenés dudas, querés reservar un turno o simplemente necesitás más información sobre nuestros servicios, no dudes en escribirnos.
                     </p>
 
+                    {/* Dirección y teléfono Resistencia */}
                     <div className={styles.dato}>
                         <FaMapMarkerAlt className={styles.icono} />
                         <div>
@@ -226,6 +226,7 @@ function HomePublic() {
                         </div>
                     </div>
 
+                    {/* Dirección y teléfono Corrientes */}
                     <div className={styles.dato}>
                         <FaMapMarkerAlt className={styles.icono} />
                         <div>
@@ -240,6 +241,7 @@ function HomePublic() {
                         </div>
                     </div>
 
+                    {/* Email */}
                     <div className={styles.dato}>
                         <FaEnvelope className={styles.icono} />
                         <div>
@@ -247,42 +249,69 @@ function HomePublic() {
                         </div>
                     </div>
 
+                    {/* Horarios */}
                     <div className={styles.dato}>
                         <div>
-                            <p>  Lunes a viernes: de 9 a 20 hs.</p>
-                            <p>  Sábados: de 9 a 14 hs.</p>
+                            <p>Lunes a viernes: de 9 a 20 hs.</p>
+                            <p>Sábados: de 9 a 14 hs.</p>
                         </div>
                     </div>
                 </section>
 
-
-
-                {/* --------------------- SECCIÓN DE FORMULARIO DE CONTACTO --------------------- */}
+                {/* --------------------- FORMULARIO DE CONTACTO --------------------- */}
                 <section className={styles.sectionFormulario}>
                     <h2>Formulario de Contacto</h2>
                     <p>¿Tienes alguna duda? Contáctanos mediante este formulario y te atenderemos.</p>
+
                     <form className={styles.formulario} onSubmit={handleSubmit}>
+                        {/* Campo nombre */}
                         <div className={styles.inputGroup}>
                             <label htmlFor="nombre">Nombre:</label>
                             <div className={styles.inputIconWrapper}>
                                 <FiUser className={styles.inputIcon} />
-                                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required  onChange={handleChange} />
+                                <input 
+                                    type="text" 
+                                    id="nombre" 
+                                    name="name" 
+                                    placeholder="Tu nombre" 
+                                    required  
+                                    value={formData.name} 
+                                    onChange={handleChange} 
+                                />
                             </div>
                         </div>
 
+                        {/* Campo email */}
                         <div className={styles.inputGroup}>
                             <label htmlFor="email">Email:</label>
                             <div className={styles.inputIconWrapper}>
                                 <FiMail className={styles.inputIcon} />
-                                <input type="email" id="email" name="email" placeholder="tu@email.com" required value={formData.email} onChange={handleChange} />
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    placeholder="tu@email.com" 
+                                    required 
+                                    value={formData.email} 
+                                    onChange={handleChange} 
+                                />
                             </div>
                         </div>
 
+                        {/* Campo mensaje */}
                         <div className={styles.inputGroup}>
                             <label htmlFor="mensaje">Mensaje:</label>
                             <div className={styles.inputIconWrapper}>
                                 <FiMessageCircle className={styles.inputIcon} />
-                                <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required  onChange={handleChange} />
+                                <textarea 
+                                    id="mensaje" 
+                                    name="message" 
+                                    rows="5" 
+                                    placeholder="Escribe tu mensaje aquí..." 
+                                    required  
+                                    value={formData.message} 
+                                    onChange={handleChange} 
+                                />
                             </div>
                         </div>
 
