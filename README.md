@@ -1,4 +1,4 @@
-#SENTIRSE BIEN | SPA
+SENTIRSE BIEN | SPA
 
 🌿 Sentirse Bien - Sistema de Turnos Online
 Este proyecto es una SPA (Single Page Application) desarrollada con React + Vite, diseñada para el centro de estética y bienestar "Sentirse Bien". Permite a clientes solicitar turnos, profesionales gestionar atenciones, y a la Dra. Ana Felicidad administrar usuarios y turnos.
