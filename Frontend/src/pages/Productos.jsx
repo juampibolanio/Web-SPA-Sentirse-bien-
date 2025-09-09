@@ -1,43 +1,66 @@
-import React from "react";
+import React from 'react';
+import styles from '../styles/Productos.module.css'; 
+
 
 const Productos = () => {
   const productos = [
-    {
-      id: 1,
-      nombre: "Auriculares Gamer",
-      descripcion: "Sonido envolvente 7.1, RGB",
-      precio: 25000,
-      imagen: "https://via.placeholder.com/150"
-    },
-    {
-      id: 2,
-      nombre: "Teclado Mecánico",
-      descripcion: "Switches Red, retroiluminado",
-      precio: 35000,
-      imagen: "https://via.placeholder.com/150"
-    },
-    {
-      id: 3,
-      nombre: "Mouse Inalámbrico",
-      descripcion: "Sensor óptico 16000 DPI",
-      precio: 15000,
-      imagen: "https://via.placeholder.com/150"
-    }
-  ];
+  {
+    id: 1,
+    nombre: "Crema Hidratante Facial",
+    descripcion: "Hidrata profundamente y deja la piel suave",
+    precio: 2500,
+    imagen: "https://via.placeholder.com/150"
+  },
+  {
+    id: 2,
+    nombre: "Aceite Corporal Relajante",
+    descripcion: "Ideal para masajes, aroma lavanda",
+    precio: 3500,
+    imagen: "https://via.placeholder.com/150"
+  },
+  {
+    id: 3,
+    nombre: "Exfoliante Corporal",
+    descripcion: "Elimina células muertas y suaviza la piel",
+    precio: 2200,
+    imagen: "https://via.placeholder.com/150"
+  },
+  {
+    id: 4,
+    nombre: "Mascarilla Facial Detox",
+    descripcion: "Limpieza profunda y revitalización de la piel",
+    precio: 1800,
+    imagen: "https://via.placeholder.com/150"
+  },
+  {
+    id: 5,
+    nombre: "Bálsamo Labial Nutritivo",
+    descripcion: "Hidrata y protege los labios delicadamente",
+    precio: 1200,
+    imagen: "https://via.placeholder.com/150"
+  },
+  {
+    id: 6,
+    nombre: "Crema de Manos Suave",
+    descripcion: "Nutre y suaviza las manos secas",
+    precio: 1500,
+    imagen: "https://via.placeholder.com/150"
+  }
+];
 
   return (
-    <div className="productos-container">
+    <div className={styles.productosContainer}>
       {productos.map((producto) => (
-        <div key={producto.id} className="producto-card">
+        <div key={producto.id} className={styles.productoCard}>
           <img
             src={producto.imagen}
             alt={producto.nombre}
-            className="producto-imagen"
+            className={styles.productoImagen}
           />
-          <h3 className="producto-nombre">{producto.nombre}</h3>
-          <p className="producto-descripcion">{producto.descripcion}</p>
-          <p className="producto-precio">${producto.precio}</p>
-          <button className="btn-agregar">Agregar al carrito</button>
+          <h3 className={styles.productoNombre}>{producto.nombre}</h3>
+          <p className={styles.productoDescripcion}>{producto.descripcion}</p>
+          <p className={styles.productoPrecio}>${producto.precio}</p>
+          <button className={styles.btnAgregar}>Agregar al carrito</button>
         </div>
       ))}
     </div>
