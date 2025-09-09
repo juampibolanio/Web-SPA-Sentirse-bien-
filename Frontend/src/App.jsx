@@ -56,7 +56,6 @@ function AppContent() {
                 <Route path="/dra/reportes" element={<ReportesPagos />} />
                 <Route path="/productos" element={<Productos />} />
                 <Route path="/" element={<HomePublic />} />
-                
             </Routes>
             <Footer />
         </>

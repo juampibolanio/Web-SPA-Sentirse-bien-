@@ -12,9 +12,14 @@ export default function Header() {
     const [usuario, setUsuario] = useState(null);
     const [menuVisible, setMenuVisible] = useState(false);
     const [navOpen, setNavOpen] = useState(false); // para menú hamburguesa
+    const [carritoAbierto, setCarritoAbierto] = useState(false);
     const navigate = useNavigate();
     const menuRef = useRef();
     const navRef = useRef();
+
+    const toggleCarrito = () => {
+    setCarritoAbierto(prev => !prev);
+    };
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -134,6 +139,14 @@ export default function Header() {
 
                 {/* Panel usuario/iniciar sesión */}
                 <div className={styles.userPanel} ref={menuRef}>
+                    {/* Botón Carrito */}
+                        <button
+                            className={styles.btnCarrito}
+                            onClick={toggleCarrito}
+                            aria-label="Abrir carrito"
+                        >
+                            <FiShoppingBag size={20} /> Carrito
+                        </button>
                     {!usuario ? (
                         <Link to="/login" className={styles.loginButton} onClick={() => setNavOpen(false)}>
                             <FiLogIn className={styles.loginIcon} />
@@ -166,6 +179,15 @@ export default function Header() {
                     )}
                 </div>
             </nav>
+            {/* Sidebar carrito */}
+            <div className={`${styles.carritoSidebar} ${carritoAbierto ? styles.abierto : ''}`}>
+                <h3 className={styles.tituloCarrito}>Carrito</h3>
+                <p className={styles.textoCarrito}>Aquí se mostrarán los productos seleccionados.</p>
+                <button className={styles.cerrarCarrito} onClick={toggleCarrito}>Cerrar</button>
+            </div>
+
+            {/* Overlay */}
+            {carritoAbierto && <div className={styles.overlay} onClick={toggleCarrito}></div>}
         </header>
     );
 }
