@@ -5,7 +5,7 @@ import styles from '../styles/Header.module.css';
 import logo from '../assets/header/logo_spa.png';
 
 // Iconos
-import { FiLogIn, FiLogOut, FiHome, FiCalendar, FiHeart, FiMenu, FiX } from 'react-icons/fi';
+import { FiLogIn, FiLogOut, FiHome, FiCalendar, FiHeart, FiMenu, FiX, FiShoppingBag } from 'react-icons/fi';
 import { FaUser, FaChartBar, FaSpa } from 'react-icons/fa';
 
 export default function Header() {
@@ -125,6 +125,10 @@ export default function Header() {
                     <Link to="/turnos" className={styles.link} onClick={() => setNavOpen(false)}>
                         <FiCalendar className={styles.icon} />
                         Turnos
+                    </Link>
+                    <Link to="/productos" className={styles.link} onClick={() => setNavOpen(false)}>
+                        <FiShoppingBag className={styles.icon} />
+                        Productos
                     </Link>
                 </div>
 

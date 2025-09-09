@@ -17,6 +17,7 @@ import ServiciosPublic from './pages/ServiciosPublic';
 import TurnosPublic from './pages/TurnosPublic';
 import Footer from './components/Footer';
 import PageLoader from './components/PageLoader';
+import Productos from './pages/Productos';
 
 function AppContent() {
     const location = useLocation();
@@ -53,7 +54,9 @@ function AppContent() {
                 <Route path="/dra/crear-servicio" element={<CrearServicio />} />
                 <Route path="/dra/crear-turno-manual" element={<CrearTurnoManual />} />
                 <Route path="/dra/reportes" element={<ReportesPagos />} />
+                <Route path="/productos" element={<Productos />} />
                 <Route path="/" element={<HomePublic />} />
+                
             </Routes>
             <Footer />
         </>
