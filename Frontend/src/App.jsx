@@ -18,6 +18,8 @@ import TurnosPublic from './pages/TurnosPublic';
 import Footer from './components/Footer';
 import PageLoader from './components/PageLoader';
 import Productos from './pages/Productos';
+import AdminDashboard from './pages/AdminDashboard';
+
 
 function AppContent() {
     const location = useLocation();
@@ -55,6 +57,7 @@ function AppContent() {
                 <Route path="/dra/crear-turno-manual" element={<CrearTurnoManual />} />
                 <Route path="/dra/reportes" element={<ReportesPagos />} />
                 <Route path="/productos" element={<Productos />} />
+                <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/" element={<HomePublic />} />
             </Routes>
             <Footer />

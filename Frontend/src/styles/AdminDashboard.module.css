@@ -1,0 +1,119 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.sidebar {
+  background: #1e2a38;
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.logo {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.sidebar li:hover {
+  color: #00bcd4;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.btnSalir {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btnSalir:hover {
+  background: #c9302c;
+}
+
+.section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th, 
+.table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+.table th {
+  background: #f0f0f0;
+}
+.btnEditar {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btnEditar:hover {
+  background: #0056b3;
+}
+.btnEliminar {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btnEliminar:hover {
+  background: #c9302c;
+}
+
+.descuentosList {
+  list-style: none;
+  padding: 0;
+}
+.descuentosList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  background: #f9f9f9;
+}
+.activo {
+  border-left: 5px solid #28a745;
+}
+.inactivo {
+  border-left: 5px solid #ccc;
+}
