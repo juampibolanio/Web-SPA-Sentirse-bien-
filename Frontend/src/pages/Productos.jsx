@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';   // 👈 IMPORTANTE
 import styles from '../styles/Productos.module.css'; 
 import producto1 from '../assets/productosPage/AceiteCorporal.jpg'
 import producto2 from '../assets/productosPage/BalsamoLabialNutritivo.jpg'
@@ -61,8 +62,11 @@ const Productos = () => {
                 <div className={styles.productosContainer}>
                     {productos.map((producto) => (
                         <div key={producto.id} className={styles.productoCard}>
-                            <img src={producto.imagen} alt={producto.nombre} className={styles.productoImagen} />
-                            <h3 className={styles.productoNombre}>{producto.nombre}</h3>
+                            {/* 👇 Link a detalle */}
+                            <Link to={`/producto/${producto.id}`} className={styles.productoLink}>
+                                <img src={producto.imagen} alt={producto.nombre} className={styles.productoImagen} />
+                                <h3 className={styles.productoNombre}>{producto.nombre}</h3>
+                            </Link>
                             <p className={styles.productoDescripcion}>{producto.descripcion}</p>
                             <p className={styles.productoPrecio}>${producto.precio}</p>
                             <button className={styles.btnAgregar}>Agregar al carrito</button>

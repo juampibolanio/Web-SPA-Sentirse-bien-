@@ -56,14 +56,9 @@ function AppContent() {
                 <Route path="/dra/crear-servicio" element={<CrearServicio />} />
                 <Route path="/dra/crear-turno-manual" element={<CrearTurnoManual />} />
                 <Route path="/dra/reportes" element={<ReportesPagos />} />
-                <Route path="/productos" element={<Productos />} />
                 
-                <Route path="/producto/1" element={<ProductoDetalle id={1} />} />
-                <Route path="/producto/2" element={<ProductoDetalle id={2} />} />
-                <Route path="/producto/3" element={<ProductoDetalle id={3} />} />
-                <Route path="/producto/4" element={<ProductoDetalle id={4} />} />
-                <Route path="/producto/5" element={<ProductoDetalle id={5} />} />
-                <Route path="/producto/6" element={<ProductoDetalle id={6} />} />
+                <Route path="/productos" element={<Productos />} />
+                <Route path="/producto/:id" element={<ProductoDetalle />} />
 
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/" element={<HomePublic />} />
