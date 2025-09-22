@@ -1,0 +1,94 @@
+.detallePage {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.detalleContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1000px;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.imagenContainer img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nombre {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.descripcion {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.precio {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 1.5rem;
+}
+
+.opcionesPago {
+    margin-bottom: 1.5rem;
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.opcionesPago ul {
+    padding-left: 1.2rem;
+    margin: 0.5rem 0 0 0;
+}
+
+.botones {
+    display: flex;
+    gap: 1rem;
+}
+
+.btnAgregar {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnAgregar:hover {
+    background: #0056b3;
+}
+
+.btnComprar {
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnComprar:hover {
+    background: #1e7e34;
+}
