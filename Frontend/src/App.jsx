@@ -19,7 +19,7 @@ import Footer from './components/Footer';
 import PageLoader from './components/PageLoader';
 import Productos from './pages/Productos';
 import AdminDashboard from './pages/AdminDashboard';
-
+import ProductoDetalle from './pages/ProductoDetalle';   
 
 function AppContent() {
     const location = useLocation();
@@ -38,9 +38,9 @@ function AppContent() {
         script.setAttribute("domain", "www.chatbase.co");
         document.body.appendChild(script);
     }, []);
+
     return (
         <>
-
             {loading && <PageLoader />}
             <Header />
             <Routes>
@@ -57,6 +57,14 @@ function AppContent() {
                 <Route path="/dra/crear-turno-manual" element={<CrearTurnoManual />} />
                 <Route path="/dra/reportes" element={<ReportesPagos />} />
                 <Route path="/productos" element={<Productos />} />
+                
+                <Route path="/producto/1" element={<ProductoDetalle id={1} />} />
+                <Route path="/producto/2" element={<ProductoDetalle id={2} />} />
+                <Route path="/producto/3" element={<ProductoDetalle id={3} />} />
+                <Route path="/producto/4" element={<ProductoDetalle id={4} />} />
+                <Route path="/producto/5" element={<ProductoDetalle id={5} />} />
+                <Route path="/producto/6" element={<ProductoDetalle id={6} />} />
+
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/" element={<HomePublic />} />
             </Routes>
