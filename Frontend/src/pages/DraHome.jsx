@@ -111,6 +111,11 @@ export default function DraHome() {
                     Reportes
                 </button>
 
+                <button className={styles.button} onClick={() => navigate('/dra/productos')}>
+                    <FaChartBar className={styles.icon} />
+                    Productos
+                </button>
+
                 {/* Botón que alterna la visibilidad del panel de administración */}
                 <button className={styles.button} onClick={togglePanelUsuarios}>
                     <FaUserCog className={styles.icon} />

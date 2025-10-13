@@ -1,94 +1,414 @@
+/* ProductoDetalle.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary: #10b981;
+  --accent-red: #ef4444;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
 .detallePage {
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  min-height: 80vh;
+  background: #f8fafc;
 }
 
 .detalleContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    max-width: 1000px;
-    width: 100%;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  width: 100%;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 3rem;
+  border: 1px solid var(--border);
 }
 
-.imagenContainer img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 10px;
-    object-fit: cover;
+/* Imagen */
+.imagenContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--border-light);
+  border-radius: var(--radius);
+  padding: 2rem;
+  height: 500px;
 }
 
+.imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+/* Información */
 .infoContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+}
+
+.infoContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .nombre {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin: 0;
 }
 
 .descripcion {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Precio */
+.precioContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .precio {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
+.badgeOferta {
+  background: linear-gradient(135deg, var(--accent-red), #dc2626);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Cantidad */
+.cantidadContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.cantidadLabel {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cantidadControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.25rem;
+}
+
+.cantidadBtn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background: var(--border-light);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cantidadBtn:hover:not(:disabled) {
+  background: var(--primary);
+  color: white;
+}
+
+.cantidadBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cantidad {
+  width: 50px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Opciones de pago */
 .opcionesPago {
-    margin-bottom: 1.5rem;
-    background: #f9f9f9;
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+  background: var(--border-light);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border-left: 4px solid var(--primary);
+}
+
+.opcionesPago h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+  font-size: 1.1rem;
 }
 
 .opcionesPago ul {
-    padding-left: 1.2rem;
-    margin: 0.5rem 0 0 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
+.opcionesPago li {
+  padding: 0.5rem 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* Botones */
 .botones {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
 }
 
 .btnAgregar {
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 0.7rem 1.2rem;
-    cursor: pointer;
-    transition: 0.3s;
+  flex: 1;
+  background: white;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .btnAgregar:hover {
-    background: #0056b3;
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 .btnComprar {
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 0.7rem 1.2rem;
-    cursor: pointer;
-    transition: 0.3s;
+  flex: 1;
+  background: var(--secondary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .btnComprar:hover {
-    background: #1e7e34;
+  background: #0d9c6d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
+
+/* Información adicional */
+.infoAdicional {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  margin-top: auto;
+}
+
+.infoItem {
+  padding: 0.75rem 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.infoItem:last-child {
+  border-bottom: none;
+}
+
+/* Estados de carga y error */
+.cargandoContainer,
+.errorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.cargando {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cargando::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.error {
+  text-align: center;
+  background: white;
+  padding: 3rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.error h2 {
+  color: var(--accent-red);
+  margin-bottom: 1rem;
+}
+
+.error p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.btnVolver {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btnVolver:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .detalleContainer {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  .imagenContainer {
+    height: 400px;
+  }
+  
+  .nombre {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .detallePage {
+    padding: 1rem;
+  }
+  
+  .detalleContainer {
+    padding: 1.5rem;
+  }
+  
+  .imagenContainer {
+    height: 300px;
+    padding: 1rem;
+  }
+  
+  .nombre {
+    font-size: 1.75rem;
+  }
+  
+  .precio {
+    font-size: 1.75rem;
+  }
+  
+  .botones {
+    flex-direction: column;
+  }
+  
+  .cantidadContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+/* Agrega estos estilos al archivo existente */
+
+.stockContainer {
+  margin: 15px 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.stockAgotado {
+  color: #dc3545;
+}
+
+.stockBajo {
+  color: #ffc107;
+}
+
+.stockDisponible {
+  color: #28a745;
+}
+
+.errorCantidad {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+.btnDeshabilitado {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  background-color: #6c757d !important;
+}
+
+.btnDeshabilitado:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.cantidadBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

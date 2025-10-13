@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { CarritoProvider } from './services/CarritoContext.jsx';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -20,6 +21,8 @@ import PageLoader from './components/PageLoader';
 import Productos from './pages/Productos';
 import AdminDashboard from './pages/AdminDashboard';
 import ProductoDetalle from './pages/ProductoDetalle';   
+import AdminProductos from './pages/AdminProductos';
+import Carrito from './components/Carrito.jsx';
 
 function AppContent() {
     const location = useLocation();
@@ -56,9 +59,11 @@ function AppContent() {
                 <Route path="/dra/crear-servicio" element={<CrearServicio />} />
                 <Route path="/dra/crear-turno-manual" element={<CrearTurnoManual />} />
                 <Route path="/dra/reportes" element={<ReportesPagos />} />
-                
+                <Route path="/dra/productos" element={<AdminProductos />} />
+
                 <Route path="/productos" element={<Productos />} />
                 <Route path="/producto/:id" element={<ProductoDetalle />} />
+                <Route path="/carrito" element={<Carrito />} />
 
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/" element={<HomePublic />} />
@@ -70,8 +75,10 @@ function AppContent() {
 
 export default function App() {
     return (
-        <Router>
-            <AppContent />
-        </Router>
+        <CarritoProvider>
+            <Router>
+                <AppContent />
+            </Router>
+        </CarritoProvider>
     );
 }
