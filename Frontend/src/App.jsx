@@ -8,7 +8,7 @@ import Servicios from './pages/Servicios';
 import SolicitudTurno from './pages/SolicitudTurno';
 import Registro from './pages/Registro';
 import ProfesionalHome from './pages/ProfesionalHome';
-import Header from './components/header';
+import Header from './components/Header.jsx';
 import DraHome from './pages/DraHome';
 import CrearServicio from './pages/CrearServicio';
 import CrearTurnoManual from './pages/CrearTurnoManual';
@@ -23,6 +23,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import ProductoDetalle from './pages/ProductoDetalle';   
 import AdminProductos from './pages/AdminProductos';
 import Carrito from './components/Carrito.jsx';
+import Checkout from './pages/Checkout.jsx'; // <-- agregado
 
 function AppContent() {
     const location = useLocation();
@@ -64,6 +65,7 @@ function AppContent() {
                 <Route path="/productos" element={<Productos />} />
                 <Route path="/producto/:id" element={<ProductoDetalle />} />
                 <Route path="/carrito" element={<Carrito />} />
+                <Route path="/checkout" element={<Checkout />} /> {/* <-- agregado */}
 
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/" element={<HomePublic />} />

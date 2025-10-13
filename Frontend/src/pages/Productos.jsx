@@ -26,20 +26,14 @@ const Productos = () => {
   const navigate = useNavigate();
   const { agregarAlCarrito, estaEnCarrito, obtenerCantidadProducto } = useCarrito();
 
-  // Cargar productos y categorías
   useEffect(() => {
     const fetchData = async () => {
       try {
         setCargando(true);
-        
-        // Cargar productos
         const productosRes = await axios.get('http://localhost:8080/api/productos', {
           headers: token ? { Authorization: `Bearer ${token}` } : {}
         });
-        
-        // Cargar categorías
         const categoriasRes = await axios.get('http://localhost:8080/api/categorias');
-        
         setProductos(productosRes.data);
         setProductosFiltrados(productosRes.data);
         setCategorias(categoriasRes.data);
@@ -49,356 +43,150 @@ const Productos = () => {
         setCargando(false);
       }
     };
-
     fetchData();
   }, [token]);
 
-  // Aplicar filtros
   useEffect(() => {
-    let productosFiltrados = [...productos];
+    let filtrados = [...productos];
 
-    // Filtro por categorías - CORREGIDO
     if (filtros.categorias.length > 0) {
-      productosFiltrados = productosFiltrados.filter(producto => {
-        // Manejar tanto el caso donde viene categoria_id como categoria object
-        const categoriaId = producto.categoria_id || (producto.categoria && producto.categoria.id);
+      filtrados = filtrados.filter(p => {
+        const categoriaId = p.categoria_id || (p.categoria && p.categoria.id);
         return filtros.categorias.includes(categoriaId);
       });
     }
 
-    // Filtro por oferta
-    if (filtros.oferta) {
-      productosFiltrados = productosFiltrados.filter(producto => producto.oferta);
-    }
+    if (filtros.oferta) filtrados = filtrados.filter(p => p.oferta);
 
-    // Filtro por rango de precio
     if (filtros.rangoPrecio) {
       switch (filtros.rangoPrecio) {
-        case '0-50':
-          productosFiltrados = productosFiltrados.filter(p => p.precio <= 50);
-          break;
-        case '50-100':
-          productosFiltrados = productosFiltrados.filter(p => p.precio > 50 && p.precio <= 100);
-          break;
-        case '100-200':
-          productosFiltrados = productosFiltrados.filter(p => p.precio > 100 && p.precio <= 200);
-          break;
-        case '200+':
-          productosFiltrados = productosFiltrados.filter(p => p.precio > 200);
-          break;
-        default:
-          break;
+        case '0-50': filtrados = filtrados.filter(p => p.precio <= 50); break;
+        case '50-100': filtrados = filtrados.filter(p => p.precio > 50 && p.precio <= 100); break;
+        case '100-200': filtrados = filtrados.filter(p => p.precio > 100 && p.precio <= 200); break;
+        case '200+': filtrados = filtrados.filter(p => p.precio > 200); break;
       }
     }
 
-    // Filtro por precio mínimo y máximo personalizado
-    if (filtros.precioMin) {
-      productosFiltrados = productosFiltrados.filter(p => p.precio >= parseFloat(filtros.precioMin));
-    }
-    if (filtros.precioMax) {
-      productosFiltrados = productosFiltrados.filter(p => p.precio <= parseFloat(filtros.precioMax));
-    }
+    if (filtros.precioMin) filtrados = filtrados.filter(p => p.precio >= parseFloat(filtros.precioMin));
+    if (filtros.precioMax) filtrados = filtrados.filter(p => p.precio <= parseFloat(filtros.precioMax));
 
-    // Aplicar ordenamiento
-    productosFiltrados = ordenarProductos(productosFiltrados, orden);
-
-    setProductosFiltrados(productosFiltrados);
+    filtrados = ordenarProductos(filtrados, orden);
+    setProductosFiltrados(filtrados);
   }, [productos, filtros, orden]);
 
-  // Función para ordenar productos
-  const ordenarProductos = (productos, criterio) => {
-    const productosOrdenados = [...productos];
-    
+  const ordenarProductos = (lista, criterio) => {
+    const res = [...lista];
     switch (criterio) {
-      case 'precioAsc':
-        return productosOrdenados.sort((a, b) => a.precio - b.precio);
-      case 'precioDesc':
-        return productosOrdenados.sort((a, b) => b.precio - a.precio);
-      case 'nombreAsc':
-        return productosOrdenados.sort((a, b) => a.nombre.localeCompare(b.nombre));
-      case 'nombreDesc':
-        return productosOrdenados.sort((a, b) => b.nombre.localeCompare(a.nombre));
-      case 'fechaDesc':
-        // Usando fechaLanzamiento del DTO
-        return productosOrdenados.sort((a, b) => new Date(b.fechaLanzamiento || 0) - new Date(a.fechaLanzamiento || 0));
-      case 'fechaAsc':
-        return productosOrdenados.sort((a, b) => new Date(a.fechaLanzamiento || 0) - new Date(b.fechaLanzamiento || 0));
+      case 'precioAsc': return res.sort((a, b) => a.precio - b.precio);
+      case 'precioDesc': return res.sort((a, b) => b.precio - a.precio);
+      case 'nombreAsc': return res.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      case 'nombreDesc': return res.sort((a, b) => b.nombre.localeCompare(a.nombre));
+      case 'fechaDesc': return res.sort((a, b) => new Date(b.fechaLanzamiento || 0) - new Date(a.fechaLanzamiento || 0));
+      case 'fechaAsc': return res.sort((a, b) => new Date(a.fechaLanzamiento || 0) - new Date(b.fechaLanzamiento || 0));
       case 'descuentoDesc':
-        // Usando descuento del DTO
-        return productosOrdenados.sort((a, b) => {
+        return res.sort((a, b) => {
           const descA = a.descuento || (a.oferta ? 1 : 0);
           const descB = b.descuento || (b.oferta ? 1 : 0);
           return descB - descA;
         });
-      default:
-        return productosOrdenados;
+      default: return res;
     }
   };
 
-  // Manejar cambios en los filtros
-  const handleCategoriaChange = (categoriaId) => {
-    setFiltros(prev => ({
-      ...prev,
-      categorias: prev.categorias.includes(categoriaId)
-        ? prev.categorias.filter(id => id !== categoriaId)
-        : [...prev.categorias, categoriaId]
-    }));
-  };
+  const handleCategoriaChange = id => setFiltros(prev => ({
+    ...prev,
+    categorias: prev.categorias.includes(id) ? prev.categorias.filter(c => c !== id) : [...prev.categorias, id]
+  }));
+  const handleOfertaChange = e => setFiltros(prev => ({ ...prev, oferta: e.target.checked }));
+  const handleRangoPrecioChange = r => setFiltros(prev => ({ ...prev, rangoPrecio: prev.rangoPrecio === r ? null : r }));
+  const handlePrecioMinChange = e => setFiltros(prev => ({ ...prev, precioMin: e.target.value }));
+  const handlePrecioMaxChange = e => setFiltros(prev => ({ ...prev, precioMax: e.target.value }));
+  const handleOrdenChange = e => setOrden(e.target.value);
+  const limpiarFiltros = () => setFiltros({ categorias: [], oferta: false, rangoPrecio: null, precioMin: '', precioMax: '' });
 
-  const handleOfertaChange = (e) => {
-    setFiltros(prev => ({
-      ...prev,
-      oferta: e.target.checked
-    }));
-  };
-
-  const handleRangoPrecioChange = (rango) => {
-    setFiltros(prev => ({
-      ...prev,
-      rangoPrecio: prev.rangoPrecio === rango ? null : rango
-    }));
-  };
-
-  const handlePrecioMinChange = (e) => {
-    setFiltros(prev => ({
-      ...prev,
-      precioMin: e.target.value
-    }));
-  };
-
-  const handlePrecioMaxChange = (e) => {
-    setFiltros(prev => ({
-      ...prev,
-      precioMax: e.target.value
-    }));
-  };
-
-  const handleOrdenChange = (e) => {
-    setOrden(e.target.value);
-  };
-
-  // Limpiar todos los filtros
-  const limpiarFiltros = () => {
-    setFiltros({
-      categorias: [],
-      oferta: false,
-      rangoPrecio: null,
-      precioMin: '',
-      precioMax: ''
-    });
-    setOrden('precioAsc');
-  };
-
-  // Obtener nombre de categoría para un producto
-  const obtenerNombreCategoria = (producto) => {
+  const obtenerNombreCategoria = producto => {
     const categoriaId = producto.categoria_id || (producto.categoria && producto.categoria.id);
-    const categoria = categorias.find(c => c.id === categoriaId);
-    return categoria ? categoria.nombre : '';
+    const cat = categorias.find(c => c.id === categoriaId);
+    return cat ? cat.nombre : '';
   };
 
-  // Manejar agregar al carrito
-  const handleAgregarCarrito = async (producto) => {
-    if (!token) {
-      setMostrarModalLogin(true);
-      return;
-    }
-
-    // Validar stock
-    if (producto.stock === 0) {
-      alert('Este producto está agotado');
-      return;
-    }
-
+  const handleAgregarCarrito = producto => {
+    if (!token) { setMostrarModalLogin(true); return; }
+    if (producto.stock === 0) { alert('Este producto está agotado'); return; }
     setAgregandoProducto(producto.id);
-    
-    try {
-      const result = agregarAlCarrito(producto, 1);
-      
-      if (result.success) {
-        console.log(`✅ ${producto.nombre} agregado al carrito`);
-      } else {
-        alert(result.error || 'Error al agregar al carrito');
-      }
-    } catch (error) {
-      console.error('Error al agregar al carrito:', error);
-      alert('Error al agregar el producto al carrito');
-    } finally {
-      setTimeout(() => {
-        setAgregandoProducto(null);
-      }, 1000);
-    }
+    try { agregarAlCarrito(producto, 1); } 
+    catch (e) { console.error(e); alert('Error al agregar al carrito'); } 
+    finally { setTimeout(() => setAgregandoProducto(null), 500); }
   };
 
-  // Verificar si un producto está en el carrito
-  const productoEnCarrito = (productoId) => {
-    return estaEnCarrito(productoId);
-  };
-
-  // Obtener cantidad en carrito
-  const cantidadEnCarrito = (productoId) => {
-    return obtenerCantidadProducto(productoId);
-  };
-
-  // Manejar login
-  const handleLogin = () => {
-    navigate('/login');
-  };
-
-  // Cerrar modal
-  const cerrarModal = () => {
-    setMostrarModalLogin(false);
-  };
-
-  if (cargando) {
-    return <p className={styles.cargando}>Cargando productos...</p>;
-  }
+  if (cargando) return <p className={styles.cargando}>Cargando productos...</p>;
 
   return (
     <>
       <div className={styles.productosPage}>
-        {/* Filtros */}
         <div className={styles.filtros}>
           <div className={styles.filtrosHeader}>
             <h3>Filtros</h3>
-            <button 
-              className={styles.btnLimpiar}
-              onClick={limpiarFiltros}
-            >
-              Limpiar
-            </button>
+            <button className={styles.btnLimpiar} onClick={limpiarFiltros}>Limpiar</button>
           </div>
 
-          {/* Filtro por Categorías - Ahora desplegable */}
           <div className={styles.filtroGrupo}>
-            <div 
-              className={styles.filtroHeader}
-              onClick={() => setCategoriaAbierta(!categoriaAbierta)}
-            >
+            <div className={styles.filtroHeader} onClick={() => setCategoriaAbierta(!categoriaAbierta)}>
               <h4>Categorías</h4>
-              <span className={`${styles.flecha} ${categoriaAbierta ? styles.flechaAbierta : ''}`}>
-                ▼
-              </span>
+              <span className={`${styles.flecha} ${categoriaAbierta ? styles.flechaAbierta : ''}`}>▼</span>
             </div>
             <div className={`${styles.categoriasLista} ${categoriaAbierta ? styles.categoriasAbierta : ''}`}>
-              {categorias.map(categoria => (
-                <div key={categoria.id} className={styles.filtroOpcion}>
-                  <input 
-                    type="checkbox" 
-                    id={`categoria-${categoria.id}`}
-                    checked={filtros.categorias.includes(categoria.id)}
-                    onChange={() => handleCategoriaChange(categoria.id)}
-                  />
-                  <label htmlFor={`categoria-${categoria.id}`}>
-                    {categoria.nombre}
-                  </label>
+              {categorias.map(cat => (
+                <div key={cat.id} className={styles.filtroOpcion}>
+                  <input type="checkbox" id={`categoria-${cat.id}`} checked={filtros.categorias.includes(cat.id)} onChange={() => handleCategoriaChange(cat.id)} />
+                  <label htmlFor={`categoria-${cat.id}`}>{cat.nombre}</label>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Filtro por Oferta */}
           <div className={styles.filtroGrupo}>
             <h4>Ofertas</h4>
             <div className={styles.filtroOpcion}>
-              <input 
-                type="checkbox" 
-                id="oferta"
-                checked={filtros.oferta}
-                onChange={handleOfertaChange}
-              />
+              <input type="checkbox" id="oferta" checked={filtros.oferta} onChange={handleOfertaChange} />
               <label htmlFor="oferta">En oferta</label>
             </div>
           </div>
 
-          {/* Filtro por Rango de Precio */}
           <div className={styles.filtroGrupo}>
             <h4>Rango de Precio</h4>
-            <div className={styles.filtroOpcion}>
-              <input 
-                type="radio" 
-                name="rangoPrecio"
-                id="rango-0-50"
-                checked={filtros.rangoPrecio === '0-50'}
-                onChange={() => handleRangoPrecioChange('0-50')}
-              />
-              <label htmlFor="rango-0-50">$0 - $50</label>
-            </div>
-            <div className={styles.filtroOpcion}>
-              <input 
-                type="radio" 
-                name="rangoPrecio"
-                id="rango-50-100"
-                checked={filtros.rangoPrecio === '50-100'}
-                onChange={() => handleRangoPrecioChange('50-100')}
-              />
-              <label htmlFor="rango-50-100">$50 - $100</label>
-            </div>
-            <div className={styles.filtroOpcion}>
-              <input 
-                type="radio" 
-                name="rangoPrecio"
-                id="rango-100-200"
-                checked={filtros.rangoPrecio === '100-200'}
-                onChange={() => handleRangoPrecioChange('100-200')}
-              />
-              <label htmlFor="rango-100-200">$100 - $200</label>
-            </div>
-            <div className={styles.filtroOpcion}>
-              <input 
-                type="radio" 
-                name="rangoPrecio"
-                id="rango-200-plus"
-                checked={filtros.rangoPrecio === '200+'}
-                onChange={() => handleRangoPrecioChange('200+')}
-              />
-              <label htmlFor="rango-200-plus">$200+</label>
-            </div>
+            {['0-50','50-100','100-200','200+'].map(r => (
+              <div key={r} className={styles.filtroOpcion}>
+                <input type="radio" name="rangoPrecio" id={`rango-${r}`} checked={filtros.rangoPrecio===r} onChange={()=>handleRangoPrecioChange(r)} />
+                <label htmlFor={`rango-${r}`}>${r.replace('-',' - ')}</label>
+              </div>
+            ))}
           </div>
 
-          {/* Filtro por Precio Personalizado */}
           <div className={styles.filtroGrupo}>
             <h4>Precio Personalizado</h4>
             <div className={styles.precioPersonalizado}>
               <div className={styles.precioInput}>
                 <label htmlFor="precioMin">Mínimo</label>
-                <input 
-                  type="number" 
-                  id="precioMin"
-                  placeholder="$0"
-                  value={filtros.precioMin}
-                  onChange={handlePrecioMinChange}
-                />
+                <input type="number" id="precioMin" placeholder="$0" value={filtros.precioMin} onChange={handlePrecioMinChange} />
               </div>
               <div className={styles.precioInput}>
                 <label htmlFor="precioMax">Máximo</label>
-                <input 
-                  type="number" 
-                  id="precioMax"
-                  placeholder="$999"
-                  value={filtros.precioMax}
-                  onChange={handlePrecioMaxChange}
-                />
+                <input type="number" id="precioMax" placeholder="$999" value={filtros.precioMax} onChange={handlePrecioMaxChange} />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Contenido principal */}
         <div className={styles.mainContent}>
           <div className={styles.topBar}>
             <div className={styles.contador}>
-              {productosFiltrados.length} {productosFiltrados.length === 1 ? 'producto' : 'productos'}
-              {filtros.categorias.length > 0 || filtros.oferta || filtros.rangoPrecio || filtros.precioMin || filtros.precioMax ? 
-                ` (filtrados)` : ''
-              }
+              {productosFiltrados.length} {productosFiltrados.length===1?'producto':'productos'}
+              {(filtros.categorias.length>0||filtros.oferta||filtros.rangoPrecio||filtros.precioMin||filtros.precioMax)?' (filtrados)':''}
             </div>
             <div className={styles.ordenar}>
               <label htmlFor="ordenar">Ordenar por:</label>
-              <select 
-                id="ordenar"
-                value={orden}
-                onChange={handleOrdenChange}
-              >
+              <select id="ordenar" value={orden} onChange={handleOrdenChange}>
                 <option value="precioAsc">Precio: menor a mayor</option>
                 <option value="precioDesc">Precio: mayor a menor</option>
                 <option value="nombreAsc">Nombre: A-Z</option>
@@ -411,144 +199,79 @@ const Productos = () => {
           </div>
 
           <div className={styles.productosGrid}>
-            {productosFiltrados.length === 0 ? (
+            {productosFiltrados.length===0 ? (
               <div className={styles.productosVacios}>
                 <h3>No se encontraron productos</h3>
                 <p>Intenta ajustar los filtros o limpiarlos para ver más productos.</p>
-                <button 
-                  className={styles.btnLimpiar}
-                  onClick={limpiarFiltros}
-                >
-                  Limpiar filtros
-                </button>
+                <button className={styles.btnLimpiar} onClick={limpiarFiltros}>Limpiar filtros</button>
               </div>
-            ) : (
-              productosFiltrados.map(producto => {
-                const enCarrito = productoEnCarrito(producto.id);
-                const cantidad = cantidadEnCarrito(producto.id);
-                const agregando = agregandoProducto === producto.id;
-                
-                return (
-                  <div key={producto.id} className={styles.productoCard}>
-                    {producto.oferta && <span className={styles.badge}>Oferta</span>}
-                    
-                    {/* Indicador de producto en carrito */}
-                    {enCarrito && (
-                      <div className={styles.enCarritoBadge}>
-                        ✅ En carrito ({cantidad})
-                      </div>
-                    )}
-                    
-                    {/* Indicador de stock bajo */}
-                    {producto.stock > 0 && producto.stock <= 5 && (
-                      <div className={styles.stockBajoBadge}>
-                        ⚠️ Últimas {producto.stock} unidades
-                      </div>
-                    )}
-                    
-                    {/* Indicador de agotado */}
-                    {producto.stock === 0 && (
-                      <div className={styles.agotadoBadge}>
-                        ❌ Agotado
-                      </div>
-                    )}
+            ) : productosFiltrados.map(prod => {
+              const enCarrito = estaEnCarrito(prod.id);
+              const cantidad = obtenerCantidadProducto(prod.id);
+              const agregando = agregandoProducto === prod.id;
 
-                    <div className={styles.productoImagenContainer}>
-                      <Link to={`/producto/${producto.id}`} className={styles.productoLink}>
-                        {producto.imagenUrl || producto.imagen ? (
-                          <img 
-                            src={producto.imagenUrl || producto.imagen} 
-                            alt={producto.nombre} 
-                            className={styles.productoImagen} 
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              e.target.nextSibling.style.display = 'flex';
-                            }}
-                          />
-                        ) : null}
-                        <div className={styles.imagenPlaceholder} style={{ display: !producto.imagenUrl && !producto.imagen ? 'flex' : 'none' }}>
-                          Imagen no disponible
-                        </div>
-                      </Link>
-                    </div>
+              return (
+                <div key={prod.id} className={styles.productoCard}>
+                  {prod.oferta && <span className={styles.badge}>Oferta</span>}
+                  {enCarrito && <div className={styles.enCarritoBadge}>✅ En carrito ({cantidad})</div>}
+                  {prod.stock>0 && prod.stock<=5 && <div className={styles.stockBajoBadge}>⚠️ Últimas {prod.stock} unidades</div>}
+                  {prod.stock===0 && <div className={styles.agotadoBadge}>❌ Agotado</div>}
 
-                    <div className={styles.productoContenido}>
-                      <Link to={`/producto/${producto.id}`} className={styles.productoLink}>
-                        <h3 className={styles.productoNombre}>{producto.nombre}</h3>
-                      </Link>
-                      
-                      <p className={styles.productoDescripcion}>
-                        {producto.descripcion}
-                      </p>
-                      
-                      <div className={styles.productoPrecioContainer}>
-                        <span className={styles.productoPrecio}>${producto.precio}</span>
-                        {obtenerNombreCategoria(producto) && (
-                          <span className={styles.productoCategoria}>
-                            {obtenerNombreCategoria(producto)}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className={styles.stockInfo}>
-                        {producto.stock > 0 ? (
-                          <span className={styles.stockDisponible}>
-                            Stock: {producto.stock}
-                          </span>
-                        ) : (
-                          <span className={styles.stockAgotado}>
-                            Sin stock
-                          </span>
-                        )}
-                      </div>
-
-                      <button 
-                        className={`${styles.btnAgregar} ${
-                          producto.stock === 0 ? styles.btnDeshabilitado : 
-                          agregando ? styles.btnAgregando : 
-                          enCarrito ? styles.btnEnCarrito : ''
-                        }`}
-                        onClick={() => handleAgregarCarrito(producto)}
-                        disabled={producto.stock === 0 || agregando}
-                      >
-                        {agregando ? 'Agregando...' : 
-                         producto.stock === 0 ? 'Agotado' :
-                         enCarrito ? `En carrito (${cantidad})` : 
-                         'Agregar al carrito'}
-                      </button>
-                    </div>
+                  <div className={styles.productoImagenContainer}>
+                    <Link to={`/producto/${prod.id}`} className={styles.productoLink}>
+                      {prod.imagenUrl||prod.imagen ? (
+                        <img src={prod.imagenUrl||prod.imagen} alt={prod.nombre} className={styles.productoImagen} />
+                      ) : <div className={styles.imagenPlaceholder}>Imagen no disponible</div>}
+                    </Link>
                   </div>
-                );
-              })
-            )}
+
+                  <div className={styles.productoContenido}>
+                    <Link to={`/producto/${prod.id}`} className={styles.productoLink}>
+                      <h3 className={styles.productoNombre}>{prod.nombre}</h3>
+                    </Link>
+                    <p className={styles.productoDescripcion}>{prod.descripcion}</p>
+                    <div className={styles.productoPrecioContainer}>
+                      <span className={styles.productoPrecio}>${prod.precio}</span>
+                      {obtenerNombreCategoria(prod) && <span className={styles.productoCategoria}>{obtenerNombreCategoria(prod)}</span>}
+                    </div>
+                    <div className={styles.stockInfo}>
+                      {prod.stock>0 ? <span className={styles.stockDisponible}>Stock: {prod.stock}</span> : <span className={styles.stockAgotado}>Sin stock</span>}
+                    </div>
+
+                    <button
+                      className={`${styles.btnAgregar} ${prod.stock===0?styles.btnDeshabilitado: agregando?styles.btnAgregando: enCarrito?styles.btnEnCarrito:''}`}
+                      onClick={()=>handleAgregarCarrito(prod)}
+                      disabled={prod.stock===0 || agregando}
+                    >
+                      {agregando ? 'Agregando...' : prod.stock===0 ? 'Agotado' : enCarrito ? `En carrito (${cantidad})` : 'Agregar al carrito'}
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
 
-      {/* Modal de Login */}
       {mostrarModalLogin && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
             <div className={styles.modalHeader}>
               <h3>Iniciar sesión requerido</h3>
-              <button className={styles.closeButton} onClick={cerrarModal}>×</button>
+              <button className={styles.closeButton} onClick={()=>setMostrarModalLogin(false)}>×</button>
             </div>
             <div className={styles.modalContent}>
               <p>Para agregar productos al carrito necesitas iniciar sesión.</p>
               <div className={styles.modalActions}>
-                <button className={styles.btnCancelar} onClick={cerrarModal}>
-                  Seguir explorando
-                </button>
-                <button className={styles.btnLogin} onClick={handleLogin}>
-                  Iniciar sesión
-                </button>
+                <button className={styles.btnCancelar} onClick={()=>setMostrarModalLogin(false)}>Seguir explorando</button>
+                <button className={styles.btnLogin} onClick={()=>navigate('/login')}>Iniciar sesión</button>
               </div>
             </div>
           </div>
         </div>
       )}
     </>
-  );
+  )
 };
 
 export default Productos;

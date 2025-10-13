@@ -2,118 +2,83 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 const CarritoContext = createContext();
 
-const initialState = {
-  items: [],
-  cargando: true
+const initialState = { items: [], cargando: true };
+
+const obtenerUsuarioDelToken = () => {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.userId || payload.sub || payload.id;
+  } catch { return null; }
 };
 
 const cargarCarritoDesdeStorage = () => {
   try {
-    const carritoGuardado = localStorage.getItem('carrito');
+    const usuarioId = obtenerUsuarioDelToken();
+    const key = usuarioId ? `carrito_${usuarioId}` : 'carrito_anonimo';
+    const carritoGuardado = localStorage.getItem(key);
     return carritoGuardado ? JSON.parse(carritoGuardado) : [];
-  } catch (error) {
-    console.error('Error al cargar carrito:', error);
-    return [];
-  }
+  } catch { return []; }
 };
 
 const guardarCarritoEnStorage = (items) => {
   try {
-    localStorage.setItem('carrito', JSON.stringify(items));
-  } catch (error) {
-    console.error('Error al guardar carrito:', error);
-  }
+    const usuarioId = obtenerUsuarioDelToken();
+    const key = usuarioId ? `carrito_${usuarioId}` : 'carrito_anonimo';
+    localStorage.setItem(key, JSON.stringify(items));
+  } catch {}
+};
+
+const migrarCarritoAnonimo = (usuarioId) => {
+  try {
+    const carritoAnonimo = localStorage.getItem('carrito_anonimo');
+    if (carritoAnonimo && usuarioId) {
+      localStorage.setItem(`carrito_${usuarioId}`, carritoAnonimo);
+      localStorage.removeItem('carrito_anonimo');
+      return JSON.parse(carritoAnonimo);
+    }
+  } catch {}
+  return null;
 };
 
 const carritoReducer = (state, action) => {
   switch (action.type) {
     case 'CARGAR_CARRITO':
-      return {
-        ...state,
-        items: cargarCarritoDesdeStorage(),
-        cargando: false
-      };
-
+      return { ...state, items: cargarCarritoDesdeStorage(), cargando: false };
+    case 'MIGRAR_CARRITO': return { ...state, items: action.payload };
     case 'AGREGAR_ITEM': {
-      const itemExistente = state.items.find(item => 
-        item.producto.id === action.payload.producto.id
-      );
-      
-      let nuevosItems;
-      
-      if (itemExistente) {
-        const nuevaCantidad = itemExistente.cantidad + action.payload.cantidad;
-        if (nuevaCantidad > action.payload.producto.stock) {
-          alert(`No hay suficiente stock. Máximo: ${action.payload.producto.stock}`);
-          return state;
-        }
-        nuevosItems = state.items.map(item =>
-          item.producto.id === action.payload.producto.id
-            ? { ...item, cantidad: nuevaCantidad }
-            : item
-        );
-      } else {
-        if (action.payload.cantidad > action.payload.producto.stock) {
-          alert(`No hay suficiente stock. Máximo: ${action.payload.producto.stock}`);
-          return state;
-        }
-        nuevosItems = [...state.items, action.payload];
-      }
-
+      const existe = state.items.find(i => i.producto.id === action.payload.producto.id);
+      const nuevosItems = existe
+        ? state.items.map(i => i.producto.id === action.payload.producto.id ? { ...i, cantidad: i.cantidad + action.payload.cantidad } : i)
+        : [...state.items, action.payload];
       guardarCarritoEnStorage(nuevosItems);
       return { ...state, items: nuevosItems };
     }
-
     case 'ACTUALIZAR_CANTIDAD': {
-      const item = state.items.find(item => item.id === action.payload.itemId);
-      if (!item) return state;
-
-      if (action.payload.cantidad > item.producto.stock) {
-        alert(`No hay suficiente stock. Máximo: ${item.producto.stock}`);
-        return state;
-      }
-
-      const nuevosItems = state.items.map(item =>
-        item.id === action.payload.itemId
-          ? { ...item, cantidad: action.payload.cantidad }
-          : item
-      );
-
+      const item = state.items.find(i => i.id === action.payload.itemId);
+      if (!item || action.payload.cantidad < 1 || action.payload.cantidad > item.producto.stock) return state;
+      const nuevosItems = state.items.map(i => i.id === action.payload.itemId ? { ...i, cantidad: action.payload.cantidad } : i);
       guardarCarritoEnStorage(nuevosItems);
       return { ...state, items: nuevosItems };
     }
-
     case 'ELIMINAR_ITEM': {
-      const nuevosItems = state.items.filter(item => item.id !== action.payload);
+      const nuevosItems = state.items.filter(i => i.id !== action.payload);
       guardarCarritoEnStorage(nuevosItems);
       return { ...state, items: nuevosItems };
     }
-
-    case 'VACIAR_CARRITO':
-      guardarCarritoEnStorage([]);
-      return { ...state, items: [] };
-
-    case 'ACTUALIZAR_STOCK_PRODUCTOS': {
-      const nuevosItems = state.items.map(item => {
-        const productoActualizado = action.payload.find(p => p.id === item.producto.id);
-        if (productoActualizado) {
-          return {
-            ...item,
-            producto: {
-              ...item.producto,
-              stock: productoActualizado.stock
-            }
-          };
-        }
-        return item;
-      }).filter(item => item.producto.stock > 0);
-
-      guardarCarritoEnStorage(nuevosItems);
-      return { ...state, items: nuevosItems };
+    case 'VACIAR_CARRITO': { 
+      guardarCarritoEnStorage([]); 
+      return { ...state, items: [] }; 
     }
-
-    default:
-      return state;
+    case 'SYNC_CARRITO_DB': {
+      const itemsDB = action.payload || [];
+      const combinados = [...state.items];
+      itemsDB.forEach(i => { if (!combinados.find(ci => ci.producto.id === i.producto.id)) combinados.push(i); });
+      guardarCarritoEnStorage(combinados);
+      return { ...state, items: combinados };
+    }
+    default: return state;
   }
 };
 
@@ -122,91 +87,55 @@ export const CarritoProvider = ({ children }) => {
 
   const acciones = {
     cargarCarrito: () => dispatch({ type: 'CARGAR_CARRITO' }),
-
-    agregarAlCarrito: (producto, cantidad) => {
-      const nuevoItem = {
-        id: Date.now().toString(),
-        producto: {
-          id: producto.id,
-          nombre: producto.nombre,
-          precio: producto.precio,
-          imagen: producto.imagen || producto.imagenUrl,
-          descripcion: producto.descripcion,
-          stock: producto.stock,
-          oferta: producto.oferta
-        },
-        cantidad: cantidad,
-        fechaAgregado: new Date().toISOString()
-      };
-
+    migrarCarrito: (usuarioId) => { 
+      const items = migrarCarritoAnonimo(usuarioId); 
+      if (items) dispatch({ type: 'MIGRAR_CARRITO', payload: items }); 
+    },
+    sincronizarConDB: (itemsDB) => dispatch({ type: 'SYNC_CARRITO_DB', payload: itemsDB }),
+    agregarAlCarrito: (producto, cantidad = 1) => {
+      if (!producto?.id) return { success: false, error: 'Producto inválido' };
+      if (cantidad < 1) return { success: false, error: 'Cantidad debe ser al menos 1' };
+      if (cantidad > producto.stock) return { success: false, error: `No hay suficiente stock. Max: ${producto.stock}` };
+      const nuevoItem = { id: `${producto.id}_${Date.now()}`, producto: { ...producto, imagen: producto.imagen || producto.imagenUrl }, cantidad, fechaAgregado: new Date().toISOString(), precioUnitario: producto.precio };
       dispatch({ type: 'AGREGAR_ITEM', payload: nuevoItem });
       return { success: true, item: nuevoItem };
     },
-
-    actualizarCantidad: (itemId, cantidad) => {
-      if (cantidad < 1) return { success: false, error: 'La cantidad debe ser al menos 1' };
-      dispatch({ type: 'ACTUALIZAR_CANTIDAD', payload: { itemId, cantidad } });
-      return { success: true };
-    },
-
-    eliminarDelCarrito: (itemId) => {
-      dispatch({ type: 'ELIMINAR_ITEM', payload: itemId });
-      return { success: true };
-    },
-
-    vaciarCarrito: () => {
-      dispatch({ type: 'VACIAR_CARRITO' });
-      return { success: true };
-    },
-
-    actualizarStockProductos: (productos) => {
-      dispatch({ type: 'ACTUALIZAR_STOCK_PRODUCTOS', payload: productos });
-    },
-
+    actualizarCantidad: (itemId, cantidad) => { dispatch({ type: 'ACTUALIZAR_CANTIDAD', payload: { itemId, cantidad } }); return { success: true }; },
+    eliminarDelCarrito: (itemId) => { dispatch({ type: 'ELIMINAR_ITEM', payload: itemId }); return { success: true }; },
+    vaciarCarrito: () => { dispatch({ type: 'VACIAR_CARRITO' }); return { success: true }; },
     calcularTotales: () => {
-      const subtotal = state.items.reduce((total, item) => total + (item.producto.precio * item.cantidad), 0);
+      const subtotal = state.items.reduce((t, i) => t + ((i.precioUnitario || i.producto.precio) * i.cantidad), 0);
       const iva = subtotal * 0.21;
-      const total = subtotal + iva;
-
-      return {
-        subtotal: subtotal.toFixed(2),
-        iva: iva.toFixed(2),
-        total: total.toFixed(2),
-        cantidadTotal: state.items.reduce((total, item) => total + item.cantidad, 0)
-      };
+      return { subtotal: subtotal.toFixed(2), iva: iva.toFixed(2), total: (subtotal + iva).toFixed(2), cantidadTotal: state.items.reduce((t, i) => t + i.cantidad, 0) };
+    },
+    verificarStockDisponible: () => {
+      const sinStock = state.items.filter(i => i.cantidad > i.producto.stock);
+      return { disponible: sinStock.length === 0, productosSinStock: sinStock.map(i => ({ nombre: i.producto.nombre, stockDisponible: i.producto.stock, cantidadSolicitada: i.cantidad })) };
     },
 
-    estaEnCarrito: (productoId) => {
-      return state.items.some(item => item.producto.id === productoId);
-    },
-
+    // 🔹 Funciones nuevas para Productos.jsx
+    estaEnCarrito: (productoId) => state.items.some(i => i.producto.id === productoId),
     obtenerCantidadProducto: (productoId) => {
-      const item = state.items.find(item => item.producto.id === productoId);
+      const item = state.items.find(i => i.producto.id === productoId);
       return item ? item.cantidad : 0;
     }
   };
 
+  useEffect(() => { acciones.cargarCarrito(); }, []);
   useEffect(() => {
-    acciones.cargarCarrito();
+    const handleStorageChange = () => { 
+      const usuarioId = obtenerUsuarioDelToken(); 
+      if (usuarioId) acciones.migrarCarrito(usuarioId); 
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
-  const value = {
-    items: state.items,
-    cargando: state.cargando,
-    ...acciones
-  };
-
-  return (
-    <CarritoContext.Provider value={value}>
-      {children}
-    </CarritoContext.Provider>
-  );
+  return <CarritoContext.Provider value={{ items: state.items, cargando: state.cargando, ...acciones }}>{children}</CarritoContext.Provider>;
 };
 
-export const useCarrito = () => {
-  const context = useContext(CarritoContext);
-  if (!context) {
-    throw new Error('useCarrito debe ser usado dentro de CarritoProvider');
-  }
-  return context;
+export const useCarrito = () => { 
+  const context = useContext(CarritoContext); 
+  if (!context) throw new Error('useCarrito debe usarse dentro de CarritoProvider'); 
+  return context; 
 };

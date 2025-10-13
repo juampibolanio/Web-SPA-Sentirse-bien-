@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "../styles/AdminDashboard.module.css";
+import styles from "../styles/AdminProductos.module.css";
 
 export default function AdminDashboard() {
   const [seccion, setSeccion] = useState("productos");

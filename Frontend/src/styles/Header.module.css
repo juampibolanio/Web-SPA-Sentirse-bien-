@@ -13,7 +13,8 @@
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(8px);
-  background: var(--color-bg);
+  background: var(--footer-bg);
+  color: var(--footer-text);
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px var(--shadow);
   display: flex;
@@ -160,17 +161,28 @@
 .carrito {
   position: fixed;
   top: 0;
-  right: -320px;
-  width: 320px;
+  right: -360px; /* fuera de la pantalla */
+  width: 360px;
   height: 100vh;
   background: #f5f5f5;
-  box-shadow: -2px 0 12px rgba(0,0,0,0.2);
+  box-shadow: -2px 0 12px rgba(0,0,0,0.3);
   padding: 2rem;
   transition: right 0.3s ease;
   z-index: 1001;
+  display: flex;
+  flex-direction: column;
 }
 .carrito.abierto { right: 0; }
-.closeCarrito { padding: 0.5rem 1rem; background: #333; color: white; border: none; cursor: pointer; margin-top: 1rem; }
+
+.closeCarrito {
+  padding: 0.5rem 1rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+}
 
 .overlay {
   position: fixed;
@@ -180,10 +192,87 @@
   z-index: 1000;
 }
 
-/* Animaciones */
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Items */
+.listaCarrito {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
+.itemCarrito {
+  display: flex;
+  gap: 1rem;
+  background: white;
+  border-radius: var(--radius);
+  padding: 0.8rem;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
 
+.itemCarrito img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+}
+
+.infoItem {
+  flex-grow: 1;
+}
+
+.cantidadControls {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.cantidadControls button {
+  padding: 0.2rem 0.5rem;
+  border: none;
+  background: var(--color-secondary);
+  color: white;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.cantidadControls button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.btnEliminarCarrito {
+  margin-left: 0.5rem;
+  background: #d46262;
+}
+
+.resumenTotal {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: right;
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+.btnVerCarrito {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  width: 100%;
+}
+
+.resumenTotal {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: right;
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
