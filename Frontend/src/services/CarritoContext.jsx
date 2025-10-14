@@ -2,7 +2,11 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 const CarritoContext = createContext();
 
-const initialState = { items: [], cargando: true };
+const initialState = { 
+  items: [], 
+  cargando: true,
+  descuentoFrecuente: null
+};
 
 const obtenerUsuarioDelToken = () => {
   const token = localStorage.getItem('token');
@@ -46,7 +50,8 @@ const carritoReducer = (state, action) => {
   switch (action.type) {
     case 'CARGAR_CARRITO':
       return { ...state, items: cargarCarritoDesdeStorage(), cargando: false };
-    case 'MIGRAR_CARRITO': return { ...state, items: action.payload };
+    case 'MIGRAR_CARRITO': 
+      return { ...state, items: action.payload };
     case 'AGREGAR_ITEM': {
       const existe = state.items.find(i => i.producto.id === action.payload.producto.id);
       const nuevosItems = existe
@@ -78,7 +83,13 @@ const carritoReducer = (state, action) => {
       guardarCarritoEnStorage(combinados);
       return { ...state, items: combinados };
     }
-    default: return state;
+    case 'SET_DESCUENTO_FRECUENTE':
+      return { 
+        ...state, 
+        descuentoFrecuente: action.payload 
+      };
+    default: 
+      return state;
   }
 };
 
@@ -96,24 +107,126 @@ export const CarritoProvider = ({ children }) => {
       if (!producto?.id) return { success: false, error: 'Producto inválido' };
       if (cantidad < 1) return { success: false, error: 'Cantidad debe ser al menos 1' };
       if (cantidad > producto.stock) return { success: false, error: `No hay suficiente stock. Max: ${producto.stock}` };
-      const nuevoItem = { id: `${producto.id}_${Date.now()}`, producto: { ...producto, imagen: producto.imagen || producto.imagenUrl }, cantidad, fechaAgregado: new Date().toISOString(), precioUnitario: producto.precio };
+      const nuevoItem = { 
+        id: `${producto.id}_${Date.now()}`, 
+        producto: { ...producto, imagen: producto.imagen || producto.imagenUrl }, 
+        cantidad, 
+        fechaAgregado: new Date().toISOString(), 
+        precioUnitario: producto.precio 
+      };
       dispatch({ type: 'AGREGAR_ITEM', payload: nuevoItem });
       return { success: true, item: nuevoItem };
     },
-    actualizarCantidad: (itemId, cantidad) => { dispatch({ type: 'ACTUALIZAR_CANTIDAD', payload: { itemId, cantidad } }); return { success: true }; },
-    eliminarDelCarrito: (itemId) => { dispatch({ type: 'ELIMINAR_ITEM', payload: itemId }); return { success: true }; },
-    vaciarCarrito: () => { dispatch({ type: 'VACIAR_CARRITO' }); return { success: true }; },
-    calcularTotales: () => {
-      const subtotal = state.items.reduce((t, i) => t + ((i.precioUnitario || i.producto.precio) * i.cantidad), 0);
-      const iva = subtotal * 0.21;
-      return { subtotal: subtotal.toFixed(2), iva: iva.toFixed(2), total: (subtotal + iva).toFixed(2), cantidadTotal: state.items.reduce((t, i) => t + i.cantidad, 0) };
+    actualizarCantidad: (itemId, cantidad) => { 
+      dispatch({ type: 'ACTUALIZAR_CANTIDAD', payload: { itemId, cantidad } }); 
+      return { success: true }; 
     },
-    verificarStockDisponible: () => {
-      const sinStock = state.items.filter(i => i.cantidad > i.producto.stock);
-      return { disponible: sinStock.length === 0, productosSinStock: sinStock.map(i => ({ nombre: i.producto.nombre, stockDisponible: i.producto.stock, cantidadSolicitada: i.cantidad })) };
+    eliminarDelCarrito: (itemId) => { 
+      dispatch({ type: 'ELIMINAR_ITEM', payload: itemId }); 
+      return { success: true }; 
+    },
+    vaciarCarrito: () => { 
+      dispatch({ type: 'VACIAR_CARRITO' }); 
+      return { success: true }; 
+    },
+    
+    // ✅ Función para verificar descuento frecuente
+    verificarDescuentoFrecuente: async (clienteId) => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`http://localhost:8080/api/facturas/clientes/${clienteId}/descuento-frecuente`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!response.ok) throw new Error('Error al verificar descuento');
+        
+        const data = await response.json();
+        dispatch({ 
+          type: 'SET_DESCUENTO_FRECUENTE', 
+          payload: data 
+        });
+        
+        return data;
+      } catch (error) {
+        console.error('Error verificando descuento:', error);
+        return { 
+          aplicaDescuento: false, 
+          descuento: '0%',
+          turnosUltimoMes: 0,
+          turnosFaltantes: 3
+        };
+      }
     },
 
-    // 🔹 Funciones nuevas para Productos.jsx
+    calcularTotales: () => {
+  // 1. Calcular subtotal SIN descuentos (precio base)
+  const subtotalSinDescuentos = state.items.reduce((t, i) => {
+    const precioBase = i.precioUnitario || i.producto.precio;
+    return t + (precioBase * i.cantidad);
+  }, 0);
+  
+  // 2. Aplicar descuentos de PRODUCTO (variables)
+  const subtotalConDescuentoProducto = state.items.reduce((t, i) => {
+    const precioBase = i.precioUnitario || i.producto.precio;
+    const descuentoProducto = i.producto.descuento || 0;
+    const precioConDescuento = descuentoProducto > 0 
+      ? precioBase * (1 - descuentoProducto / 100)
+      : precioBase;
+    
+    return t + (precioConDescuento * i.cantidad);
+  }, 0);
+  
+  const descuentoTotalProductos = subtotalSinDescuentos - subtotalConDescuentoProducto;
+  
+  // 3. Calcular IVA sobre el subtotal CON descuentos de producto
+  const iva = subtotalConDescuentoProducto * 0.21;
+  const subtotalMasIva = subtotalConDescuentoProducto + iva;
+  
+  // 4. ✅ CORREGIDO: NO aplicar descuento frecuente en frontend
+  // Solo el backend aplica el descuento si el cliente cumple condiciones
+  const descuentoFrecuente = 0;
+  
+  // 5. Calcular total sin descuento frecuente
+  const totalSinDescuentoFrecuente = subtotalMasIva;
+  
+  // 6. Aplicar descuento EFECTIVO (10%) - se aplica en el frontend según método
+  const descuentoEfectivo = totalSinDescuentoFrecuente * 0.10;
+  const totalConEfectivo = totalSinDescuentoFrecuente - descuentoEfectivo;
+  
+  return { 
+    // Para mostrar en carrito
+    subtotal: subtotalConDescuentoProducto.toFixed(2),
+    iva: iva.toFixed(2), 
+    total: totalSinDescuentoFrecuente.toFixed(2), // Sin descuentos adicionales
+    
+    // Para cálculos
+    subtotalSinDescuentos: subtotalSinDescuentos.toFixed(2),
+    descuentoProductos: descuentoTotalProductos.toFixed(2),
+    descuentoFrecuente: descuentoFrecuente.toFixed(2), // Siempre 0 en frontend
+    descuentoEfectivo: descuentoEfectivo.toFixed(2),
+    totalConEfectivo: totalConEfectivo.toFixed(2),
+    
+    cantidadTotal: state.items.reduce((t, i) => t + i.cantidad, 0),
+    infoDescuento: state.descuentoFrecuente
+  };
+},
+
+    verificarStockDisponible: () => {
+      const sinStock = state.items.filter(i => i.cantidad > i.producto.stock);
+      return { 
+        disponible: sinStock.length === 0, 
+        productosSinStock: sinStock.map(i => ({ 
+          nombre: i.producto.nombre, 
+          stockDisponible: i.producto.stock, 
+          cantidadSolicitada: i.cantidad 
+        })) 
+      };
+    },
+
+    // Funciones para Productos.jsx
     estaEnCarrito: (productoId) => state.items.some(i => i.producto.id === productoId),
     obtenerCantidadProducto: (productoId) => {
       const item = state.items.find(i => i.producto.id === productoId);
@@ -121,7 +234,10 @@ export const CarritoProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => { acciones.cargarCarrito(); }, []);
+  useEffect(() => { 
+    acciones.cargarCarrito(); 
+  }, []);
+
   useEffect(() => {
     const handleStorageChange = () => { 
       const usuarioId = obtenerUsuarioDelToken(); 
@@ -131,11 +247,22 @@ export const CarritoProvider = ({ children }) => {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
-  return <CarritoContext.Provider value={{ items: state.items, cargando: state.cargando, ...acciones }}>{children}</CarritoContext.Provider>;
+  return (
+    <CarritoContext.Provider value={{ 
+      items: state.items, 
+      cargando: state.cargando, 
+      descuentoFrecuente: state.descuentoFrecuente,
+      ...acciones 
+    }}>
+      {children}
+    </CarritoContext.Provider>
+  );
 };
 
+// ✅ EXPORT CORRECTO de useCarrito
 export const useCarrito = () => { 
   const context = useContext(CarritoContext); 
   if (!context) throw new Error('useCarrito debe usarse dentro de CarritoProvider'); 
   return context; 
 };
+

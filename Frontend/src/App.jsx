@@ -24,6 +24,9 @@ import ProductoDetalle from './pages/ProductoDetalle';
 import AdminProductos from './pages/AdminProductos';
 import Carrito from './components/Carrito.jsx';
 import Checkout from './pages/Checkout.jsx'; // <-- agregado
+import Facturacion from './pages/Facturacion.jsx';
+import PaymentPage from './pages/PaymentPage.jsx';
+import ConfirmationPage from './pages/ConfirmationPage.jsx';
 
 function AppContent() {
     const location = useLocation();
@@ -61,14 +64,19 @@ function AppContent() {
                 <Route path="/dra/crear-turno-manual" element={<CrearTurnoManual />} />
                 <Route path="/dra/reportes" element={<ReportesPagos />} />
                 <Route path="/dra/productos" element={<AdminProductos />} />
+                <Route path="/dra/facturacion" element={<Facturacion />} />
 
                 <Route path="/productos" element={<Productos />} />
                 <Route path="/producto/:id" element={<ProductoDetalle />} />
                 <Route path="/carrito" element={<Carrito />} />
                 <Route path="/checkout" element={<Checkout />} /> {/* <-- agregado */}
+                <Route path="/carrito" element={<Carrito />} />
+                <Route path="/carrito/pago" element={<PaymentPage />} />
+                <Route path="/carrito/confirmacion" element={<ConfirmationPage />} />
 
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/" element={<HomePublic />} />
+
             </Routes>
             <Footer />
         </>

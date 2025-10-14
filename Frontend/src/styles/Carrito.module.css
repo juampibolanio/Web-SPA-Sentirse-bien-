@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   min-height: 80vh;
+  font-family: 'Lora', serif;
 }
 
 .carritoHeader {
@@ -10,29 +11,34 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid #e8f5e8;
   padding-bottom: 20px;
 }
 
+
 .carritoHeader h1 {
-  color: #333;
+  color: #2D7163;
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
 }
 
 .btnVaciar {
-  background-color: #dc3545;
+  background: linear-gradient(135deg, #dc3545, #c82333);
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 12px 24px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(220, 53, 69, 0.3);
 }
 
 .btnVaciar:hover {
-  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
 }
 
 .carritoContainer {
@@ -52,16 +58,19 @@
   grid-template-columns: 100px 1fr auto auto auto;
   gap: 20px;
   align-items: center;
-  padding: 20px;
+  padding: 25px;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  border: 1px solid #e0e0e0;
-  transition: transform 0.2s ease;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  border: 2px solid #f0f7f4;
+  transition: all 0.3s ease;
 }
 
+
 .item:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-color: #3E8E7E;
 }
 
 .itemImagen img {
@@ -216,23 +225,23 @@
 }
 
 .btnPagar {
-  background-color: #28a745;
+  background: linear-gradient(135deg, #3E8E7E, #2D7163);
   color: white;
   border: none;
-  padding: 15px;
+  padding: 16px;
   width: 100%;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1.1rem;
   cursor: pointer;
-  margin-bottom: 10px;
-  font-weight: 600;
+  margin-bottom: 12px;
+  font-weight: 700;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(62, 142, 126, 0.3);
 }
 
 .btnPagar:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(62, 142, 126, 0.4);
 }
 
 .btnSeguirComprando {
@@ -356,30 +365,6 @@
   }
 }
 
-/* Modal Overlay */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* Modal Content */
-.modalContent {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-}
-
 /* Botones */
 .btnPrimary, .btnEfectivo, .btnTarjeta {
   margin: 0.5rem;
@@ -425,4 +410,87 @@
   margin-top: 1rem;
   display: flex;
   justify-content: space-around;
+}
+
+.descuentoBanner {
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.descuentoAplicado {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border: 2px solid #388E3C;
+}
+
+.descuentoNoAplicado {
+  background: linear-gradient(135deg, #FF9800, #F57C00);
+  color: white;
+  border: 2px solid #E65100;
+}
+
+.descuentoInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.descuentoIcon {
+  font-size: 24px;
+}
+
+.descuentoMonto {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.resumenDescuento {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.descuentoTexto {
+  color: #4CAF50;
+}
+
+.itemPrecioContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.precioOriginal {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.9em;
+}
+
+.precioConDescuento {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.descuentoBadge {
+  background: #e74c3c;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.itemPrecio {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #2c3e50;
 }

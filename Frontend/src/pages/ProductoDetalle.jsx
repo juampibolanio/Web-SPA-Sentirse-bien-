@@ -184,7 +184,7 @@ const ProductoDetalle = () => {
             <p className={styles.descripcion}>{producto.descripcion}</p>
             
             <div className={styles.precioContainer}>
-              <span className={styles.precio}>${producto.precio}</span>
+              <span className={styles.precio}>{producto.precio}</span>
               {producto.oferta && (
                 <span className={styles.badgeOferta}>¡En oferta!</span>
               )}

@@ -973,3 +973,125 @@ body {
     flex-direction: column;
   }
 }
+
+/* Stock Styles */
+.stockSection {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.stockDisplay {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stockNumber {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.stockLabel {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+.stockEdit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stockInput {
+  width: 70px;
+  padding: 0.3rem;
+  border: 2px solid #3498db;
+  border-radius: 6px;
+  text-align: center;
+  background: white;
+}
+
+/* Stock Badges */
+.stockBadge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.stockAgotado {
+  background: rgba(231, 76, 60, 0.9);
+  color: white;
+}
+
+.stockBajo {
+  background: rgba(243, 156, 18, 0.9);
+  color: white;
+}
+
+.stockMedio {
+  background: rgba(52, 152, 219, 0.9);
+  color: white;
+}
+
+.stockAlto {
+  background: rgba(46, 204, 113, 0.9);
+  color: white;
+}
+
+/* Stock Buttons */
+.stockButton {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
+
+.stockButton:hover {
+  background: #2980b9;
+}
+
+.confirmButton {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
+
+.confirmButton:hover {
+  background: #219a52;
+}
+
+.cancelButton {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.cancelButton:hover {
+  background: #c0392b;
+}
+
+/* Ajustar productImage para el badge */
+.productImage {
+  position: relative;
+}

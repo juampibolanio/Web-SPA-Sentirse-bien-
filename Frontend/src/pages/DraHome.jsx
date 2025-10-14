@@ -116,7 +116,7 @@ export default function DraHome() {
                     Productos
                 </button>
 
-                <button className={styles.button} onClick={() => navigate('/dra/productos')}>
+                <button className={styles.button} onClick={() => navigate('/dra/facturacion')}>
                     <FaChartBar className={styles.icon} />
                     FacturaciónInformesCaja
                 </button>

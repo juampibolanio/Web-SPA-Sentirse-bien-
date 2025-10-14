@@ -19,7 +19,10 @@ const obtenerUsuarioDelToken = () => {
 const Checkout = () => {
   const navigate = useNavigate();
   const { calcularTotales, items, vaciarCarrito } = useCarrito();
-  const { subtotal, iva, total, cantidadTotal } = calcularTotales();
+  
+  // ✅ CORREGIDO: Obtener infoDescuento desde calcularTotales()
+  const { subtotal, iva, total, cantidadTotal, descuentoFrecuente, infoDescuento } = calcularTotales();
+  
   const token = localStorage.getItem('token');
   const usuarioId = obtenerUsuarioDelToken();
 
@@ -36,13 +39,19 @@ const Checkout = () => {
     direccion: '',
     tarjeta: '',
     vencimiento: '',
-    cvv: ''
+    cvv: '',
+    metodoPago: 'TARJETA_CREDITO' // ✅ NUEVO: Campo para método de pago
   });
 
   const [errores, setErrores] = useState({});
   const [procesando, setProcesando] = useState(false);
   const [showSuccessPanel, setShowSuccessPanel] = useState(false);
   const [itemsComprados, setItemsComprados] = useState([]);
+
+  // ✅ NUEVO: Manejar cambio de método de pago
+  const handleMetodoPagoChange = (metodo) => {
+    setForm(prev => ({ ...prev, metodoPago: metodo }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,9 +69,14 @@ const Checkout = () => {
     if (!form.nombre.trim()) erroresTmp.nombre = 'Nombre obligatorio';
     if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) erroresTmp.email = 'Email inválido';
     if (!form.direccion.trim()) erroresTmp.direccion = 'Dirección obligatoria';
-    if (!/^\d{16}$/.test(form.tarjeta)) erroresTmp.tarjeta = 'Tarjeta inválida (16 dígitos)';
-    if (!/^\d{2}\/\d{2}$/.test(form.vencimiento)) erroresTmp.vencimiento = 'Formato MM/AA requerido';
-    if (!/^\d{3,4}$/.test(form.cvv)) erroresTmp.cvv = 'CVV inválido (3-4 dígitos)';
+    
+    // ✅ SOLO validar tarjeta si no es efectivo
+    if (form.metodoPago !== 'EFECTIVO') {
+      if (!/^\d{16}$/.test(form.tarjeta)) erroresTmp.tarjeta = 'Tarjeta inválida (16 dígitos)';
+      if (!/^\d{2}\/\d{2}$/.test(form.vencimiento)) erroresTmp.vencimiento = 'Formato MM/AA requerido';
+      if (!/^\d{3,4}$/.test(form.cvv)) erroresTmp.cvv = 'CVV inválido (3-4 dígitos)';
+    }
+    
     setErrores(erroresTmp);
     return Object.keys(erroresTmp).length === 0;
   };
@@ -74,9 +88,10 @@ const Checkout = () => {
     setProcesando(true);
     const fecha = new Date().toISOString();
 
+    // ✅ CORREGIDO: Payload dinámico con método de pago seleccionado
     const payload = {
       usuarioId,
-      metodoPago: 'TARJETA',
+      metodoPago: form.metodoPago, // ← DINÁMICO del form
       productos: items.map(item => ({
         productoId: item.producto.id,
         productoNombre: item.producto.nombre,
@@ -85,31 +100,39 @@ const Checkout = () => {
         subtotal: item.producto.precio * item.cantidad
       })),
       total: parseFloat(total),
-      descuento: 0,
+      descuento: parseFloat(descuentoFrecuente) || 0,
       fecha,
       datosEnvio: {
         nombre: form.nombre,
         email: form.email,
         direccion: form.direccion
-      },
-      datosTarjeta: {
-        tarjeta: form.tarjeta,
-        vencimiento: form.vencimiento,
-        cvv: form.cvv
       }
     };
 
+    // ✅ SOLO incluir datos de tarjeta si no es efectivo
+    if (form.metodoPago !== 'EFECTIVO') {
+      payload.datosTarjeta = {
+        tarjeta: form.tarjeta,
+        vencimiento: form.vencimiento,
+        cvv: form.cvv
+      };
+    }
+
+    console.log("📤 PAYLOAD COMPLETO:", JSON.stringify(payload, null, 2));
+
     try {
-      await axios.post('http://localhost:8080/api/facturas', payload, {
+      const response = await axios.post('http://localhost:8080/api/facturas', payload, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
 
+      console.log("✅ Factura creada:", response.data);
+      
+      await vaciarCarrito();
       setItemsComprados([...items]);
       setShowSuccessPanel(true);
-      await vaciarCarrito();
     } catch (error) {
       console.error('Error al procesar el pago:', error);
       if (error.response?.status === 401 || error.response?.status === 403) {
@@ -159,31 +182,89 @@ const Checkout = () => {
             </label>
           </div>
 
+          {/* ✅ NUEVO: Selector de método de pago */}
           <div className={styles.seccion}>
-            <h2>Datos de Tarjeta</h2>
-            <label>
-              Número de Tarjeta *
-              <input type="text" name="tarjeta" value={form.tarjeta} onChange={handleChange} placeholder="1234 5678 9012 3456" maxLength={16} />
-              {errores.tarjeta && <span className={styles.error}>{errores.tarjeta}</span>}
-            </label>
-            <div className={styles.fila}>
-              <label className={styles.medio}>
-                Vencimiento (MM/AA) *
-                <input type="text" name="vencimiento" value={form.vencimiento} onChange={handleChange} placeholder="MM/AA" maxLength={5} />
-                {errores.vencimiento && <span className={styles.error}>{errores.vencimiento}</span>}
+            <h2>Método de Pago</h2>
+            <div className={styles.metodosPago}>
+              <label className={styles.metodoPagoOption}>
+                <input
+                  type="radio"
+                  name="metodoPago"
+                  value="TARJETA_CREDITO"
+                  checked={form.metodoPago === 'TARJETA_CREDITO'}
+                  onChange={(e) => handleMetodoPagoChange(e.target.value)}
+                />
+                <span>Tarjeta de Crédito</span>
               </label>
-              <label className={styles.medio}>
-                CVV *
-                <input type="text" name="cvv" value={form.cvv} onChange={handleChange} placeholder="123" maxLength={4} />
-                {errores.cvv && <span className={styles.error}>{errores.cvv}</span>}
+              
+              <label className={styles.metodoPagoOption}>
+                <input
+                  type="radio"
+                  name="metodoPago"
+                  value="TARJETA_DEBITO"
+                  checked={form.metodoPago === 'TARJETA_DEBITO'}
+                  onChange={(e) => handleMetodoPagoChange(e.target.value)}
+                />
+                <span>Tarjeta de Débito</span>
+              </label>
+              
+              <label className={styles.metodoPagoOption}>
+                <input
+                  type="radio"
+                  name="metodoPago"
+                  value="EFECTIVO"
+                  checked={form.metodoPago === 'EFECTIVO'}
+                  onChange={(e) => handleMetodoPagoChange(e.target.value)}
+                />
+                <span>Efectivo (10% de descuento)</span>
               </label>
             </div>
           </div>
 
+          {/* ✅ MOSTRAR campos de tarjeta solo si no es efectivo */}
+          {form.metodoPago !== 'EFECTIVO' && (
+            <div className={styles.seccion}>
+              <h2>Datos de Tarjeta</h2>
+              <label>
+                Número de Tarjeta *
+                <input type="text" name="tarjeta" value={form.tarjeta} onChange={handleChange} placeholder="1234 5678 9012 3456" maxLength={16} />
+                {errores.tarjeta && <span className={styles.error}>{errores.tarjeta}</span>}
+              </label>
+              <div className={styles.fila}>
+                <label className={styles.medio}>
+                  Vencimiento (MM/AA) *
+                  <input type="text" name="vencimiento" value={form.vencimiento} onChange={handleChange} placeholder="MM/AA" maxLength={5} />
+                  {errores.vencimiento && <span className={styles.error}>{errores.vencimiento}</span>}
+                </label>
+                <label className={styles.medio}>
+                  CVV *
+                  <input type="text" name="cvv" value={form.cvv} onChange={handleChange} placeholder="123" maxLength={4} />
+                  {errores.cvv && <span className={styles.error}>{errores.cvv}</span>}
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* ✅ CORREGIDO: Resumen con infoDescuento definida */}
           <div className={styles.resumen}>
             <h2>Resumen de Compra</h2>
             <div className={styles.resumenItem}><span>Productos ({cantidadTotal}):</span><span>${subtotal}</span></div>
             <div className={styles.resumenItem}><span>IVA (21%):</span><span>${iva}</span></div>
+
+            {infoDescuento?.aplicaDescuento && (
+              <div className={styles.resumenDescuento}>
+                <span>Descuento Cliente Frecuente (15%):</span>
+                <span className={styles.descuentoTexto}>-${descuentoFrecuente}</span>
+              </div>
+            )}
+
+            {form.metodoPago === 'EFECTIVO' && (
+              <div className={styles.resumenDescuento}>
+                <span>Descuento por Pago en Efectivo (10%):</span>
+                <span className={styles.descuentoTexto}>-${(parseFloat(subtotal) * 0.10).toFixed(2)}</span>
+              </div>
+            )}
+
             <div className={styles.resumenTotal}><span>Total:</span><span>${total}</span></div>
           </div>
 
@@ -196,6 +277,12 @@ const Checkout = () => {
           <div className={styles.successIcon}>✓</div>
           <h2>¡Pago Exitoso!</h2>
           <p className={styles.totalPagado}>Total pagado: <strong>${total}</strong></p>
+          {infoDescuento?.aplicaDescuento && (
+            <p className={styles.descuentoAplicado}>Se aplicó descuento de cliente frecuente: <strong>-${descuentoFrecuente}</strong></p>
+          )}
+          {form.metodoPago === 'EFECTIVO' && (
+            <p className={styles.descuentoAplicado}>Se aplicó descuento por pago en efectivo: <strong>-${(parseFloat(subtotal) * 0.10).toFixed(2)}</strong></p>
+          )}
           <ul>
             {itemsComprados.map(item => (
               <li key={item.id}>

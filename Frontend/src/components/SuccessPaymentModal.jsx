@@ -1,4 +1,3 @@
-// components/SuccessPaymentModal.jsx
 import React, { useEffect, useState } from 'react';
 import { FiCheckCircle } from 'react-icons/fi';
 import '../styles/SuccesPaymentModal.module.css';
@@ -10,6 +9,13 @@ export default function SuccessPaymentModal({ total, items, onClose }) {
   useEffect(() => {
     setAnimateTick(true);
   }, []);
+
+  // ✅ CORREGIDO: Asegurar que total sea un número
+  const totalNumero = typeof total === 'number' ? total : 
+                     typeof total === 'string' ? parseFloat(total) : 0;
+
+  // ✅ CORREGIDO: Validar que items sea un array
+  const itemsValidos = Array.isArray(items) ? items : [];
 
   return (
     <div className="modalOverlay">
@@ -25,19 +31,21 @@ export default function SuccessPaymentModal({ total, items, onClose }) {
         {/* Resumen de la compra */}
         <div className="orderSummary">
           <h3>Resumen de tu pedido</h3>
-          {items.length === 0 ? (
+          {itemsValidos.length === 0 ? (
             <p>No hay productos en tu pedido.</p>
           ) : (
-            items.map((item) => (
-              <div key={item.id} className="orderItem">
-                <span>{item.producto.nombre} x {item.cantidad}</span>
-                <span>${(item.producto.precio * item.cantidad).toFixed(2)}</span>
+            <>
+              {itemsValidos.map((item) => (
+                <div key={item.id} className="orderItem">
+                  <span>{item.producto?.nombre} x {item.cantidad}</span>
+                  <span>${((item.producto?.precio || 0) * item.cantidad).toFixed(2)}</span>
+                </div>
+              ))}
+              <div className="orderTotal">
+                <strong>Total: ${totalNumero.toFixed(2)}</strong>
               </div>
-            ))
+            </>
           )}
-          <div className="orderTotal">
-            <strong>Total: ${total.toFixed(2)}</strong>
-          </div>
         </div>
 
         {/* Botones de acción rápida */}
@@ -45,11 +53,9 @@ export default function SuccessPaymentModal({ total, items, onClose }) {
           <Link to="/productos" className="btnPrimary" onClick={onClose}>
             Volver a la tienda
           </Link>
-          <Link to="/carrito" className="btnOutline" onClick={onClose}>
-            Ver pedido
-          </Link>
-          {/* Opcional: descarga de factura */}
-          {/* <button className="btnOutline">Descargar factura</button> */}
+          <button className="btnOutline" onClick={onClose}>
+            Cerrar
+          </button>
         </div>
       </div>
     </div>

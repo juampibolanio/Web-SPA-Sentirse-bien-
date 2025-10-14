@@ -3,6 +3,8 @@ import axios from "axios";
 import styles from "../styles/AdminProductos.module.css";
 
 export default function AdminDashboard() {
+  const [editandoStock, setEditandoStock] = useState(null);
+  const [nuevoStock, setNuevoStock] = useState("");
   const [seccion, setSeccion] = useState("productos");
   const [productos, setProductos] = useState([]);
   const [proveedores, setProveedores] = useState([]);
@@ -15,6 +17,7 @@ export default function AdminDashboard() {
     nombre: "",
     descripcion: "",
     precio: "",
+    stock: "",
     categoria_id: "",
     proveedor_id: "",
     oferta: false,
@@ -108,6 +111,7 @@ export default function AdminDashboard() {
         nombre: item.nombre,
         descripcion: item.descripcion,
         precio: item.precio,
+        stock: item.stock || 0,
         categoria_id: item.categoria_id || (item.categoria && item.categoria.id) || "",
         proveedor_id: item.proveedor_id || (item.proveedor && item.proveedor.id) || "",
         oferta: item.oferta || false,
@@ -186,6 +190,7 @@ export default function AdminDashboard() {
           nombre: form.nombre.trim(),
           descripcion: form.descripcion.trim(),
           precio: parseFloat(form.precio),
+          stock: parseInt(form.stock) || 0,
           categoria_id: form.categoria_id || null,
           proveedor_id: form.proveedor_id || null,
           oferta: form.oferta,
@@ -261,6 +266,50 @@ export default function AdminDashboard() {
       alert("Error al eliminar");
     }
   };
+
+  // ✅ REEMPLAZAR la función actualizarStock en AdminDashboard.jsx
+const actualizarStock = async (productoId) => {
+  if (!nuevoStock || nuevoStock < 0) {
+    alert("El stock debe ser un número positivo");
+    return;
+  }
+
+  try {
+    // ✅ Usar el endpoint ESPECÍFICO de stock (no el completo)
+    await axios.put(`http://localhost:8080/api/productos/${productoId}/stock`, null, {
+      params: { nuevoStock: parseInt(nuevoStock) },
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    
+    alert("Stock actualizado correctamente");
+    setEditandoStock(null);
+    setNuevoStock("");
+    fetchData();
+  } catch (error) {
+    console.error('Error al actualizar stock:', error);
+    alert("Error al actualizar el stock");
+  }
+};
+
+// Iniciar edición de stock
+const iniciarEdicionStock = (producto) => {
+  setEditandoStock(producto.id);
+  setNuevoStock(producto.stock.toString());
+};
+
+// Cancelar edición
+const cancelarEdicionStock = () => {
+  setEditandoStock(null);
+  setNuevoStock("");
+};
+
+// Helper para estado de stock
+const getStockStatus = (stock) => {
+  if (stock === 0) return { class: "stockAgotado", text: "Agotado", icon: "❌" };
+  if (stock <= 5) return { class: "stockBajo", text: "Stock bajo", icon: "⚠️" };
+  if (stock <= 15) return { class: "stockMedio", text: "Stock medio", icon: "📦" };
+  return { class: "stockAlto", text: "Stock alto", icon: "✅" };
+};
 
   // Helper functions
   const obtenerNombreCategoria = (producto) => {
@@ -389,92 +438,148 @@ export default function AdminDashboard() {
             </div>
           ) : (
             <>
-              {/* Sección Productos - DISEÑO MODERNO */}
               {seccion === "productos" && (
-                <div className={styles.section}>
-                  <div className={styles.sectionHeader}>
-                    <h2 className={styles.sectionTitle}>Todos los Productos</h2>
-                    <div className={styles.productsCount}>
-                      <span className={styles.countNumber}>{productos.length}</span>
-                      <span className={styles.countLabel}>productos</span>
+  <div className={styles.section}>
+    <div className={styles.sectionHeader}>
+      <h2 className={styles.sectionTitle}>Todos los Productos</h2>
+      <div className={styles.productsCount}>
+        <span className={styles.countNumber}>{productos.length}</span>
+        <span className={styles.countLabel}>productos</span>
+      </div>
+    </div>
+
+    <div className={styles.productsGrid}>
+      {productos.map((producto) => {
+        const stockStatus = getStockStatus(producto.stock);
+        return (
+          <div key={producto.id} className={styles.productCard}>
+            <div className={styles.productImage}>
+              {producto.imagenUrl || producto.imagen ? (
+                <img 
+                  src={producto.imagenUrl || producto.imagen} 
+                  alt={producto.nombre}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+              ) : null}
+              <div 
+                className={styles.imagePlaceholder}
+                style={{ display: !producto.imagenUrl && !producto.imagen ? 'flex' : 'none' }}
+              >
+                <div className={styles.placeholderIcon}></div>
+              </div>
+              {producto.oferta && <div className={styles.offerBadge}>OFERTA</div>}
+              
+              {/* ✅ NUEVO: Badge de estado de stock */}
+              <div className={`${styles.stockBadge} ${styles[stockStatus.class]}`}>
+                {stockStatus.icon} {stockStatus.text}
+              </div>
+            </div>
+
+            <div className={styles.productInfo}>
+              <h3 className={styles.productName}>{producto.nombre}</h3>
+              <p className={styles.productDescription}>{producto.descripcion}</p>
+              
+              <div className={styles.productMeta}>
+                <div className={styles.priceSection}>
+                  <span className={styles.price}>${producto.precio}</span>
+                  {producto.descuento && (
+                    <span className={styles.discount}>{producto.descuento}% OFF</span>
+                  )}
+                </div>
+                
+                {/* ✅ NUEVO: Información de stock */}
+                <div className={styles.stockSection}>
+                  {editandoStock === producto.id ? (
+                    <div className={styles.stockEdit}>
+                      <input
+                        type="number"
+                        value={nuevoStock}
+                        onChange={(e) => setNuevoStock(e.target.value)}
+                        min="0"
+                        className={styles.stockInput}
+                        autoFocus
+                      />
+                      <span className={styles.stockLabel}>unidades</span>
                     </div>
-                  </div>
-
-                  <div className={styles.productsGrid}>
-                    {productos.map((producto) => (
-                      <div key={producto.id} className={styles.productCard}>
-                        <div className={styles.productImage}>
-                          {producto.imagenUrl || producto.imagen ? (
-                            <img 
-                              src={producto.imagenUrl || producto.imagen} 
-                              alt={producto.nombre}
-                              onError={(e) => {
-                                e.target.style.display = 'none';
-                                e.target.nextSibling.style.display = 'flex';
-                              }}
-                            />
-                          ) : null}
-                          <div 
-                            className={styles.imagePlaceholder}
-                            style={{ display: !producto.imagenUrl && !producto.imagen ? 'flex' : 'none' }}
-                          >
-                            <div className={styles.placeholderIcon}></div>
-                          </div>
-                          {producto.oferta && <div className={styles.offerBadge}>OFERTA</div>}
-                        </div>
-
-                        <div className={styles.productInfo}>
-                          <h3 className={styles.productName}>{producto.nombre}</h3>
-                          <p className={styles.productDescription}>{producto.descripcion}</p>
-                          
-                          <div className={styles.productMeta}>
-                            <div className={styles.priceSection}>
-                              <span className={styles.price}>${producto.precio}</span>
-                              {producto.descuento && (
-                                <span className={styles.discount}>{producto.descuento}% OFF</span>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className={styles.productDetails}>
-                            <span className={styles.detailItem}>{obtenerNombreCategoria(producto)}</span>
-                            <span className={styles.detailItem}>{obtenerNombreProveedor(producto)}</span>
-                          </div>
-                        </div>
-
-                        <div className={styles.productActions}>
-                          <button 
-                            className={styles.editButton}
-                            onClick={() => handleEdit(producto, "producto")}
-                          >
-                            Editar
-                          </button>
-                          <button 
-                            className={styles.deleteButton}
-                            onClick={() => handleDelete(producto.id, "producto")}
-                          >
-                            Eliminar
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {productos.length === 0 && (
-                    <div className={styles.emptyState}>
-                      <div className={styles.emptyIcon}></div>
-                      <h3>No hay productos</h3>
-                      <p>Comienza agregando tu primer producto al catálogo</p>
-                      <button 
-                        className={styles.primaryButton}
-                        onClick={() => handleCreate("producto")}
-                      >
-                        Agregar Primer Producto
-                      </button>
+                  ) : (
+                    <div className={styles.stockDisplay}>
+                      <span className={styles.stockNumber}>{producto.stock}</span>
+                      <span className={styles.stockLabel}>unidades en stock</span>
                     </div>
                   )}
                 </div>
+              </div>
+
+              <div className={styles.productDetails}>
+                <span className={styles.detailItem}>{obtenerNombreCategoria(producto)}</span>
+                <span className={styles.detailItem}>{obtenerNombreProveedor(producto)}</span>
+              </div>
+            </div>
+
+            <div className={styles.productActions}>
+              {/* ✅ NUEVO: Botones de stock */}
+              {editandoStock === producto.id ? (
+                <>
+                {/* ✅ AGREGAR ESTOS BOTONES - aquí sí usas actualizarStock */}
+      <button 
+        className={styles.confirmButton}
+        onClick={() => actualizarStock(producto.id)}
+      >
+        ✅ Confirmar
+      </button>
+      <button 
+        className={styles.cancelButton}
+        onClick={cancelarEdicionStock}
+      >
+        ❌ Cancelar
+      </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    className={styles.stockButton}
+                    onClick={() => iniciarEdicionStock(producto)}
+                  >
+                    📝 Stock
+                  </button>
+                  <button 
+                    className={styles.editButton}
+                    onClick={() => handleEdit(producto, "producto")}
+                  >
+                    Editar
+                  </button>
+                  <button 
+                    className={styles.deleteButton}
+                    onClick={() => handleDelete(producto.id, "producto")}
+                  >
+                    Eliminar
+                  </button>
+                </>
               )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    {productos.length === 0 && (
+      <div className={styles.emptyState}>
+        <div className={styles.emptyIcon}></div>
+        <h3>No hay productos</h3>
+        <p>Comienza agregando tu primer producto al catálogo</p>
+        <button 
+          className={styles.primaryButton}
+          onClick={() => handleCreate("producto")}
+        >
+          Agregar Primer Producto
+        </button>
+      </div>
+    )}
+  </div>
+)}
 
               {/* Sección Proveedores */}
               {seccion === "proveedores" && (
@@ -644,6 +749,19 @@ export default function AdminDashboard() {
                         required
                       />
                     </div>
+
+                    <div className={styles.formGroup}>
+                <label>Stock *</label>
+                <input
+                  type="number"
+                  name="stock"
+                  placeholder="0"
+                  min="0"
+                  value={form.stock || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
                     <div className={styles.formGroup}>
                       <label>Descuento (%)</label>

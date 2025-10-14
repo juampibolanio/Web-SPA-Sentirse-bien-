@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -6,53 +6,76 @@
     padding: 0;
 }
 
+:root {
+  --color-primary: #88C9B9;
+  --color-primary-light: #A7D9CA;
+  --color-primary-dark: #6AB8A7;
+  --color-secondary: #F8C8D0;
+  --color-secondary-light: #FADDE2;
+  --color-accent: #E8B4BC;
+  --color-text: #5A6D77;
+  --color-text-light: #8A9AA3;
+  --color-white: #FFFFFF;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --shadow-soft: 0 8px 32px rgba(136, 201, 185, 0.15);
+  --shadow-medium: 0 12px 40px rgba(136, 201, 185, 0.2);
+  --shadow-floating: 0 20px 60px rgba(136, 201, 185, 0.25);
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
 /* Contenedor principal */
 .container {
     padding: 0 1rem;
-    max-width: 900px;
-    margin: auto;
-    font-family: 'Lora', serif;
-    color: #4A4A4A;
-    background: #fdfdfd;
-    border-radius: 14px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text);
+    background: #FFFFFF;
 }
 
-/* ----------------------- CARROUSEL ----------------------- */
+/* ----------------------- HERO CARROUSEL CON ANIMACIÓN ----------------------- */
+.heroCarousel {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    overflow: hidden;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
 .overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 90vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, rgba(136, 201, 185, 0.4) 0%, rgba(248, 200, 208, 0.3) 100%);
     z-index: 1;
+    animation: gradientShift 8s ease-in-out infinite;
 }
 
-.heroCarousel {
-    position: relative;
-    width: 100%;
-    height: 90vh;
-    overflow: hidden;
+@keyframes gradientShift {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.6; }
 }
 
 .heroCarousel .carousel .slide img {
     width: 100vw;
     height: 90vh;
     object-fit: cover;
-    object-position: top center;
-    border-radius: 8px;
+    object-position: center;
+    filter: brightness(0.9);
+    animation: zoomInOut 20s ease-in-out infinite;
 }
 
-.line_over {
-    border: none;
-    height: 2px;
-    width: 100%;
-    background-color: #b8abab;
-    margin: 20px auto;
-    max-width: 100%;
+@keyframes zoomInOut {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
-/* Texto superpuesto en el carousel */
+/* Texto hero con animación de entrada */
 .heroText {
     position: absolute;
     top: 50%;
@@ -60,94 +83,205 @@
     transform: translate(-50%, -50%);
     color: white;
     text-align: center;
-    padding: 0 1rem;
-    max-width: 90%;
+    padding: 0 2rem;
+    max-width: 800px;
     z-index: 10;
-    font-family: 'Lora', serif;
+    font-family: 'Inter', sans-serif;
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
 .heroText h1 {
-    font-size: 3rem;
-    margin-bottom: 0.3rem;
-    letter-spacing: 8px;
-    font-weight: lighter;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    font-family: 'Playfair Display', serif;
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0%, 100% { text-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    50% { text-shadow: 0 4px 20px rgba(255,255,255,0.4); }
 }
 
 .heroText p {
-    font-size: 1.1rem;
-    margin-top: 0.5rem;
-    color: white !important;
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-weight: 300;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    animation: fadeIn 1.5s ease 0.5s both;
 }
 
-/* Botones en el hero */
+.line_over {
+    border: none;
+    height: 3px;
+    width: 100px;
+    background: linear-gradient(90deg, transparent, #FFFFFF, transparent);
+    margin: 2rem auto;
+    animation: lineExtend 2s ease-in-out infinite;
+}
+
+@keyframes lineExtend {
+    0%, 100% { width: 100px; }
+    50% { width: 150px; }
+}
+
+/* Botones hero con animación flotante */
 .buttonGroup {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
-    margin-top: 2.5rem;
+    margin-top: 2rem;
+    animation: fadeIn 1s ease 0.8s both;
 }
 
 .heroButton {
-    background-color: #ffffff;
-    color: #333;
-    padding: 0.6rem 1.2rem;
-    font-size: 1.2rem;
-    font-weight: bold;
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light));
+    color: var(--color-text);
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 50px;
+    transition: var(--transition-bounce);
+    box-shadow: var(--shadow-soft);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.heroButton:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.heroButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.heroButton:hover::before {
+    left: 100%;
 }
 
 .heroButton:hover {
-    background-color: #4CAF50;
-    color: #fff;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: var(--shadow-medium);
+    animation: none;
 }
 
-/* ----------------------- SECCIÓN ACERCA DE NOSOTROS ----------------------- */
+/* ----------------------- SECCIONES CON ANIMACIÓN DE ENTRADA ----------------------- */
+.servicios {
+    padding: 6rem 2rem;
+    background: #FFFFFF;
+    text-align: center;
+    position: relative;
+    opacity: 0;
+    animation: fadeInUpSection 1s ease forwards;
+}
+
+@keyframes fadeInUpSection {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.servicios:nth-child(even) {
+    background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+}
+
 .icon_about {
     width: 80px;
     height: 50px;
-    margin-bottom: 10px;
-    filter: brightness(0) invert(0.3);
+    margin-bottom: 1.5rem;
+    filter: brightness(0) invert(0.5);
+    opacity: 0.8;
+    animation: spinSlow 20s linear infinite;
+}
+
+@keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .line_about {
     border: none;
-    border-top: 2px solid #9b6c3f;
-    width: 100%;
-    margin: 10px auto 20px auto;
-    max-width: 100%;
+    height: 3px;
+    width: 80px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    margin: 1rem auto 2rem auto;
+    border-radius: 2px;
+    animation: widthPulse 3s ease-in-out infinite;
 }
 
-.acerca {
-    padding: 3rem 2rem;
-    background-color: #f9f9f9;
-    text-align: center;
+.titulo {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-primary-dark);
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+    animation: titleFloat 6s ease-in-out infinite;
 }
 
-.acerca h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #4d4d4d;
+@keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
-.acerca p {
-    font-size: 1.1rem;
-    max-width: 900px;
-    margin: 0 auto 1rem auto;
-    line-height: 1.6;
-    color: #666;
-    text-align: center;
+.descripcion {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+    color: var(--color-text);
+    font-weight: 400;
+    animation: fadeIn 1s ease 0.3s both;
 }
 
-/* ----------------------- IMAGEN ENTRE MEDIO ----------------------- */
+/* ----------------------- IMAGEN ENTRE SECCIONES CON HOVER ----------------------- */
 .imageContainer {
     width: 100%;
     overflow: hidden;
     margin: 0;
     padding: 0;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+}
+
+.imageContainer:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-medium);
 }
 
 .imageBelowAbout {
@@ -155,62 +289,49 @@
     height: 60vh;
     object-fit: cover;
     object-position: center;
-    border-radius: 8px;
+    filter: brightness(0.9);
+    transition: var(--transition-smooth);
 }
 
-/* ----------------------- SECCIÓN SERVICIOS ----------------------- */
-.servicios {
-    padding: 3rem 2rem;
-    background-color: #fdfdfd;
-    font-family: 'Lora', serif;
-    text-align: center;
+.imageBelowAbout:hover {
+    transform: scale(1.05);
+    filter: brightness(1);
 }
 
-.titulo {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: #333;
-}
-
-.descripcion {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-    color: #555;
-}
-
-/* ----------------------- SECCIÓN DÓNDE ENCONTRARNOS ----------------------- */
+/* ----------------------- SECCIÓN CONTACTO CON GRADIENTE ANIMADO ----------------------- */
 .contacto {
-    padding: 4rem 2rem;
-    background-color: #fdf9f6;
-    font-family: 'Lora', serif;
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-secondary-light) 100%);
+    color: var(--color-text);
     text-align: center;
-}
-
-.contacto p {
-    margin: 0.5rem 0;
-    font-size: 1.2rem;
-    color: #444;
-}
-
-.titulo {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
+    border-radius: var(--radius-lg);
+    margin: 4rem 0;
     position: relative;
+    overflow: hidden;
 }
 
-.titulo::after {
-    content: "";
-    width: 60px;
-    height: 3px;
-    background-color: #8e44ad;
-    display: block;
-    margin: 0.5rem auto 0 auto;
-    border-radius: 2px;
+.contacto::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shimmer 6s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.contacto .titulo {
+    color: var(--color-primary-dark);
+}
+
+.contacto .descripcion {
+    color: var(--color-text);
 }
 
 .dato {
@@ -218,154 +339,164 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    margin: 1rem auto;
-    max-width: 600px;
+    margin: 1.5rem auto;
+    max-width: 500px;
     text-align: left;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(10px);
+    transition: var(--transition-bounce);
+    position: relative;
+    z-index: 2;
+}
+
+.dato:hover {
+    transform: translateX(15px) scale(1.05);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-soft);
 }
 
 .icono {
     font-size: 1.5rem;
-    color: #8e44ad;
+    color: var(--color-primary);
     min-width: 24px;
+    transition: var(--transition-smooth);
 }
 
-.descripcion {
-    max-width: 700px;
-    margin: 0 auto 2rem;
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #444;
+.dato:hover .icono {
+    color: var(--color-secondary);
+    transform: scale(1.2);
 }
 
-/* ----------------------- SECCIÓN PREGUNTAS FRECUENTES ----------------------- */
-.faq {
-    padding: 3rem 2rem;
-    background-color: #fff;
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.faq h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: center;
-    color: #4d4d4d;
-}
-
-.faqItem {
-    margin-bottom: 1.5rem;
-}
-
-.faqItem h3 {
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.faqItem p {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.6;
-}
-
-/* ----------------------- Sección Mapas ----------------------- */
+/* ----------------------- MAPAS CON ANIMACIÓN DE ENTRADA ----------------------- */
 .mapsContainer {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 3rem;
-    justify-content: center;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .mapCard {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1 1 400px;
-    max-width: 500px;
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-bounce);
+    opacity: 0;
+    animation: slideInUp 0.8s ease forwards;
+}
+
+.mapCard:nth-child(1) { animation-delay: 0.1s; }
+.mapCard:nth-child(2) { animation-delay: 0.2s; }
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mapCard:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: var(--shadow-floating);
 }
 
 .mapTitle {
     font-size: 1.4rem;
-    font-weight: bold;
-    color: #444;
-    margin-bottom: 0.8rem;
-    font-family: 'Lora', serif;
-    text-decoration: underline;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    margin-bottom: 1.5rem;
+    font-family: 'Playfair Display', serif;
 }
 
 .mapIframe {
     width: 100%;
     height: 300px;
-    border: 2px solid #005f46;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease;
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
 }
 
 .mapIframe:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
+    box-shadow: var(--shadow-medium);
 }
 
-/* ----------------------- FORMULARIO ----------------------- */
+/* ----------------------- FORMULARIO CON ANIMACIONES INTERACTIVAS ----------------------- */
 .sectionFormulario {
-    padding: 4rem 2rem;
-    background-color: #fdf9f6;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    font-family: 'Lora', serif;
-    max-width: 600px;
-    margin: 2rem auto;
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+    border-radius: var(--radius-lg);
+    margin: 4rem 0;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.sectionFormulario::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-primary));
+    animation: progressBar 3s ease-in-out infinite;
+}
+
+@keyframes progressBar {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
 }
 
 .sectionFormulario h2 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: #2c3e50;
-    position: relative;
-}
-
-.sectionFormulario h2::after {
-    content: "";
-    width: 60px;
-    height: 3px;
-    background-color: #8e44ad;
-    display: block;
-    margin: 0.5rem auto 0 auto;
-    border-radius: 2px;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary-dark);
+    font-family: 'Playfair Display', serif;
 }
 
 .sectionFormulario p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    color: var(--color-text);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .formulario {
     display: flex;
     flex-direction: column;
-    gap: 1.8rem;
+    gap: 2rem;
     width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-/* Input groups */
 .inputGroup {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
+    position: relative;
 }
 
 .inputGroup label {
-    font-weight: 700;
-    margin-bottom: 0.4rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
     font-size: 1rem;
-    color: #2F4F4F;
+    color: var(--color-text);
+    transition: var(--transition-smooth);
 }
 
 .inputIconWrapper {
@@ -375,151 +506,169 @@
 
 .inputIcon {
     position: absolute;
-    left: 14px;
+    left: 1.25rem;
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.25rem;
-    color: #8e44ad;
+    color: var(--color-primary);
+    z-index: 2;
+    transition: var(--transition-smooth);
 }
 
 input[type="text"],
 input[type="email"],
 textarea {
     width: 100%;
-    padding: 0.75rem 1rem 0.75rem 42px;
-    border: 1.5px solid #ccc;
-    border-radius: 8px;
+    padding: 1.25rem 1.25rem 1.25rem 3.5rem;
+    border: 2px solid rgba(136, 201, 185, 0.3);
+    border-radius: var(--radius-md);
     font-size: 1rem;
-    font-family: 'Lora', serif;
-    color: #333;
-    background-color: #fff;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.8);
+    transition: var(--transition-bounce);
+    resize: vertical;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 textarea:focus {
-    border-color: #8e44ad;
-    box-shadow: 0 0 10px rgba(142, 68, 173, 0.2);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(136, 201, 185, 0.1);
     outline: none;
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.95);
 }
 
-/* Submit button */
-button[type="submit"] {
+.inputGroup:focus-within .inputIcon {
+    color: var(--color-secondary);
+    transform: translateY(-50%) scale(1.2);
+}
+
+.buttonSubmit {
     align-self: center;
-    padding: 0.75rem 2rem;
+    padding: 1.25rem 3.5rem;
     font-size: 1.1rem;
-    font-weight: 700;
-    color: #fff;
-    background-color: #8e44ad;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
     border: none;
-    border-radius: 10px;
+    border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(142, 68, 173, 0.3);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-bounce);
+    margin-top: 1rem;
+    position: relative;
+    overflow: hidden;
 }
 
-button[type="submit"]:hover {
-    background-color: #732d91;
-    box-shadow: 0 6px 18px rgba(115, 45, 145, 0.5);
+.buttonSubmit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
 }
 
-/* ----------------------- Responsive ----------------------- */
-@media (max-width: 900px) {
-    /* Para mapas y textos grandes en pantallas medianas */
-    .mapsContainer {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
+.buttonSubmit:hover::before {
+    left: 100%;
+}
+
+.buttonSubmit:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: var(--shadow-medium);
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+}
+
+/* ----------------------- RESPONSIVE ----------------------- */
+@media (max-width: 1024px) {
+    .heroText h1 {
+        font-size: 3rem;
     }
+    
+    .mapsContainer {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
 
+@media (max-width: 768px) {
+    .heroCarousel {
+        height: 70vh;
+        border-radius: 0 0 var(--radius-md) var(--radius-md);
+    }
+    
+    .overlay {
+        height: 70vh;
+    }
+    
+    .heroCarousel .carousel .slide img {
+        height: 70vh;
+    }
+    
     .heroText h1 {
         font-size: 2.2rem;
-        letter-spacing: 5px;
     }
-
+    
     .heroText p {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
-
+    
+    .buttonGroup {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .heroButton {
+        width: 220px;
+    }
+    
     .titulo {
         font-size: 2.2rem;
     }
-
-    .descripcion {
-        font-size: 1.1rem;
+    
+    .servicios,
+    .contacto,
+    .sectionFormulario {
+        padding: 4rem 1.5rem;
+    }
+    
+    .mapsContainer {
+        grid-template-columns: 1fr;
     }
 }
 
-@media (max-width: 600px) {
-    /* Ajustes en pantallas pequeñas */
-    .container {
-        padding: 1.5rem 1rem;
-        border-radius: 8px;
-    }
-
+@media (max-width: 480px) {
     .heroText h1 {
-        font-size: 1.6rem;
-        letter-spacing: 3px;
+        font-size: 1.8rem;
     }
-
+    
     .heroText p {
-        font-size: 0.9rem;
-    }
-
-    .buttonGroup {
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-
-    .heroButton {
         font-size: 1rem;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
     }
-
+    
     .titulo {
         font-size: 1.8rem;
     }
-
+    
     .descripcion {
         font-size: 1rem;
-        padding: 0 1rem;
     }
-
-    .mapsContainer {
-        gap: 1rem;
-    }
-
-    .mapCard {
-        max-width: 100%;
-        flex-basis: 100%;
-    }
-
+    
     .imageBelowAbout {
         height: 40vh;
     }
-
-    .sectionFormulario {
-        padding: 2rem 1rem;
-        max-width: 100%;
-        border-radius: 10px;
-        box-shadow: none;
-    }
-
+    
     .formulario {
-        gap: 1.2rem;
+        gap: 1.5rem;
     }
-
+    
     input[type="text"],
     input[type="email"],
     textarea {
-        padding-left: 38px;
-        font-size: 0.95rem;
-    }
-
-    button[type="submit"] {
-        padding: 0.6rem 1.5rem;
-        font-size: 1rem;
+        padding-left: 3rem;
     }
 }

@@ -56,7 +56,7 @@ const Productos = () => {
       });
     }
 
-    if (filtros.oferta) filtrados = filtrados.filter(p => p.oferta);
+if (filtros.oferta) filtrados = filtrados.filter(p => p.oferta === true);
 
     if (filtros.rangoPrecio) {
       switch (filtros.rangoPrecio) {

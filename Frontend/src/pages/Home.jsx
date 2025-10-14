@@ -63,7 +63,11 @@ export default function Home() {
                     {icono}
                     <h2 className={styles.titulo}>Bienvenido/a, {usuario.nombre}</h2>
                     <p className={styles.rol}>Rol: {rol.replace(/_/g, ' ')}</p>
-                    <LogoutButton />
+                    
+                    {/* SOLUCIÓN SIMPLIFICADA */}
+                    <div className={styles.logoutContainer}>
+                        <LogoutButton />
+                    </div>
                 </div>
                 <HomeComponent usuario={usuario} />
             </div>
