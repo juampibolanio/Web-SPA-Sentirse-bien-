@@ -1,357 +1,530 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lora&display=swap');
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* Variables de color */
 :root {
-    --color-primary: #4F8B4F;
-    /* Verde bambú */
-    --color-secondary: #CBA0D2;
-    /* Lila suave */
-    --color-accent: #D462A6;
-    /* Lila intenso */
-    --color-background: #F3FBF4;
-    /* Blanco verdoso suave */
-    --color-text: #444;
-    /* Texto oscuro */
-    --color-shadow: rgba(63, 139, 79, 0.2);
+  --color-primary: #88C9B9;
+  --color-primary-light: #A7D9CA;
+  --color-primary-dark: #6AB8A7;
+  --color-secondary: #F8C8D0;
+  --color-secondary-light: #FADDE2;
+  --color-accent: #E8B4BC;
+  --color-text: #5A6D77;
+  --color-text-light: #8A9AA3;
+  --color-white: #FFFFFF;
+  --color-bg: rgba(255, 255, 255, 0.95);
+  --radius-lg: 20px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --shadow-soft: 0 8px 32px rgba(136, 201, 185, 0.15);
+  --shadow-medium: 0 12px 40px rgba(136, 201, 185, 0.2);
+  --shadow-floating: 0 20px 60px rgba(136, 201, 185, 0.25);
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Header */
 .header {
-    background: rgba(79, 139, 79, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: 1rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    font-family: 'Lora', serif;
-    box-shadow: 0 2px 8px var(--color-shadow);
-    transition: background 0.3s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid rgba(136, 201, 185, 0.2);
+  color: var(--color-text);
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Logo */
-.logoContainer {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.logoLink {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    transition: transform 0.3s ease;
+/* Logo con Animación Flotante */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  transition: var(--transition-smooth);
+  background: linear-gradient(135deg, rgba(136, 201, 185, 0.1) 0%, rgba(248, 200, 208, 0.1) 100%);
+  animation: floatLogo 6s ease-in-out infinite;
 }
 
-.logoLink:hover .logoImg {
-    transform: scale(1.05);
+@keyframes floatLogo {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(1deg); }
 }
 
-.logoImg {
-    height: 40px;
-    width: auto;
-    margin-right: 0.6rem;
-    filter: drop-shadow(0 0 2px #3F8B4F);
-    transition: filter 0.3s ease;
+.logo:hover {
+  animation: none;
+  transform: scale(1.05) rotate(-2deg);
+  box-shadow: var(--shadow-medium);
 }
 
-.logoText {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #F3FBF4;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-shadow: 0 0 4px var(--color-primary);
+.logo img {
+  height: 45px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+  filter: drop-shadow(0 4px 8px rgba(136, 201, 185, 0.3));
 }
 
-/* Navegación */
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 0.5rem;
+/* Navegación con Efecto Ola */
+.navLinks {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  transition: var(--transition-smooth);
 }
 
-/* Para pantallas pequeñas */
-@media (max-width: 768px) {
-    .nav {
-        flex-direction: column;
-        align-items: stretch;
-    }
+.navLinks a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-lg);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  background: rgba(136, 201, 185, 0.05);
 }
 
-/* Enlaces principales */
-.centerLinks {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
+.navLinks a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(136, 201, 185, 0.2), transparent);
+  transition: left 0.8s ease;
 }
 
-@media (max-width: 768px) {
-    .centerLinks {
-        flex-direction: column;
-        width: 100%;
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        margin-top: 0.5rem;
-        padding: 0;
-    }
-
-    .centerLinks.open {
-        max-height: 500px;
-        opacity: 1;
-        padding: 0.5rem 0;
-    }
+.navLinks a:hover::before {
+  left: 100%;
 }
 
-/* Botón hamburguesa */
-.hamburgerButton {
-    display: none;
-    background: transparent;
-    border: none;
-    color: #B580C2;
-    cursor: pointer;
-    padding: 0.3rem;
-    margin-left: 1rem;
-    transition: transform 0.3s ease;
+.navLinks a:hover {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light));
+  color: var(--color-primary-dark);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
 }
 
-@media (max-width: 768px) {
-    .hamburgerButton {
-        display: block;
-    }
-}
-
-/* Enlaces */
-.link {
-    color: #F0FFF0;
-    text-decoration: none;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    font-size: 1.1rem;
-    font-family: 'Lora', serif;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.link:hover {
-    background-color: rgba(211, 98, 166, 0.2);
-    color: var(--color-accent);
-}
-
-/* Iconos en enlaces */
-.icon {
-    margin-right: 8px;
-    font-size: 1.2rem;
-    color: var(--color-secondary);
-    transition: color 0.3s ease;
-}
-
-.link:hover .icon {
-    color: var(--color-accent);
-}
-
-/* Panel usuario/iniciar sesión */
+/* Panel de Usuario con Animación Suave */
 .userPanel {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
 }
 
 .loginButton,
-.userNameButton {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    background-color: transparent;
-    color: #F3FBF4;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Lora', serif;
-    font-size: 1.1rem;
-    border: none;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+.userButton,
+.btnCarrito {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light));
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-lg);
+  transition: var(--transition-bounce);
+  font-weight: 500;
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
 }
 
 .loginButton:hover,
-.userNameButton:hover {
-    background-color: rgba(211, 98, 166, 0.2);
-    color: var(--color-accent);
-    color: #F3FBF4;
+.userButton:hover,
+.btnCarrito:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-medium);
 }
 
-.loginIcon,
-.logoutIcon,
-.userIcon {
-    font-size: 1.2rem;
-    color: var(--color-accent);
-    transition: color 0.3s ease;
+.btnCarrito {
+  position: relative;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-secondary));
+  color: var(--color-white);
 }
 
-.dropdownMenu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: var(--color-background);
-    border: 1px solid var(--color-secondary);
-    border-radius: 8px;
-    margin-top: 0.5rem;
-    padding: 0.5rem 0;
-    box-shadow: 0 4px 12px rgba(63, 139, 79, 0.2);
-    min-width: 200px;
-    z-index: 10;
-    font-family: 'Lora', serif;
-    animation: fadeDown 0.3s ease forwards;
+.btnCarrito::after {
+  content: attr(data-count);
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--color-primary-dark);
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  animation: pulse 2s infinite;
 }
 
-@keyframes fadeDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
-/* Opciones del dropdown */
+/* Dropdown con Animación de Desvanecimiento */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(136, 201, 185, 0.2);
+  border-radius: var(--radius-lg);
+  min-width: 220px;
+  box-shadow: var(--shadow-floating);
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  animation: slideDownFade 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .dropdownItem {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.2rem;
-    color: var(--color-text);
-    text-decoration: none;
-    background-color: transparent;
-    font-size: 0.95rem;
-    border: none;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-    font-family: 'Lora', serif !important;
-    border-radius: 4px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+  text-decoration: none;
 }
 
 .dropdownItem:hover {
-    background-color: rgba(208, 240, 224, 0.5);
-    color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(136, 201, 185, 0.1), rgba(248, 200, 208, 0.1));
+  transform: translateX(8px);
+  color: var(--color-primary-dark);
 }
 
-/* Responsive en móviles */
-@media (max-width: 768px) {
-    .logoText {
-        font-size: 1.4rem;
-    }
-
-    .logoImg {
-        height: 35px;
-    }
-
-    .link {
-        font-size: 1rem;
-        padding: 0.5rem 0;
-    }
-
-    .userPanel {
-        width: 100%;
-        justify-content: space-between;
-        margin-top: 1rem;
-    }
-
-    .loginButton,
-    .userNameButton {
-        width: 100%;
-        justify-content: center;
-        padding: 0.5rem 0;
-    }
-
-    .hamburgerButton {
-        margin-left: 0;
-        margin-top: 1rem;
-    }
-    
+/* Carrito Sidebar con Animación de Slide */
+.carrito {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  width: 400px;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  box-shadow: var(--shadow-floating);
+  padding: 2.5rem;
+  transition: var(--transition-smooth);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(136, 201, 185, 0.2);
 }
 
-
-.btnCarrito {
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1rem;
+.carrito.abierto { 
+  right: 0; 
+  animation: slideInRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.carritoSidebar {
-    position: fixed;
-    top: 0;
-    right: -300px;
-    width: 300px;
-    height: 100vh; 
-    background: #f5f5f5;
-    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
-    padding: 2rem;
-    transition: right 0.3s ease;
-    z-index: 1001; 
-}
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw; 
-    background: rgba(0,0,0,0.4);
-    z-index: 1000; 
-}
-
-.carritoSidebar.abierto {
+@keyframes slideInRight {
+  from {
+    right: -450px;
+    opacity: 0;
+  }
+  to {
     right: 0;
+    opacity: 1;
+  }
 }
 
-.tituloCarrito {
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    font-weight: bold;
+.carrito h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  margin-bottom: 2rem;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
 }
 
-.textoCarrito {
-    margin-bottom: 1.5rem;
+.closeCarrito {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-lg);
+  margin-top: auto;
+  font-weight: 600;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-soft);
 }
 
-.cerrarCarrito {
-    padding: 0.5rem 1rem;
-    background: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
+.closeCarrito:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: var(--shadow-medium);
 }
-
 
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background: rgba(136, 201, 185, 0.3);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  animation: fadeInOverlay 0.4s ease;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Items del Carrito con Animación de Entrada */
+.listaCarrito {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1rem;
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 0.5rem;
+}
+
+.itemCarrito {
+  display: flex;
+  gap: 1rem;
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(136, 201, 185, 0.1);
+  transition: var(--transition-smooth);
+  animation: slideInItem 0.6s ease forwards;
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+@keyframes slideInItem {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.itemCarrito:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-medium);
+}
+
+.itemCarrito img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 2px solid rgba(136, 201, 185, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.itemCarrito:hover img {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.nombreProducto {
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.precio {
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  font-size: 1rem;
+}
+
+.cantidadControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.cantidadControls button {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  font-weight: 600;
+  box-shadow: var(--shadow-soft);
+}
+
+.cantidadControls button:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: scale(1.15);
+}
+
+.cantidadControls button:disabled {
+  background: #E0E0E0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btnEliminarCarrito {
+  background: var(--color-accent) !important;
+  margin-left: 0.5rem;
+}
+
+.btnEliminarCarrito:hover {
+  background: #E8A4AE !important;
+}
+
+.resumenTotal {
+  margin-top: 2rem;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--color-primary-dark);
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(136, 201, 185, 0.1), rgba(248, 200, 208, 0.1));
+  border-radius: var(--radius-lg);
+  animation: pulse 3s infinite;
+}
+
+.btnVerCarrito {
+  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-secondary));
+  color: white;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  width: 100%;
+  font-weight: 600;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-soft);
+}
+
+.btnVerCarrito:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Hamburguesa Animada */
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--color-primary-dark);
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+  background: rgba(136, 201, 185, 0.1);
+}
+
+.hamburger:hover {
+  background: rgba(136, 201, 185, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 0.75rem 1.5rem;
+  }
+  
+  .hamburger { 
+    display: block; 
+  }
+  
+  .navLinks {
+    flex-direction: column;
     width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    z-index: 1000;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 1rem;
+  }
+  
+  .navLinks.open {
+    max-height: 500px;
+    opacity: 1;
+  }
+  
+  .userPanel {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .carrito {
+    width: 100%;
+    right: -100%;
+  }
+  
+  .navbar {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo span {
+    font-size: 1.3rem;
+  }
+  
+  .loginButton,
+  .userButton,
+  .btnCarrito {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  .carrito {
+    padding: 2rem 1.5rem;
+  }
 }

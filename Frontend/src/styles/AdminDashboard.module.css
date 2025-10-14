@@ -1,0 +1,309 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.sidebar {
+  background: #1e2a38;
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.logo {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.sidebar li:hover {
+  color: #00bcd4;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.btnSalir {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btnSalir:hover {
+  background: #c9302c;
+}
+
+.section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th, 
+.table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+.table th {
+  background: #f0f0f0;
+}
+.btnEditar {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btnEditar:hover {
+  background: #0056b3;
+}
+.btnEliminar {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btnEliminar:hover {
+  background: #c9302c;
+}
+
+.descuentosList {
+  list-style: none;
+  padding: 0;
+}
+.descuentosList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  background: #f9f9f9;
+}
+.activo {
+  border-left: 5px solid #28a745;
+}
+.inactivo {
+  border-left: 5px solid #ccc;
+}
+
+/* Stock Status Styles */
+.stockStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.stockAgotado {
+  background: #fee;
+  color: #d63031;
+  border: 1px solid #ff7675;
+}
+
+.stockBajo {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.stockMedio {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #90caf9;
+}
+
+.stockAlto {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+/* Stock Display */
+.stockDisplay {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.stockNumber {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.stockLabel {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+/* Stock Edit */
+.stockEdit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stockInput {
+  width: 80px;
+  padding: 0.5rem;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-align: center;
+  background: #f8fafc;
+}
+
+.stockInput:focus {
+  outline: none;
+  border-color: #2980b9;
+  background: white;
+}
+
+/* Icon Buttons */
+.iconButtonPrimary, .iconButtonSuccess, .iconButtonDanger {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconButtonPrimary {
+  background: #3498db;
+  color: white;
+}
+
+.iconButtonPrimary:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+}
+
+.iconButtonSuccess {
+  background: #27ae60;
+  color: white;
+}
+
+.iconButtonSuccess:hover {
+  background: #219a52;
+  transform: translateY(-1px);
+}
+
+.iconButtonDanger {
+  background: #e74c3c;
+  color: white;
+}
+
+.iconButtonDanger:hover {
+  background: #c0392b;
+  transform: translateY(-1px);
+}
+
+/* Table Improvements */
+.tableActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cellMain {
+  font-weight: 600;
+}
+
+.priceCell {
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.productCategory {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  margin-top: 0.2rem;
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-left: 4px solid #3498db;
+}
+
+.statIcon {
+  font-size: 2rem;
+}
+
+.statContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin-top: 0.2rem;
+}

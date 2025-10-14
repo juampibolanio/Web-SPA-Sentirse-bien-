@@ -1,0 +1,411 @@
+/* components/SuccessPaymentPanel.css - VERSIÓN OPTIMIZADA */
+.confirmationPage {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lora', serif;
+}
+
+.panelContent {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border: 1px solid #e8f5e8;
+}
+
+/* Animación del tick */
+.tickContainer {
+  margin: 0 auto 1.5rem;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #3E8E7E, #2D7163);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0) rotate(-180deg);
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tickContainer.animate {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.tickIcon {
+  font-size: 3rem;
+  color: white;
+}
+
+/* Texto */
+.panelContent h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.8rem;
+  color: #2D7163;
+  font-weight: 700;
+}
+
+.panelContent p {
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+/* Resumen de compra */
+.purchaseSummary {
+  max-height: 280px;
+  overflow-y: auto;
+  border: 2px solid #f0f7f4;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  background: #fafefd;
+}
+
+.purchaseSummary h3 {
+  margin: 0 0 1rem 0;
+  color: #2D7163;
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.purchaseItem {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #e8f5e8;
+}
+
+.purchaseItem:last-child {
+  border-bottom: none;
+}
+
+.purchaseItem img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #e8f5e8;
+}
+
+.itemInfo {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.itemName {
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+  text-align: left;
+}
+
+.itemQty {
+  color: #666;
+  font-weight: 500;
+  min-width: 40px;
+}
+
+.itemPrice {
+  font-weight: 700;
+  color: #3E8E7E;
+  min-width: 80px;
+  text-align: right;
+}
+
+.purchaseTotal {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #3E8E7E;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: right;
+  color: #2D7163;
+}
+
+/* Detalles de transacción */
+.transactionDetails {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 1px solid #e2e8f0;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #e8f5e8;
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailRow span:first-child {
+  color: #666;
+  font-weight: 500;
+}
+
+.detailRow strong {
+  color: #2D7163;
+}
+
+/* Botones de acción */
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #3E8E7E, #2D7163);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 180px;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(62, 142, 126, 0.3);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(62, 142, 126, 0.4);
+}
+
+.btnOutline {
+  background: white;
+  color: #3E8E7E;
+  border: 2px solid #3E8E7E;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 180px;
+  justify-content: center;
+}
+
+.btnOutline:hover {
+  background: #3E8E7E;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(62, 142, 126, 0.3);
+}
+
+/* Estado de error */
+.errorState {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.errorState h2 {
+  color: #dc3545;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.errorState button {
+  background: #3E8E7E;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.errorState button:hover {
+  background: #2D7163;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .confirmationPage {
+    margin: 1rem auto;
+    padding: 0.5rem;
+    align-items: flex-start;
+    min-height: auto;
+  }
+
+  .panelContent {
+    padding: 2rem 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .tickContainer {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1rem;
+  }
+
+  .tickIcon {
+    font-size: 2.5rem;
+  }
+
+  .panelContent h2 {
+    font-size: 1.5rem;
+  }
+
+  .purchaseItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
+
+  .itemInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .itemName,
+  .itemQty,
+  .itemPrice {
+    text-align: center;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .btnPrimary,
+  .btnOutline {
+    min-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .panelContent {
+    padding: 1.5rem 1rem;
+  }
+
+  .purchaseItem img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .purchaseSummary {
+    padding: 1rem;
+  }
+}
+
+/* ✅ NUEVO: Desglose de descuentos */
+.discountsBreakdown {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.discountItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.discountItem:not(:last-child) {
+  border-bottom: 1px solid #e8f5e8;
+}
+
+.discountAmount {
+  color: #3E8E7E;
+  font-weight: 600;
+}
+
+/* Ajustar el total principal para que destaque más */
+.purchaseTotal {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #3E8E7E;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: right;
+  color: #2D7163;
+  background: #f0f7f4;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.itemPriceDetails {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 0.9em;
+}
+
+.finalPrice {
+  color: #2c5530;
+  font-weight: bold;
+}
+
+.discountBadge {
+  background: #ff4444;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8em;
+}
+
+.discountsBreakdown {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.discountItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.discountAmount {
+  color: #ff4444;
+  font-weight: bold;
+}

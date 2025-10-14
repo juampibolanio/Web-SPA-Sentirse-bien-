@@ -1,29 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-.container {
-    font-family: 'Lora', serif;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 2.5rem;
-    background-color: #f8f5f2;
-    color: #333;
+:root {
+  --color-primary: #88C9B9;
+  --color-primary-light: #A7D9CA;
+  --color-primary-dark: #6AB8A7;
+  --color-secondary: #F8C8D0;
+  --color-secondary-light: #FADDE2;
+  --color-accent: #E8B4BC;
+  --color-text: #5A6D77;
+  --color-text-light: #8A9AA3;
+  --color-white: #FFFFFF;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --shadow-soft: 0 8px 32px rgba(136, 201, 185, 0.15);
+  --shadow-medium: 0 12px 40px rgba(136, 201, 185, 0.2);
+  --shadow-floating: 0 20px 60px rgba(136, 201, 185, 0.25);
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+.container {
+    font-family: 'Inter', sans-serif;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 50%, #F8F9FA 100%);
+    color: var(--color-text);
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-secondary), transparent);
+    animation: shimmer 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* Banner Hero con Animación */
 .banner {
     position: relative;
     width: 100%;
-    height: 380px;
-    border-radius: 24px;
+    height: 450px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    margin-bottom: 3rem;
+    box-shadow: var(--shadow-floating);
+    margin-bottom: 4rem;
+    animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .bannerImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.6);
+    filter: brightness(0.7);
+    transition: var(--transition-smooth);
+}
+
+.banner:hover .bannerImage {
+    transform: scale(1.05);
+    filter: brightness(0.8);
 }
 
 .bannerText {
@@ -32,155 +89,471 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #ffffff !important;
+    color: var(--color-white);
     z-index: 2;
-    font-family: 'Lora', serif;
+    width: 90%;
+    max-width: 800px;
 }
 
 .bannerText h1 {
-    font-size: 2.8rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    animation: titleFloat 6s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
 .bannerText p {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    color: white !important;
+    font-weight: 300;
+    line-height: 1.6;
+    animation: fadeIn 1s ease 0.3s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .botonHero {
-    padding: 0.9rem 2rem;
-    background-color: #007b5e;
-    color: white;
+    padding: 1.2rem 2.5rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: var(--color-white);
     border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    transition: background-color 0.3s;
+    gap: 0.75rem;
+    transition: var(--transition-bounce);
     cursor: pointer;
-    font-family: 'Lora', serif;
-    font-weight: lighter;
+    font-family: 'Inter', sans-serif;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.botonHero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.botonHero:hover::before {
+    left: 100%;
 }
 
 .botonHero:hover {
-    background-color: #B580C2;
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: var(--shadow-medium);
+    animation: none;
 }
 
+/* Sección de Título */
 .tituloSeccion {
     text-align: center;
-    font-size: 2rem;
-    color: #007b5e;
-    margin-bottom: 1rem;
+    font-size: 2.8rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    position: relative;
+    animation: fadeInUp 1s ease 0.5s both;
+}
+
+.tituloSeccion::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    border-radius: 2px;
+    animation: widthPulse 3s ease-in-out infinite;
+}
+
+@keyframes widthPulse {
+    0%, 100% { width: 100px; }
+    50% { width: 150px; }
 }
 
 .intro {
-    font-size: 1.1rem;
-    color: #444;
+    font-size: 1.3rem;
+    color: var(--color-text);
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 1s ease 0.7s both;
 }
 
+/* Pasos con Animación Escalonada */
 .pasos {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2.5rem;
+    margin-bottom: 3rem;
 }
 
 .paso {
-    background: #D0F0E0;
-    padding: 1.7rem;
-    border-radius: 18px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-    transition: transform 0.25s ease-in-out;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-bounce);
     text-align: center;
+    border: 1px solid rgba(136, 201, 185, 0.1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: slideInUp 0.8s ease forwards;
+}
+
+.paso:nth-child(1) { animation-delay: 0.8s; }
+.paso:nth-child(2) { animation-delay: 0.9s; }
+.paso:nth-child(3) { animation-delay: 1s; }
+.paso:nth-child(4) { animation-delay: 1.1s; }
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.paso::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(136, 201, 185, 0.1), transparent);
+    transition: left 0.8s ease;
+}
+
+.paso:hover::before {
+    left: 100%;
 }
 
 .paso:hover {
-    transform: translateY(-5px);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: var(--shadow-floating);
+    border-color: rgba(136, 201, 185, 0.3);
+}
+
+.iconoPaso {
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    transition: var(--transition-smooth);
+}
+
+.paso:hover .iconoPaso {
+    color: var(--color-secondary);
+    transform: scale(1.2) rotate(10deg);
 }
 
 .paso h3 {
-    font-size: 1.5rem;
-    color: #007b5e;
-    margin-bottom: 0.6rem;
+    font-size: 1.6rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.paso:hover h3 {
+    color: var(--color-accent);
+    transform: translateX(5px);
 }
 
 .paso p {
-    color: #555;
+    color: var(--color-text);
     font-size: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    transition: var(--transition-smooth);
+}
+
+.paso:hover p {
+    color: var(--color-text-light);
+}
+
+.paso strong {
+    color: var(--color-primary);
+    font-weight: 600;
 }
 
 .paso img {
     width: 100%;
-    max-height: 250px;
+    max-height: 200px;
     object-fit: cover;
-    border-radius: 12px;
-    margin-top: 0.5rem;
+    border-radius: var(--radius-md);
+    margin-top: 1rem;
+    transition: var(--transition-smooth);
+    filter: brightness(0.9);
 }
 
-.iconoPaso {
-    font-size: 2rem;
-    color: #B580C2;
-    margin-bottom: 0.8rem;
+.paso:hover img {
+    transform: scale(1.05);
+    filter: brightness(1);
+    box-shadow: var(--shadow-soft);
 }
 
+/* Sección Info Extra - CORREGIDA PARA CENTRAR */
 .infoExtra {
-    margin-top: 3rem;
-    font-size: 1.2rem;
+    margin-top: 4rem;
     text-align: center;
-    color: #333;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(136, 201, 185, 0.1), rgba(248, 200, 208, 0.1));
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(136, 201, 185, 0.2);
+    animation: fadeInUp 1s ease 1.2s both;
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.infoExtra::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.8s ease;
+}
+
+.infoExtra:hover::before {
+    left: 100%;
 }
 
 .infoExtra p {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+    text-align: center;
+    width: 100%;
 }
+
+.infoExtra:hover p {
+    color: var(--color-primary-dark);
+    transform: scale(1.05);
+}
+
 .botonLogin {
-    margin-top: 1rem;
-    padding: 0.8rem 1.6rem;
-    background-color: #007b5e;
-    color: white;
+    padding: 1.2rem 2.5rem;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+    color: var(--color-white);
     border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: var(--transition-bounce);
     cursor: pointer;
-    font-family: 'Lora', serif;
+    font-family: 'Inter', sans-serif;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+}
+
+.botonLogin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.botonLogin:hover::before {
+    left: 100%;
 }
 
 .botonLogin:hover {
-    background-color: #B580C2;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-secondary));
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: var(--shadow-medium);
 }
 
-/* Responsive */
-@media (min-width: 768px) {
+/* Efectos Decorativos */
+.container::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    right: 3%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, var(--color-secondary-light) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: floatParticle 10s ease-in-out infinite;
+}
+
+@keyframes floatParticle {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-15px) rotate(120deg); }
+    66% { transform: translateY(8px) rotate(240deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .banner {
+        height: 400px;
+    }
+    
+    .bannerText h1 {
+        font-size: 3rem;
+    }
+    
     .pasos {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem 1.5rem;
+    }
+    
+    .banner {
+        height: 350px;
+        margin-bottom: 3rem;
+    }
+    
+    .bannerText h1 {
+        font-size: 2.5rem;
+    }
+    
+    .bannerText p {
+        font-size: 1.2rem;
+    }
+    
+    .tituloSeccion {
+        font-size: 2.2rem;
+    }
+    
+    .intro {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .pasos {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .paso {
+        padding: 2rem;
+    }
+    
+    .infoExtra {
+        padding: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .infoExtra p {
+        font-size: 1.2rem;
     }
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .banner {
+        height: 300px;
+    }
+    
     .bannerText h1 {
         font-size: 2rem;
     }
-
+    
     .bannerText p {
         font-size: 1rem;
+        margin-bottom: 1.5rem;
     }
-
+    
+    .botonHero,
+    .botonLogin {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .tituloSeccion {
+        font-size: 1.8rem;
+    }
+    
+    .intro {
+        font-size: 1rem;
+    }
+    
+    .paso {
+        padding: 1.5rem;
+    }
+    
     .iconoPaso {
-        font-size: 1.6rem;
+        font-size: 2.5rem;
     }
-
+    
     .paso h3 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+    }
+    
+    .infoExtra {
+        padding: 1.5rem;
+    }
+    
+    .infoExtra p {
+        font-size: 1.1rem;
+    }
+    
+    .botonLogin {
+        min-width: 180px;
     }
 }

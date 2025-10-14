@@ -1,7 +1,28 @@
-/* src/styles/Home.module.css */
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-*{
+:root {
+  --color-primary: #88C9B9;
+  --color-primary-light: #A7D9CA;
+  --color-primary-dark: #6AB8A7;
+  --color-secondary: #F8C8D0;
+  --color-secondary-light: #FADDE2;
+  --color-accent: #E8B4BC;
+  --color-text: #5A6D77;
+  --color-text-light: #8A9AA3;
+  --color-white: #FFFFFF;
+  --color-bg: #F8F9FA;
+  --color-surface: #FFFFFF;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --shadow-soft: 0 8px 32px rgba(136, 201, 185, 0.15);
+  --shadow-medium: 0 12px 40px rgba(136, 201, 185, 0.2);
+  --shadow-floating: 0 20px 60px rgba(136, 201, 185, 0.25);
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,109 +30,532 @@
 
 .container {
     width: 100%;
-    font-family: 'Lora', serif;
-    padding: 2rem;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    padding: 2.5rem;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #f3fdfc, #e3f5f2);
-    font-family: 'Lora', serif !important;
-    flex-direction: column;
+    align-items: flex-start;
+    background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 50%, #F8F9FA 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-secondary), transparent);
+    animation: shimmer 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
 }
 
 .card {
-    background-color: #ffffff;
-    border-radius: 20px;
-    padding: 2.5rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
     width: 100%;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    max-width: 1000px;
+    box-shadow: var(--shadow-floating);
+    border: 1px solid rgba(136, 201, 185, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(136, 201, 185, 0.05), transparent);
+    transition: left 0.8s ease;
+}
+
+.card:hover::before {
+    left: 100%;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(136, 201, 185, 0.2);
+    position: relative;
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    border-radius: 2px;
+    animation: widthPulse 3s ease-in-out infinite;
+}
+
+@keyframes widthPulse {
+    0%, 100% { width: 80px; }
+    50% { width: 120px; }
 }
 
 .iconoRol {
-    font-size: 3rem;
-    color: #007b5e;
-    margin-bottom: 0.5rem;
+    font-size: 4rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    transition: var(--transition-bounce);
+    animation: floatIcon 6s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-8px) rotate(5deg); }
+    66% { transform: translateY(4px) rotate(-3deg); }
 }
 
 .titulo {
-    font-size: 2rem;
-    color: #007b5e;
-    margin-bottom: 0.2rem;
-    font-family: 'Lora', serif;
+    font-size: 2.5rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    line-height: 1.2;
+    position: relative;
+    animation: titleGlow 4s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 0 rgba(136, 201, 185, 0); }
+    50% { text-shadow: 0 0 20px rgba(136, 201, 185, 0.3); }
 }
 
 .rol {
-    font-size: 1.1rem;
-    color: #444;
-}
-
-.logoutWrapper {
-    margin-top: 2.5rem;
-    text-align: center;
-    font-family: 'Lora', serif;
-}
-
-.error {
     font-size: 1.2rem;
-    color: #d8000c;
-    background-color: #ffd2d2;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    text-align: center;
-    margin: 2rem auto;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    color: var(--color-text);
+    font-weight: 500;
+    background: linear-gradient(135deg, rgba(136, 201, 185, 0.1), rgba(248, 200, 208, 0.1));
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 0.5rem;
+    backdrop-filter: blur(10px);
+    transition: var(--transition-smooth);
 }
 
+.rol:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+
+/* SOLUCIÓN SIMPLIFICADA PARA EL BOTÓN CERRAR SESIÓN */
+.logoutContainer {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Forzar el centrado del botón sin importar sus estilos internos */
+.logoutContainer :global(*) {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+}
+
+/* Si el LogoutButton renderiza un botón directamente */
+.logoutContainer :global(button) {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)) !important;
+    color: var(--color-white) !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 1rem 2rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: var(--transition-bounce) !important;
+    box-shadow: var(--shadow-soft) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    min-width: 200px !important;
+    width: fit-content !important;
+}
+
+.logoutContainer :global(button)::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent) !important;
+    transition: left 0.6s ease !important;
+}
+
+.logoutContainer :global(button):hover::before {
+    left: 100% !important;
+}
+
+.logoutContainer :global(button):hover {
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary)) !important;
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: var(--shadow-medium) !important;
+}
+
+/* Estados de carga */
 .loading {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 10rem auto;
-    font-family: 'Lora', serif;
-    color: #444;
-    animation: pulse 1.5s ease-in-out infinite;
+    margin: 8rem auto;
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text);
     text-align: center;
+    animation: pulse 2s ease-in-out infinite;
 }
 
-.spinner {
-    font-size: 4rem;
-    color: #666;
-    animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
+.loading::before {
+    content: '';
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(136, 201, 185, 0.3);
+    border-top: 3px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+    margin-bottom: 1.5rem;
 }
 
 .loading p {
-    font-size: 2rem;
+    font-size: 1.3rem;
     margin: 0;
+    font-weight: 500;
 }
 
-/* Animaciones */
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 0.6;
+    0%, 100% { 
+        opacity: 0.8;
         transform: scale(0.98);
     }
-
-    50% {
+    50% { 
         opacity: 1;
         transform: scale(1);
     }
+}
+
+/* Estados de error */
+.errorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 4rem auto;
+    padding: 3rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(136, 201, 185, 0.2);
+    max-width: 500px;
+    text-align: center;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.error {
+    font-size: 1.2rem;
+    color: #E76F51;
+    background: linear-gradient(135deg, rgba(231, 111, 81, 0.1), rgba(231, 111, 81, 0.05));
+    padding: 1.25rem 2rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    border-left: 4px solid #E76F51;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.retryButton {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-bounce);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.retryButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.retryButton:hover::before {
+    left: 100%;
+}
+
+.retryButton:hover {
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-medium);
+}
+
+/* Rol desconocido */
+.error:not(.errorContainer .error) {
+    background: linear-gradient(135deg, rgba(244, 162, 97, 0.1), rgba(244, 162, 97, 0.05));
+    color: #F4A261;
+    border-left: 4px solid #F4A261;
+    padding: 1.5rem 2rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 500px;
+    font-weight: 500;
+}
+
+/* Efectos decorativos adicionales */
+.container::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--color-secondary-light) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: floatParticle 8s ease-in-out infinite;
+}
+
+@keyframes floatParticle {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(120deg); }
+    66% { transform: translateY(10px) rotate(240deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        padding: 2rem;
+    }
+    
+    .card {
+        padding: 2.5rem;
+    }
+    
+    .titulo {
+        font-size: 2.25rem;
+    }
+    
+    .logoutContainer {
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+    
+    .card {
+        padding: 2rem;
+    }
+    
+    .header {
+        margin-bottom: 2.5rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    .iconoRol {
+        font-size: 3.5rem;
+    }
+    
+    .titulo {
+        font-size: 2rem;
+    }
+    
+    .rol {
+        font-size: 1.1rem;
+        padding: 0.6rem 1.25rem;
+    }
+    
+    .logoutContainer {
+        margin-top: 1.5rem;
+    }
+    
+    .logoutContainer :global(button) {
+        min-width: 180px !important;
+        padding: 0.9rem 1.8rem !important;
+    }
+    
+    .loading {
+        margin: 6rem auto;
+    }
+    
+    .loading::before {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .loading p {
+        font-size: 1.1rem;
+    }
+    
+    .errorContainer {
+        margin: 3rem auto;
+        padding: 2rem;
+    }
+    
+    .error {
+        font-size: 1.1rem;
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .card {
+        padding: 1.5rem;
+        border-radius: var(--radius-md);
+    }
+    
+    .header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.25rem;
+    }
+    
+    .iconoRol {
+        font-size: 3rem;
+    }
+    
+    .titulo {
+        font-size: 1.75rem;
+    }
+    
+    .rol {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .logoutContainer {
+        margin-top: 1.25rem;
+    }
+    
+    .logoutContainer :global(button) {
+        min-width: 160px !important;
+        padding: 0.8rem 1.6rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .loading {
+        margin: 4rem auto;
+    }
+    
+    .loading::before {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .loading p {
+        font-size: 1rem;
+    }
+    
+    .errorContainer {
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+    
+    .error {
+        font-size: 1rem;
+        padding: 0.75rem 1.25rem;
+    }
+    
+    .retryButton {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .container::before,
+    .card::before,
+    .iconoRol,
+    .titulo,
+    .rol,
+    .loading,
+    .retryButton,
+    .container::after,
+    .logoutContainer :global(button) {
+        animation: none;
+        transition: none;
+    }
+    
+    .card:hover::before {
+        left: -100%;
+    }
+    
+    .retryButton:hover,
+    .logoutContainer :global(button):hover {
+        transform: none;
+    }
+}
+
+/* Focus states para accesibilidad */
+.retryButton:focus,
+.logoutContainer :global(button):focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
